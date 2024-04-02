@@ -1,48 +1,9 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #f3f3f3;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 body {
   font-family: 'JetBrains Mono';font-size: 22px;
 }
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .container {
   background: #f3f3f3;
   min-height: 100vh;
-  font-family: 'JetBrains Mono';font-size: 22px;
 }
 
 * {
@@ -71,6 +32,7 @@ nav a {
 }
 
 nav {
+    max-width: 6%;
     position: fixed;
     left: 0;
     z-index: 50;
@@ -80,7 +42,10 @@ nav {
     height: 100vh;
     background: var(--cor-navbar);
 }
-
+.icon{
+  max-width: 90%;
+  max-height: 90%;
+}
 section {
     position: absolute;
     top: 0;
@@ -114,7 +79,6 @@ section:target h1 {
     opacity: 0;
     animation: 2s fadeIn forwards .5s;
 }
-
 #first {
     border: var(--pagina-1);
     border-width: 10px;
@@ -158,4 +122,152 @@ section:target h1 {
 
 @keyframes fadeIn {
     100% { opacity:1 }
+}
+
+.Pesquisa {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+.Pesquisa::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px; 
+  width: 100%;
+  height: 5px;
+  background-color: #4449C2; 
+  transform: scaleX(0.65);
+  transition: transform 0.3s ease;
+}
+.Pesquisa:hover::after {
+  transform: scaleX(1.05);
+}
+
+
+
+
+.Relatorio {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+.Relatorio::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px; 
+  width: 100%;
+  height: 5px;
+  background-color: #8F45B1; 
+  transform: scaleX(0.65); 
+  transition: transform 0.3s ease; 
+}
+.Relatorio:hover::after {
+  transform: scaleX(1.05); 
+}
+
+
+.Tabela {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+.Tabela::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px; 
+  width: 100%;
+  height: 5px;
+  background-color: #FF6C2D; 
+  transform: scaleX(0.65); 
+  transition: transform 0.3s ease; 
+}
+.Tabela:hover::after {
+  transform: scaleX(1.05); 
+}
+
+
+.Adicionar {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+.Adicionar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px; 
+  width: 100%;
+  height: 5px;
+  background-color: #BE0000; 
+  transform: scaleX(0.65); 
+  transition: transform 0.3s ease; 
+}
+.Adicionar:hover::after {
+  transform: scaleX(1.05); 
+}
+
+
+.Editar {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+.Editar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px; 
+  width: 100%;
+  height: 5px;
+  background-color: #F5B960; 
+  transform: scaleX(0.65); 
+  transition: transform 0.3s ease; 
+}
+.Editar:hover::after {
+  transform: scaleX(1.05); 
+}
+
+
+.Notificacao {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+.Notificacao::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px; 
+  width: 100%;
+  height: 5px;
+  background-color: #039D00; 
+  transform: scaleX(0.65); 
+  transition: transform 0.3s ease; 
+}
+.Notificacao:hover::after {
+  transform: scaleX(1.05); 
+}
+
+
+.Home {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+.Home::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px; 
+  width: 100%;
+  height: 5px;
+  background-color: #000000; 
+  transform: scaleX(0.65); 
+  transition: transform 0.3s ease; 
+}
+.Home:hover::after {
+  transform: scaleX(1.05); 
 }

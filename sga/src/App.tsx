@@ -5,13 +5,13 @@ function App() {
   return (
     <div className='Corpo'>
        <nav>
-   <a href="#first"><i className='Pesquisa'>Pes</i></a>
-   <a href="#second"><i className='Relatorio'>Rel</i></a>
-   <a href="#third"><i className='Tabela'>Tab</i></a>
-   <a href="#fourth"><i className="Adicionar">Add</i></a>
-   <a href="#fifth"><i className="Editar">Edt</i></a>
-   <a href="#sixth"><i className="Notificacao">Not</i></a>
-   <a href="#seventh"><i className="Home">Hom</i></a>
+   <a href="#first"><i className='Pesquisa'><img className='icon' src='img/pesquisar.png'></img></i></a>
+   <a href="#second"><i className='Relatorio'><img className='icon' src='img/relatorio.png'></img></i></a>
+   <a href="#third"><i className='Tabela'><img className='icon' src='img/tabela.png'></img></i></a>
+   <a href="#fourth"><i className="Adicionar"><img className='icon' src='img/adicionar.png'></img></i></a>
+   <a href="#fifth"><i className="Editar"><img className='icon' src='img/editar.png'></img></i></a>
+   <a href="#sixth"><i className="Notificacao"><img className='icon' src='img/notif.png'></img></i></a>
+   <a href="#seventh"><i className="Home"><img className='icon' src='img/home.png'></img></i></a>
  </nav>
   
 <div className= 'container'> 
