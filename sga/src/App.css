@@ -291,3 +291,105 @@ section:target h1 {
 .Perfil:hover{
   --_p: 75%;
 }
+
+.body{
+  font-family: "JetBrains Mono", monospace;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+}
+.containerLogin{
+  background-color: rgba(120, 142, 255, 0.3);
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 900px;
+  height: 500px;
+  /* padding-left: 20%;
+  padding-right: 20%;
+  padding-top: 5%;
+  padding-bottom: 7%; */
+  border-radius: 60px;
+  border: 2px solid white;
+  backdrop-filter: blur(10px);
+}
+.containerLogin .retangulocadastro {
+  width: 30%;
+  background-image: linear-gradient(45deg, rgba(153, 153, 153, 0.397), rgba(255, 255, 255, 0.9));
+  padding:0 30px;
+  border-radius: 60px 0 0 60px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.containerLogin .retanguloLogin {
+  width: 70%;
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  }
+
+  input {
+  padding: 12px;
+  border-radius: 30px;
+  border: 2px solid rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 0.35);
+  color: #313056;
+  width: 250px;
+}   
+button {
+  padding: 12px;
+  background-color: #313056;
+  border-radius: 30px;
+  border: 2px solid white;
+  color: white;
+  cursor: pointer;
+  width: 50%;
+}
+.containerLogin .retanguloLogin button {
+  width: 100px;
+}
+button:hover{
+  background-color:rgb(196, 191, 191);
+  color: #313056;
+}
+h1 {
+  color: #313056;
+  font-size:35px;
+}
+
+@media (max-width:981px) {
+  .containerLogin{
+  flex-direction: column-reverse;
+  gap: 20px;
+  width: 350px;
+}
+.containerLogin .retangulocadastro {
+  width: 100%;
+  align-items: center;
+  border-radius: 60px;
+  padding: 0;
+}
+.containerLogin .retanguloLogin {
+  align-items: center;
+  width: 100%;
+  border-radius: 0 60px;
+  }
+  .containerLogin .retangulocadastro button {
+  width: 100px;
+}
+.containerLogin .retanguloLogin button {
+  width: 100px;
+}
+ input {
+  width: 150px;
+}   
+}
