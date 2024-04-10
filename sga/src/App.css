@@ -55,8 +55,6 @@ section {
     opacity: 0;
     transition: all ease-in .5s;
     display: flex;
-    justify-content: center;
-    align-items: center;
 } 
 
 section h1 {
@@ -107,6 +105,7 @@ section:target h1 {
   border: var(--pagina-5);
     border-width: 10px;
     border-style: solid;
+    flex-direction:column;
 }
 
 #Notificacao {
@@ -392,4 +391,77 @@ h1 {
  input {
   width: 150px;
 }   
+}
+
+.addcss{
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: 0;
+  gap: 7% 3%;
+  display: inline-flex;
+  max-height: 15%;
+  background-color: #D9D9D9;
+  justify-content: space-around;
+  min-width: 96%;
+  padding-right: 8%;
+}
+
+.botaoadd1{
+  border-radius: 40px;
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-bottom: 2%;
+  margin-top: 2.3%;
+  max-height: 30%;
+  background-color: #f3f3f3;
+  border-style: solid;
+  border-color: #BE0000;
+}
+
+.botaoadd1:hover{
+  transition: 0.3s;
+  cursor: pointer;
+  background-color: #FF8F8F;
+}
+
+.editcss{
+  margin-top: 0.5%;
+  margin-left: auto;
+  margin-right: 0;
+  gap: 7% 3%;
+  display: inline-flex;
+  height: 12.5%;
+  background-color: #D9D9D9;
+  justify-content: space-around;
+  min-width: 96%;
+}
+
+.edit2css{
+  margin-top: 2%;
+  margin-left: auto;
+  margin-right: 0;
+  gap: 7% 3%;
+  display: inline-flex;
+  max-height: 12.5%;
+  background-color: #D9D9D9;
+  justify-content: space-around;
+  min-width: 96%;
+  padding-right: 8%;
+}
+
+.botaoedit1{
+  border-radius: 40px;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-bottom: 2%;
+  margin-top: 2.3%;
+  max-height: 30%;
+  background-color: #f3f3f3;
+  border: 2px solid #F5B960
+}
+
+.botaoedit1:hover{
+  transition: 0.3s;
+  cursor: pointer;
+  background-color: #FFD89D;
 }

@@ -44,10 +44,27 @@ function App() {
         <h1>Tabela</h1>
         </section>
       <section id= 'Adicionar'>
-        <h1>Adicionar</h1>
+        <div className='addcss'>
+          <div className="botaoadd1">Categoria</div>
+          <div className="botaoadd1">Modelo</div>
+          <div className="botaoadd1">Ativo</div>
+          <div className="botaoadd1">Funcionário</div>
+          <div className="botaoadd1">Administração</div>
+        </div>
         </section>
         <section id= 'Editar'>
-        <h1>Editar</h1>
+        <div className='edit2css'>
+          <div className="botaoedit1">Editar Cadastro</div>
+          <div className="botaoedit1">Deletar Cadastro</div>
+        </div>
+        <br></br>
+        <div className='editcss'>
+          <div className="botaoedit1">Categoria</div>
+          <div className="botaoedit1">Modelo</div>
+          <div className="botaoedit1">Ativo</div>
+          <div className="botaoedit1">Funcionário</div>
+          <div className="botaoedit1">Administração</div>
+        </div>
         </section>
         <section id= 'Notificacao'>
         <h1>Notificação</h1>
