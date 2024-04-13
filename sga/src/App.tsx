@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import { CadastrarAtivo } from './componentes/servicos/Cadastros/Ativos';
 
 function App() {
+  const [selecionador, setSelecionador] = useState('')
+  const [servicoSelecionador, setServicoSelecionado] = useState('')
+  const Selecionar = (selecionado: string) => {
+    setSelecionador(selecionado)
+  }
+
   return (
     <div className='Corpo'>
        <nav>
@@ -9,7 +16,7 @@ function App() {
    <a href="#Pesquisa"><i className='Pesquisa'><img className='icon' src='img/pesquisar.png'></img></i></a>
    <a href="#Relatorio"><i className='Relatorio'><img className='icon' src='img/relatorio.png'></img></i></a>
    <a href="#Tabela"><i className='Tabela'><img className='icon' src='img/tabela.png'></img></i></a>
-   <a href="#Adicionar"><i className="Adicionar"><img className='icon' src='img/adicionar.png'></img></i></a>
+   <a href="#Adicionar" onClick={()=>Selecionar('')}><i className="Adicionar"><img className='icon' src='img/adicionar.png'></img></i></a>
    <a href="#Editar"><i className="Editar"><img className='icon' src='img/editar.png'></img></i></a>
    <a href="#Notificacao"><i className="Notificacao"><img className='icon' src='img/notif.png'></img></i></a>
    <a href="#Home"><i className="Home"><img className='icon' src='img/home.png'></img></i></a>
@@ -47,9 +54,9 @@ function App() {
         <div className='addcss'>
           <div className="botaoadd1">Categoria</div>
           <div className="botaoadd1">Modelo</div>
-          <div className="botaoadd1">Ativo</div>
-          <div className="botaoadd1">Funcionário</div>
-          <div className="botaoadd1">Administração</div>
+          <div className="botaoadd1" onClick={()=>Selecionar('Ativo')}>Ativo</div>
+          {selecionador === '' && <></>}
+          {selecionador === 'Ativo' && <CadastrarAtivo/>}
         </div>
         </section>
         <section id= 'Editar'>

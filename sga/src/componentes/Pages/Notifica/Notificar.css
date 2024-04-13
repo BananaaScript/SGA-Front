@@ -1,0 +1,22 @@
+
+
+.TopBar {
+    background-color:rgb(233, 233, 233);
+
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+
+
+}
+
+.TopBar button {
+    flex: 3;
+    padding: 10px;
+    margin: 35px;
+    border-radius: 20px;
+    
+}

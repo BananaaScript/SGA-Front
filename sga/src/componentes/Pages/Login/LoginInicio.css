@@ -1,0 +1,40 @@
+.Login{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40%;
+  height: 60%;
+
+  background-color: rgba(120, 142, 255, 0.3);
+  border-radius: 60px;
+  border: 2px solid white;
+  backdrop-filter: blur(10px);
+  flex-direction: column;
+  gap: 20px;
+
+  font-family: "JetBrains Mono", monospace;
+  color: #313056;
+
+}
+
+.Login input {
+  padding: 2%;
+  border-radius: 30px;
+  border: 2px solid rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 0.35);
+  color: #313056;
+  width: 60%;
+}
+
+@media (max-width:1024px) {
+.Login {
+  width: 300px;
+  gap: 20px;
+  padding-bottom: 5%;
+}
+.Login input{
+  width: 50%;
+
+}
+}
