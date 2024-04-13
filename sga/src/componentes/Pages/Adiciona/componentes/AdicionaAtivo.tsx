@@ -8,12 +8,14 @@ export const AdicionaAtivo = () =>{
     const [complemento, setComplemento]= useState('')
     const [numero, setNumero] = useState('')
     const [cep, setCep]= useState('')
-    const [erroNome, setErroNome] = useState('')
+    const [erroNome, setErro] = useState('')
     let rota = 'http://localhost:8080/ativo/cadastrar'
 
-    const registrar = () =>{
-        setErroNome('')
+    function registrar(){
+        console.clear()
+        setErro('')
         if(nome && rua && bairro && complemento && numero && cep){
+            console.log(`conexão com banco de dados bem-sucedida, enviando dados`)
             axios.post(rota, {nome, rua, bairro, complemento, numero, cep})
             .then(()=>{
                 setNome('')
@@ -22,14 +24,16 @@ export const AdicionaAtivo = () =>{
                 setComplemento('')
                 setNumero('')
                 setCep('')
-                setErroNome('')
+                setErro('')
+            })
+            .catch((error)=>{
+                console.error(error)
             })
         }
         else if(!nome && !rua && !bairro && !complemento && !numero && !cep ){
-            setErroNome('Informe os valores em branco!')
+            setErro('Informe os valores em branco!')
         }
     }
-
     return(
         <div>
                 <div>
@@ -45,12 +49,12 @@ export const AdicionaAtivo = () =>{
                     <input type="text" value={complemento} onChange={(dado)=>setComplemento(dado.target.value)} placeholder="Complemento"/>
                 </div>
                 <div>
-                    <input type="text" value={numero} onChange={(dado)=>setNumero(dado.target.value)} placeholder="Numero"/>
+                    <input type="number" value={numero} onChange={(dado)=>setNumero(dado.target.value)} placeholder="Numero"/>
                 </div>
                 <div>
-                    <input type="text" value={cep} onChange={(dado)=>setCep(dado.target.value)} placeholder="CEP"/>
+                    <input type="number" value={cep} onChange={(dado)=>setCep(dado.target.value)} placeholder="CEP"/>
                 </div>
-                <div className="input-group mb-3">
+                <div>
                     <button onClick={registrar}>Registrar</button>
                 </div>
             {erroNome && <div style={{color: 'red'}}>{erroNome}</div>}
