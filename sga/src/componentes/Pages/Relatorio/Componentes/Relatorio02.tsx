@@ -9,7 +9,12 @@ export default function Relatorio02(){
     return(
         <>
             <div>
-                <h2>Relatorio 02</h2>
+            <div className='UserData'>
+
+<h2>Estamos Trabalhando Nisso</h2>
+<h4>Veja quando ficará pronto <a href="https://github.com/BananaaScript/SGA" target="_blank">AQUI</a></h4>
+
+</div>
             </div>
         </>
     )
