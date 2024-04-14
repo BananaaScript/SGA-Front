@@ -11,7 +11,7 @@ export default function Tabela(){
     }
     return(
         <>
-            <div>
+            <div className="tabcss">
                 <head>
                     <link rel="stylesheet" href="./Tabelas.css" />
                 </head>

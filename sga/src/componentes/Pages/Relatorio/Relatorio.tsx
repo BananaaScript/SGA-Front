@@ -11,7 +11,7 @@ export default function Relatorio(){
     }
     return(
         <>
-            <div>
+            <div className="relcss">
                 <head>
                     <link rel="stylesheet" href="./Relatorios.css" />
                 </head>

@@ -13,7 +13,7 @@ export default function Adicionar(){
     }
     return(
         <>
-            <div>
+            <div className="addcss">
                 <head>
                     <link rel="stylesheet" href="./Adicionar.css" />
                 </head>
@@ -25,12 +25,13 @@ export default function Adicionar(){
                     <button onClick={()=>selecionarComponente('destinatario')}><b>Adicionar Destinatario </b></button>
                     <button onClick={()=>selecionarComponente('adm')}><b>Adicionar Administrador </b></button>
                 </div>
-            
+                <div className="telinha">
                 {selecionado === 'adm' && <AdicionaADM/>}
                 {selecionado === 'ativo' && <AdicionaAtivo/>}
                 {selecionado === 'categoria' && <AdicionaCategoria/>}
                 {selecionado === 'destinatario' && <AdicionaDestinatario/>}
                 {selecionado === 'modelo' && <AdicionaModelo/>}
+                </div>
             </div>
 
 

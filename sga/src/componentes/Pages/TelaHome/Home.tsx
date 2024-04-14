@@ -3,7 +3,7 @@ import './home.css'
 export default function Home(){
     return(
         <>
-        <div className='TelaIncial'>
+        <div className='TelaInicial'>
             <head>
                 <link rel="stylesheet" href="./home.css" />
             </head>

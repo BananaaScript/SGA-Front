@@ -10,6 +10,7 @@ export default function Pesquisa(){
     }
     return(
         <>
+            <div className="pesqcss">
             <div className="TopBar">
                 <button onClick={()=>selecionarComponente('categoria')}><b>Pesquisar Categoria</b></button>
                 <button onClick={()=>selecionarComponente('modelo')}><b>Pesquisar Modelo</b></button>
@@ -17,6 +18,7 @@ export default function Pesquisa(){
             <div>
                 {selecionado === 'categoria' && <PesquisarCategoria/>}
                 {selecionado === 'modelo' && <PesquisarModelo/>}
+            </div>
             </div>
         </>
     )

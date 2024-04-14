@@ -1,0 +1,13 @@
+.tabcss{
+    font-family: 'JetBrains Mono', monospace;
+    position:relative;
+    padding:0;
+    margin:0;
+    top:0;
+    right:0;
+    height: 97.6vh;
+    border: #FF6C2D;
+    border-width: 8px;
+    border-style: solid;
+    box-sizing: border-box;
+}
