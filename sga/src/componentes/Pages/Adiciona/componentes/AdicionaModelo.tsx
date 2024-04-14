@@ -1,5 +1,7 @@
 import { useState } from "react"
 import axios from "axios"
+import "../Adicionar.css"
+
 export default function AdicionaModelo(){
     const [nome, setNome] = useState('')
     const [modelo, setModelo] = useState('')
@@ -30,20 +32,21 @@ export default function AdicionaModelo(){
     }
     return(
         <>
-        <div>
-                <div>
+        <div className="ComponenteCadatro">
+            <div className="BoxCadastro">
+
+                    <h2>Insira os Dados do Modelo que Deseja Cadastrar</h2>
+
                     <input type="text" value={nome} onChange={(dado)=>setNome(dado.target.value)} placeholder="Nome" required/>
-                </div>
-                <div>
+
                     <input type="text" value={modelo} onChange={(dado)=>setModelo(dado.target.value)} placeholder="Modelo" required/>
-                </div>
-                <div>
+
                     <input type="text" value={descricao} onChange={(dado)=>setDescricao(dado.target.value)} placeholder="Descrição" />
-                </div>
-                <div>
+
                     <button onClick={registrar}>Registrar</button>
-                </div>
+
                 {erro && <div style={{color:'red'}}>{erro}</div>}
+            </div>
         </div>
         </>
     )

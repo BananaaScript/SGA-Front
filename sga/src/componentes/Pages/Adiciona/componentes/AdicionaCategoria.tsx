@@ -1,5 +1,7 @@
 import { useState } from "react"
 import axios from "axios"
+import "../Adicionar.css"
+
 export default function AdicionaCategoria(){
     const [nome, setNome] = useState('')
     const [descricao, setDescricao] = useState('')
@@ -28,17 +30,19 @@ export default function AdicionaCategoria(){
     }
     return(
         <>
-        <div>
-                <div>
+        <div className="ComponenteCadatro">
+            <div className="BoxCadastro">
+
+                    <h2>Insira os Dados da Categoria que Deseja Cadastrar</h2>
+
                     <input type="text" value={nome} onChange={(dado)=>setNome(dado.target.value)} placeholder="Nome" required/>
-                </div>
-                <div>
+
                     <input type="text" value={descricao} onChange={(dado)=>setDescricao(dado.target.value)} placeholder="Descrição" />
-                </div>
-                <div>
+
                     <button onClick={registrar}>Registrar</button>
-                </div>
+
                 {erro && <div style={{color:'red'}}>{erro}</div>}
+            </div>
         </div>
         </>
     )

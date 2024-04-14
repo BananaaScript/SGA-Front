@@ -32,3 +32,47 @@
     border-style: solid;
     box-sizing: border-box;
 }
+
+.ComponenteCadastro {
+
+        display: flex;
+        
+}
+
+.BoxCadastro {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 40%;
+        height: 60%;
+
+        background-color: rgba(120, 142, 255, 0.3);
+        border-radius: 30px;
+        flex-direction: column;
+        gap: 20px;
+        padding: 2%;
+
+        color: #313056;
+        margin-left: 27.75%;
+        margin-top: 15px;
+}
+
+        .BoxCadastro input {
+                padding: 1%;
+                border-radius: 30px;
+                border: 2px solid rgb(255, 255, 255);
+                background-color: rgba(255, 255, 255, 0.35);
+                color: #313056;
+                width: 60%;
+              }
+
+        .BoxCadastro button {
+              width: 50%;
+              padding: 12px;
+              background-color: #313056;
+              border-radius: 30px;
+              border: 2px solid white;
+              color: white;
+              cursor: pointer;
+        }

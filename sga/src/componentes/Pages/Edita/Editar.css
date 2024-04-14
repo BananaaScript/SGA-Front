@@ -23,7 +23,7 @@
 
 .editcss {
     font-family: 'JetBrains Mono', monospace;
-    position:relative;
+    /*position:relative;
     padding:0;
     margin:0;
     top:0;
@@ -32,5 +32,94 @@
     border: #F5B960;
     border-width: 8px;
     border-style: solid;
-    box-sizing: border-box;
+    box-sizing: border-box;*/
 }
+
+
+
+.BoxTabela{
+    margin-left: 15px;
+    max-width: 90%;
+
+    table, th, td {
+        border: 1px solid black;
+        min-width: 225px;
+    }
+    
+    table {
+        border-collapse: collapse;
+
+        margin: auto;
+    }
+    
+    th, td{
+        padding: 10px;
+        text-align: center;
+        min-width:  150px;
+        word-break: break-all;
+    }
+    
+    th{
+        font-weight: bold;
+        background-color: #313056;
+        color: #fff;
+    }
+    
+    
+    tr:nth-child(even) {
+        background-color: #9591ff;
+    }
+    
+    tr:hover:nth-child(1n + 2) {
+        background-color: #6461aa;
+        color: #fff;
+    }
+
+}
+.BoxTabela table tbody tr td button {
+    padding: 5%;
+    background-color: #313056;
+    border-radius: 30px;
+    border: 2px solid white;
+    color: white;
+    cursor: pointer;
+}
+
+
+.BoxEditar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40%;
+    height: 60%;
+
+    background-color: rgba(120, 142, 255, 0.3);
+    border-radius: 30px;
+    flex-direction: column;
+    gap: 20px;
+    padding: 2%;
+
+    color: #313056;
+    margin-left: 27.75%;
+    margin-top: 35px;
+}
+
+    .BoxEditar input {
+            padding: 1%;
+            border-radius: 30px;
+            border: 2px solid rgb(255, 255, 255);
+            background-color: rgba(255, 255, 255, 0.35);
+            color: #313056;
+            width: 60%;
+          }
+
+    .BoxEditar button {
+          width: 50%;
+          padding: 12px;
+          background-color: #313056;
+          border-radius: 30px;
+          border: 2px solid white;
+          color: white;
+          cursor: pointer;
+    }

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from "axios"
+import "../Adicionar.css"
 
 export const AdicionaAtivo = () =>{
     const [nome, setNome]= useState('')
@@ -35,29 +36,28 @@ export const AdicionaAtivo = () =>{
         }
     }
     return(
-        <div>
-                <div>
+        <div className="ComponenteCadatro">
+            <div className="BoxCadastro">
+
+                    <h2>Insira os Dados do Ativo que Deseja Cadastrar</h2>
+                
                     <input type="text" value={nome} onChange={(dado)=>setNome(dado.target.value)} placeholder="Nome"/>
-                </div>
-                <div>
+
                     <input type="text" value={rua} onChange={(dado)=>setRua(dado.target.value)} placeholder="Rua" />
-                </div>
-                <div>
+ 
                     <input type="text" value={bairro} onChange={(dado)=>setBairro(dado.target.value)} placeholder="Bairro" />
-                </div>
-                <div>
+ 
                     <input type="text" value={complemento} onChange={(dado)=>setComplemento(dado.target.value)} placeholder="Complemento"/>
-                </div>
-                <div>
+
                     <input type="number" value={numero} onChange={(dado)=>setNumero(dado.target.value)} placeholder="Numero"/>
-                </div>
-                <div>
+
                     <input type="number" value={cep} onChange={(dado)=>setCep(dado.target.value)} placeholder="CEP"/>
-                </div>
-                <div>
+
                     <button onClick={registrar}>Registrar</button>
-                </div>
-            {erroNome && <div style={{color: 'red'}}>{erroNome}</div>}
+                
+                {erroNome && <div style={{color: 'red'}}>{erroNome}</div>}
+            
+            </div>
         </div>
     )
 }

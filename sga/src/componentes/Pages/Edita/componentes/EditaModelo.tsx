@@ -67,14 +67,16 @@ export default function Editamodelo(){
 
     return(
         <>
-            <div>
-                <h2>modelos cadastradas</h2>
+            <div className="BoxTabela">
+                <h2>Modelos Cadastrados</h2>
                 <table>
                         <thead>
                             <tr>
                                 <th>Nome</th>
                                 <th>Modelo</th>
                                 <th>Descrição</th>
+                                <th>---</th>
+                                <th>---</th>
                             </tr>
                         </thead>
                          <tbody>
@@ -92,20 +94,18 @@ export default function Editamodelo(){
                 {editando?(
                     <>
                         <div>
-                            <div>
-                                <div>
+                            <div className="BoxEditar">
+                                    <h2>Insira os Novos Dados da Categoria</h2>
+                                
                                     <input type="text" value= {nome} onChange={(dado)=> setNome(dado.target.value)} placeholder="Novo nome"/>
-                                </div>
-                                <div>
+
                                     <input type="text" value= {descricao} onChange={(dado)=> setDescricao(dado.target.value)} placeholder="Nova descricao"/>
-                                </div>
-                                <div>
+
                                     <input type="text" value= {modelo} onChange={(dado)=> setModelo(dado.target.value)} placeholder="Novo modelo"/>
-                                </div>
-                                <div>
-                                    <button onClick={Atualizar}>Atualizar modelo</button>
-                                    <button onClick={Cancelar}>cancelar edição</button>
-                                </div>
+
+                                    <button onClick={Atualizar}>Atualizar Modelo</button>
+                                    <button onClick={Cancelar}>Cancelar Edição</button>
+                                
                             </div>
                         </div>
                     </>

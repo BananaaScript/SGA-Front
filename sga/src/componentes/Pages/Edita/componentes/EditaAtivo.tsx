@@ -72,8 +72,11 @@ export default function EditaAtivo(){
 
     return(
         <>
-            <div>
-                <h2>Ativos cadastrados</h2>
+        <div>
+
+
+            <div className="BoxTabela">
+                <h2>Ativos Cadastrados</h2>
                 <table>
                         <thead>
                             <tr>
@@ -83,6 +86,8 @@ export default function EditaAtivo(){
                                 <th>Complemento</th>
                                 <th>Numero</th>
                                 <th>CEP</th>
+                                <th>---</th>
+                                <th>---</th>
                             </tr>
                         </thead>
                          <tbody>
@@ -103,29 +108,23 @@ export default function EditaAtivo(){
                 {editando?(
                     <>
                         <div>
-                            <div>
-                                <div>
+                            <div className="BoxEditar">
+                                    <h2>Insira os Novos Dados da Categoria</h2>
+
                                     <input type="text" value= {nome} onChange={(dado)=> setNome(dado.target.value)} placeholder="Novo nome"/>
-                                </div>
-                                <div>
+
                                     <input type="text" value= {rua} onChange={(dado)=> setRua(dado.target.value)} placeholder="Nova rua"/>
-                                </div>
-                                <div>
-                                    <input type="text" value= {bairro} onChange={(dado)=> setBairro(dado.target.value)} placeholder="Novo bairro"/>
-                                </div>
-                                <div>
+
+
                                     <input type="text" value= {complemento} onChange={(dado)=> setComplemento(dado.target.value)} placeholder="Novo complemento"/>
-                                </div>
-                                <div>
+
                                     <input type="text" value= {numero} onChange={(dado)=> setNumero(dado.target.value)} placeholder="Novo numero"/>
-                                </div>
-                                <div>
+
                                     <input type="text" value= {cep} onChange={(dado)=> setCep(dado.target.value)} placeholder="Novo CEP"/>
-                                </div>
-                                <div>
-                                    <button onClick={Atualizar}>Atualizar ativo</button>
-                                    <button onClick={Cancelar}>cancelar edição</button>
-                                </div>
+
+                                    <button onClick={Atualizar}>Atualizar Ativo</button>
+                                    <button onClick={Cancelar}>Cancelar Edição</button>
+
                             </div>
                         </div>
                     </>
@@ -136,6 +135,7 @@ export default function EditaAtivo(){
                     </>
                 )}
             </div>
+        </div>
         </>
     )
 }
