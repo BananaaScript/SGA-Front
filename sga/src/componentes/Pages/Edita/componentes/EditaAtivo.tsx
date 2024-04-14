@@ -13,12 +13,8 @@ export default function EditaAtivo(){
     const [cep, setCep]= useState('')
     const[editando, setEditando] = useState(false)
 
-    let rotaAtualizar = `http://localhost:8080/ativo/atualizar/${id}`
-    let rotaListar = 'http://localhost:8080/ativo/listar'
-    let rotaDeletar = `http://localhost:8080/ativo/deletar/${id}`
-
     useEffect(()=>{
-        axios.get(rotaListar)
+        axios.get('http://localhost:8080/ativo/listar')
         .then((response)=>{
             setAtivos(response.data)
         })
@@ -29,7 +25,7 @@ export default function EditaAtivo(){
 
     function Atualizar(){
         if(nome || rua || bairro || complemento || numero || cep){
-            axios.put(rotaAtualizar, {nome, rua, bairro, complemento, numero, cep})
+            axios.put(`http://localhost:8080/ativo/atualizar/${id}`, {nome, rua, bairro, complemento, numero, cep})
             .then(()=>{
                 setEditando(false)
                 setNome('')
@@ -38,7 +34,7 @@ export default function EditaAtivo(){
                 setComplemento('')
                 setNumero('')
                 setCep('')
-                AtualizarValoresAtivos()
+                AtualizarValores()
             })
             .catch((error)=>{
                 console.error(error)
@@ -59,86 +55,87 @@ export default function EditaAtivo(){
         setEditando(false)
     }
     function Deletar(id: number){
-        axios.delete(rotaDeletar)
+        axios.delete(`http://localhost:8080/ativo/deletar/${id}`)
         .then(() =>{
-            AtualizarValoresAtivos();
+            AtualizarValores();
         })
         .catch((error) =>{
             console.error(error)
         })
     }
-    function AtualizarValoresAtivos(){
-        axios.get(rotaListar)
+    function AtualizarValores(){
+        axios.get('http://localhost:8080/ativo/listar')
         .then((response) =>{
             setAtivos(response.data);
         })
     }
+
     return(
         <>
             <div>
-            <h2>Lista de ativos</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Rua</th>
-                        <th>Bairro</th>
-                        <th>Complemento</th>
-                        <th>Numero</th>
-                        <th>CEP</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {ativos.map((ativo)=>(
-                            <tr key={ativo.id}>
-                                <td>{ativo.nome}</td>
-                                <td>{ativo.rua}</td>
-                                <td>{ativo.bairro}</td>
-                                <td>{ativo.complemento}</td>
-                                <td>{ativo.numero}</td>
-                                <td>{ativo.cep}</td>
-                                <td><button onClick={()=>Deletar(ativo.id)}>Deletar</button></td>
-                                {!editando &&(<td><button onClick={() => Editar(ativo.id, ativo.nome, ativo.rua, ativo.bairro, ativo.complemento, ativo.numero, ativo.cep)}>Editar</button></td>)}
+                <h2>Ativos cadastrados</h2>
+                <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Rua</th>
+                                <th>Bairro</th>
+                                <th>Complemento</th>
+                                <th>Numero</th>
+                                <th>CEP</th>
                             </tr>
-                        ))}
-                </tbody>
-            </table>
-            {editando?(
-                <>
-                    <div>
+                        </thead>
+                         <tbody>
+                            {ativos.map((ativo)=>(
+                                <tr key={ativo.id}>
+                                    <td>{ativo.nome}</td>
+                                    <td>{ativo.rua}</td>
+                                    <td>{ativo.bairro}</td>
+                                    <td>{ativo.complemento}</td>
+                                    <td>{ativo.numero}</td>
+                                    <td>{ativo.cep}</td>
+                                    <td><button onClick={()=>Deletar(ativo.id)}>Deletar</button></td>
+                                        {!editando &&(<td><button onClick={() => Editar(ativo.id, ativo.nome, ativo.rua, ativo.bairro, ativo.complemento, ativo.numero, ativo.cep)}>Editar</button></td>)}
+                                </tr>
+                            ))}
+                        </tbody>
+                </table>
+                {editando?(
+                    <>
                         <div>
                             <div>
-                                <input type="text" value= {nome} onChange={(dado)=> setNome(dado.target.value)} placeholder="Novo nome"/>
-                            </div>
-                            <div>
-                                <input type="text" value= {rua} onChange={(dado)=> setRua(dado.target.value)} placeholder="Nova rua"/>
-                            </div>
-                            <div>
-                                <input type="text" value= {bairro} onChange={(dado)=> setBairro(dado.target.value)} placeholder="Novo bairro"/>
-                            </div>
-                            <div>
-                                <input type="text" value= {complemento} onChange={(dado)=> setComplemento(dado.target.value)} placeholder="Novo complemento"/>
-                            </div>
-                            <div>
-                                <input type="text" value= {numero} onChange={(dado)=> setNumero(dado.target.value)} placeholder="Novo numero"/>
-                            </div>
-                            <div>
-                                <input type="text" value= {cep} onChange={(dado)=> setCep(dado.target.value)} placeholder="Novo CEP"/>
-                            </div>
-                            <div>
-                                <button onClick={Atualizar}>Atualizar ativo</button>
-                                <button onClick={Cancelar}>cancelar edição</button>
+                                <div>
+                                    <input type="text" value= {nome} onChange={(dado)=> setNome(dado.target.value)} placeholder="Novo nome"/>
+                                </div>
+                                <div>
+                                    <input type="text" value= {rua} onChange={(dado)=> setRua(dado.target.value)} placeholder="Nova rua"/>
+                                </div>
+                                <div>
+                                    <input type="text" value= {bairro} onChange={(dado)=> setBairro(dado.target.value)} placeholder="Novo bairro"/>
+                                </div>
+                                <div>
+                                    <input type="text" value= {complemento} onChange={(dado)=> setComplemento(dado.target.value)} placeholder="Novo complemento"/>
+                                </div>
+                                <div>
+                                    <input type="text" value= {numero} onChange={(dado)=> setNumero(dado.target.value)} placeholder="Novo numero"/>
+                                </div>
+                                <div>
+                                    <input type="text" value= {cep} onChange={(dado)=> setCep(dado.target.value)} placeholder="Novo CEP"/>
+                                </div>
+                                <div>
+                                    <button onClick={Atualizar}>Atualizar ativo</button>
+                                    <button onClick={Cancelar}>cancelar edição</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </>
-            ):
-            (
-                <>
+                    </>
+                ):
+                (
+                    <>
 
-                </>
-            )}
-        </div>
+                    </>
+                )}
+            </div>
         </>
     )
 }
