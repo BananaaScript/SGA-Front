@@ -1,11 +1,25 @@
 import { useState } from "react"
 import axios from "axios"
+import Categoria from "../../../../modelos/categoria"
+import { useEffect } from "react"
 import "../Adicionar.css"
 
 export default function AdicionaCategoria(){
     const [nome, setNome] = useState('')
     const [descricao, setDescricao] = useState('')
     const [erro, setErro] = useState('')
+    const [categorias, setCategorias] = useState<Array<Categoria>>([])
+    const [id, setId] = useState('')
+    const [editando, setEditando] = useState(false)
+    useEffect(()=>{
+        axios.get('http://localhost:8080/categoria/listar')
+        .then((response)=>{
+            setCategorias(response.data)
+        })
+        .catch((error)=>{
+            console.error(error)
+        })
+    }, [])
     let rota = 'http://localhost:8080/categoria/cadastrar'
 
    function registrar(){
@@ -44,6 +58,28 @@ export default function AdicionaCategoria(){
                 {erro && <div style={{color:'red'}}>{erro}</div>}
             </div>
         </div>
+        <div className="texto">
+                <h2>Categorias cadastradas</h2>
+        </div>
+        <div className="TabelaCadastro">
+        <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Descrição</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            {categorias.map((categoria)=>(
+                                <tr key={categoria.id}>
+                                    <td>{categoria.nome}</td>
+                                    <td>{categoria.descricao}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                </table>
+        </div>
         </>
+        
     )
 }

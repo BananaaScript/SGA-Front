@@ -1,12 +1,27 @@
 import { useState } from "react"
 import axios from "axios"
 import "../Adicionar.css"
+import { useEffect } from "react"
+import modelo from "../../../../modelos/modelo"
 
 export default function AdicionaModelo(){
     const [nome, setNome] = useState('')
     const [modelo, setModelo] = useState('')
     const [descricao, setDescricao] = useState('')
     const [erro, setErro] = useState('')
+    const [modelos, setmodelos] = useState<Array<modelo>>([])
+    const [id, setId] = useState('')
+    const [editando, setEditando] = useState(false)
+
+    useEffect(()=>{
+        axios.get('http://localhost:8080/modelo/listar')
+        .then((response)=>{
+            setmodelos(response.data)
+        })
+        .catch((error)=>{
+            console.error(error)
+        })
+    }, [])
     let rota = 'http://localhost:8080/modelo/cadastrar'
 
    function registrar(){
@@ -47,6 +62,29 @@ export default function AdicionaModelo(){
 
                 {erro && <div style={{color:'red'}}>{erro}</div>}
             </div>
+        </div>
+        <div className="texto">
+                <h2>Categorias cadastradas</h2>
+        </div>
+        <div className="TabelaCadastro">
+        <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Modelo</th>
+                                <th>Descrição</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            {modelos.map((modelo)=>(
+                                <tr key={modelo.id}>
+                                    <td>{modelo.nome}</td>
+                                    <td>{modelo.modelo}</td>
+                                    <td>{modelo.descricao}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                </table>
         </div>
         </>
     )
