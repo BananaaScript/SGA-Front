@@ -1,5 +1,7 @@
 import { useState } from "react"
 import axios from "axios"
+import Ativo from "../../../../modelos/ativo"
+import { useEffect } from "react"
 import "../Adicionar.css"
 
 export const AdicionaAtivo = () =>{
@@ -10,6 +12,19 @@ export const AdicionaAtivo = () =>{
     const [numero, setNumero] = useState('')
     const [cep, setCep]= useState('')
     const [erroNome, setErro] = useState('')
+    const[ativos, setAtivos] = useState<Array<Ativo>>([])
+    const [id, setId] = useState('')
+    const[editando, setEditando] = useState(false)
+
+    useEffect(()=>{
+        axios.get('http://localhost:8080/ativo/listar')
+        .then((response)=>{
+            setAtivos(response.data)
+        })
+        .catch((error)=>{
+            console.error(error)
+        })
+    }, [])
     let rota = 'http://localhost:8080/ativo/cadastrar'
 
     function registrar(){
@@ -56,8 +71,37 @@ export const AdicionaAtivo = () =>{
                     <button onClick={registrar}>Registrar</button>
                 
                 {erroNome && <div style={{color: 'red'}}>{erroNome}</div>}
-            
             </div>
+            <div className="texto">
+                <h2>Ativos cadastrados</h2>
+            </div>
+            <div className="TabelaCadastro">
+                <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Rua</th>
+                                <th>Bairro</th>
+                                <th>Complemento</th>
+                                <th>Numero</th>
+                                <th>CEP</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            {ativos.map((ativo)=>(
+                                <tr key={ativo.id}>
+                                    <td>{ativo.nome}</td>
+                                    <td>{ativo.rua}</td>
+                                    <td>{ativo.bairro}</td>
+                                    <td>{ativo.complemento}</td>
+                                    <td>{ativo.numero}</td>
+                                    <td>{ativo.cep}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                </table>
         </div>
+        </div>
+        
     )
 }

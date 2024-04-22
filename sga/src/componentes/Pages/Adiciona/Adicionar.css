@@ -58,21 +58,64 @@
         margin-top: 15px;
 }
 
-        .BoxCadastro input {
-                padding: 1%;
-                border-radius: 30px;
-                border: 2px solid rgb(255, 255, 255);
-                background-color: rgba(255, 255, 255, 0.35);
-                color: #313056;
-                width: 60%;
-              }
-
-        .BoxCadastro button {
-              width: 50%;
-              padding: 12px;
-              background-color: #313056;
-              border-radius: 30px;
-              border: 2px solid white;
-              color: white;
-              cursor: pointer;
+.BoxCadastro input {
+        padding: 1%;
+        border-radius: 30px;
+        border: 2px solid rgb(255, 255, 255);
+        background-color: rgba(255, 255, 255, 0.35);
+        color: #313056;
+        width: 60%;
         }
+
+.BoxCadastro button {
+        width: 50%;
+        padding: 12px;
+        background-color: #313056;
+        border-radius: 30px;
+        border: 2px solid white;
+        color: white;
+        cursor: pointer;
+}
+.texto {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+.TabelaCadastro{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-left: 15px;
+        max-width: 90%;
+        padding-top: 20px;
+            
+        table, th, td {
+                border: 1px solid black;
+                min-width: 225px;
+        }
+                
+        table {
+                border-collapse: collapse;
+            
+                margin: auto;
+        }
+                
+        th, td{
+                padding: 10px;
+                text-align: center;
+                min-width:  150px;
+                word-break: break-all;
+        }
+                
+        th{
+                font-weight: bold;
+                background-color: #313056;
+                color: #fff;
+        }
+                
+                
+        tr:nth-child(even) {
+                background-color: #9591ff;
+        }
+}

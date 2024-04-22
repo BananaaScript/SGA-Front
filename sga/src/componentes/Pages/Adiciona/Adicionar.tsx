@@ -11,6 +11,7 @@ export default function Adicionar(){
     const selecionarComponente=(escolhido: string)=>{
         setSelecionado(escolhido)
     }
+    
     return(
         <>
             <div className="addcss">
