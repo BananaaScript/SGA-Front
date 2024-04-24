@@ -1,11 +1,11 @@
 import { useState } from "react"
-import modelo from "../../../../modelos/modelo"
+import {Modelo} from "../../../../modelos/modelo"
 import { useEffect } from "react"
 import axios from "axios"
 
 
 export default function PesquisaModelo(){
-    const [modelos, setmodelos] = useState<Array<modelo>>([])
+    const [modelos, setmodelos] = useState<Array<Modelo>>([])
     const [id, setId] = useState('')
     const [nome, setNome]= useState('')
     const [descricao, setDescricao]= useState('')

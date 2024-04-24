@@ -1,19 +1,19 @@
 import { useState } from "react"
 import axios from "axios"
-import Ativo from "../../../../modelos/ativo"
+import {Ativo} from "../../../../modelos/ativo"
 import { useEffect } from "react"
 import "../Adicionar.css"
 
 export const AdicionaAtivo = () =>{
     const [nome, setNome]= useState('')
+    const [dataManutencao, setDataManutencao] = useState('')
     const [rua, setRua]= useState('')
     const [bairro, setBairro]= useState('')
     const [complemento, setComplemento]= useState('')
     const [numero, setNumero] = useState('')
     const [cep, setCep]= useState('')
     const [erroNome, setErro] = useState('')
-    const[ativos, setAtivos] = useState<Array<Ativo>>([])
-    const [id, setId] = useState('')
+    const [ativos, setAtivos] = useState<Array<Ativo>>([])
 
     useEffect(()=>{
         axios.get('http://localhost:8080/ativo/listar')
@@ -29,11 +29,12 @@ export const AdicionaAtivo = () =>{
     function registrar(){
         console.clear()
         setErro('')
-        if(nome && rua && bairro && complemento && numero && cep){
+        if(nome && dataManutencao && rua && bairro && complemento && numero && cep){
             console.log(`conexão com banco de dados bem-sucedida, enviando dados`)
-            axios.post(rota, {nome, rua, bairro, complemento, numero, cep})
+            axios.post(rota, {nome, dataManutencao, rua, bairro, complemento, numero, cep})
             .then(()=>{
                 setNome('')
+                setDataManutencao('')
                 setRua('')
                 setBairro('')
                 setComplemento('')
@@ -56,6 +57,8 @@ export const AdicionaAtivo = () =>{
                     <h2>Insira os Dados do Ativo que Deseja Cadastrar</h2>
                 
                     <input type="text" value={nome} onChange={(dado)=>setNome(dado.target.value)} placeholder="Nome"/>
+                    <label>Data de manutenção</label>
+                    <input type="date" value={dataManutencao} onChange={(dado)=>setDataManutencao(dado.target.value)}  />
 
                     <input type="text" value={rua} onChange={(dado)=>setRua(dado.target.value)} placeholder="Rua" />
  

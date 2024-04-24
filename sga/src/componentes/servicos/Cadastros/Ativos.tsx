@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Ativo from "../../../modelos/ativo"
+import {Ativo} from "../../../modelos/ativo"
 import axios from "axios"
 
 export const CadastrarAtivo = () =>{

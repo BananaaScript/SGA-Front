@@ -2,14 +2,14 @@ import { useState } from "react"
 import axios from "axios"
 import "../Adicionar.css"
 import { useEffect } from "react"
-import modelo from "../../../../modelos/modelo"
+import {Modelo}  from "../../../../modelos/modelo"
 
 export default function AdicionaModelo(){
     const [nome, setNome] = useState('')
     const [modelo, setModelo] = useState('')
     const [descricao, setDescricao] = useState('')
     const [erro, setErro] = useState('')
-    const [modelos, setmodelos] = useState<Array<modelo>>([])
+    const [modelos, setmodelos] = useState<Array<Modelo>>([])
     const [filtro, setFiltro] = useState<string>('');
 
     useEffect(()=>{

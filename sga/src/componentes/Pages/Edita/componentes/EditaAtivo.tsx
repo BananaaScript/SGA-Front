@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Ativo from "../../../../modelos/ativo"
+import {Ativo} from "../../../../modelos/ativo"
 import { useEffect } from "react"
 import axios from "axios"
 export default function EditaAtivo(){

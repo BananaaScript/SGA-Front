@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import modelo from "../../../../modelos/modelo";
+import {Modelo}  from "../../../../modelos/modelo";
 import axios from "axios";
 import "../Editar.css"
 
 export default function Editamodelo() {
-    const [modelos, setModelos] = useState<Array<modelo>>([]);
+    const [modelos, setModelos] = useState<Array<Modelo>>([]);
     const [filtro, setFiltro] = useState<string>('');
     const [id, setId] = useState('');
     const [nome, setNome] = useState('');

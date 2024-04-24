@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Categoria from "../../../../modelos/categoria"
+import {Categoria} from "../../../../modelos/categoria"
 import { useEffect } from "react"
 import axios from "axios"
 

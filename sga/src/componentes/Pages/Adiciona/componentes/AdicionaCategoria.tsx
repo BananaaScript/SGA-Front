@@ -1,6 +1,6 @@
 import { useState } from "react"
 import axios from "axios"
-import Categoria from "../../../../modelos/categoria"
+import {Categoria} from "../../../../modelos/categoria"
 import { useEffect } from "react"
 import "../Adicionar.css"
 
