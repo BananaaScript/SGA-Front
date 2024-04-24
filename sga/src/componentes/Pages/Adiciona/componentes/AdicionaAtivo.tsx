@@ -14,7 +14,6 @@ export const AdicionaAtivo = () =>{
     const [erroNome, setErro] = useState('')
     const[ativos, setAtivos] = useState<Array<Ativo>>([])
     const [id, setId] = useState('')
-    const[editando, setEditando] = useState(false)
 
     useEffect(()=>{
         axios.get('http://localhost:8080/ativo/listar')
