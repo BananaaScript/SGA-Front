@@ -9,8 +9,7 @@ export default function AdicionaCategoria(){
     const [descricao, setDescricao] = useState('')
     const [erro, setErro] = useState('')
     const [categorias, setCategorias] = useState<Array<Categoria>>([])
-    const [id, setId] = useState('')
-    const [editando, setEditando] = useState(false)
+    const [filtro, setFiltro] = useState<string>('');
     useEffect(()=>{
         axios.get('http://localhost:8080/categoria/listar')
         .then((response)=>{
@@ -20,6 +19,16 @@ export default function AdicionaCategoria(){
             console.error(error)
         })
     }, [])
+
+    const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFiltro(event.target.value);
+    };
+
+    const categoriasFiltrados = categorias.filter(categoria =>
+        categoria.nome.toLowerCase().includes(filtro.toLowerCase()) ||
+        categoria.descricao.toLowerCase().includes(filtro.toLowerCase())
+    );
+
     let rota = 'http://localhost:8080/categoria/cadastrar'
 
    function registrar(){
@@ -63,6 +72,12 @@ export default function AdicionaCategoria(){
         </div>
         <div className="TabelaCadastro">
         <table>
+            <input id="inputdofiltro"
+                type="text"
+                value={filtro}
+                onChange={handleFiltroChange}
+                placeholder="Filtrar por nome ou descrição"
+            />
                         <thead>
                             <tr>
                                 <th>Nome</th>

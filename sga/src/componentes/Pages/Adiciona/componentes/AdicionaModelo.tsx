@@ -10,8 +10,7 @@ export default function AdicionaModelo(){
     const [descricao, setDescricao] = useState('')
     const [erro, setErro] = useState('')
     const [modelos, setmodelos] = useState<Array<modelo>>([])
-    const [id, setId] = useState('')
-    const [editando, setEditando] = useState(false)
+    const [filtro, setFiltro] = useState<string>('');
 
     useEffect(()=>{
         axios.get('http://localhost:8080/modelo/listar')
@@ -24,6 +23,15 @@ export default function AdicionaModelo(){
     }, [])
     let rota = 'http://localhost:8080/modelo/cadastrar'
 
+    const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFiltro(event.target.value);
+    };
+
+    const modelosFiltrados = modelos.filter(modelo =>
+        modelo.nome.toLowerCase().includes(filtro.toLowerCase()) ||
+        modelo.modelo.toLowerCase().includes(filtro.toLowerCase()) ||
+        modelo.descricao.toLowerCase().includes(filtro.toLowerCase())
+    );
    function registrar(){
     console.clear()
     setErro('')
@@ -68,6 +76,12 @@ export default function AdicionaModelo(){
         </div>
         <div className="TabelaCadastro">
         <table>
+        <input id="inputdofiltro"
+                type="text"
+                value={filtro}
+                onChange={handleFiltroChange}
+                placeholder="Filtrar por nome, modelo ou descrição"
+            />
                         <thead>
                             <tr>
                                 <th>Nome</th>

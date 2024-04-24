@@ -44,39 +44,39 @@
     max-width: 90vw;
     position: absolute;
 
-    table, th, td {
-        border: 1px solid black;
-        min-width: 225px;
-    }
+table, th, td {
+    border: 1px solid black;
+    min-width: 225px;
+}
     
-    table {
-        border-collapse: collapse;
+table {
+    border-collapse: collapse;
 
-        margin: auto;
-    }
+    margin: auto;
+}
     
-    th, td{
-        padding: 10px;
-        text-align: center;
-        min-width:  8.5vw;
-        word-break: break-all;
-    }
+th, td{
+    padding: 10px;
+    text-align: center;
+    min-width:  8.5vw;
+    word-break: break-all;
+}
     
-    th{
-        font-weight: bold;
-        background-color: #313056;
-        color: #fff;
-    }
+th{
+    font-weight: bold;
+    background-color: #313056;
+    color: #fff;
+}
     
     
-    tr:nth-child(even) {
-        background-color: #9591ff;
-    }
+tr:nth-child(even) {
+    background-color: #9591ff;
+}
     
-    tr:hover:nth-child(1n + 2) {
-        background-color: #6461aa;
-        color: #fff;
-    }
+tr:hover:nth-child(1n + 2) {
+    background-color: #6461aa;
+    color: #fff;
+}
 
 }
 .BoxTabela table tbody tr td button {

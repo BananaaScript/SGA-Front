@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import modelo from "../../../../modelos/modelo";
 import axios from "axios";
+import "../Editar.css"
 
 export default function Editamodelo() {
     const [modelos, setModelos] = useState<Array<modelo>>([]);

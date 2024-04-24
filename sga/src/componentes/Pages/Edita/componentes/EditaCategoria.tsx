@@ -8,6 +8,7 @@ export default function EditaCategoria(){
     const [nome, setNome]= useState('')
     const [descricao, setDescricao]= useState('')
     const [editando, setEditando] = useState(false)
+    const [filtro, setFiltro] = useState<string>('');
 
     useEffect(()=>{
         axios.get('http://localhost:8080/categoria/listar')
@@ -18,7 +19,14 @@ export default function EditaCategoria(){
             console.error(error)
         })
     }, [])
+    const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFiltro(event.target.value);
+    };
 
+    const categoriasFiltrados = categorias.filter(categoria =>
+        categoria.nome.toLowerCase().includes(filtro.toLowerCase()) ||
+        categoria.descricao.toLowerCase().includes(filtro.toLowerCase())
+    );
     function Deletar(id: number){
         axios.delete(`http://localhost:8080/categoria/deletar/${id}`)
         .then(() =>{
@@ -68,6 +76,12 @@ export default function EditaCategoria(){
             <div className="BoxTabela">
                 <h2>Categorias Cadastradas</h2>
                 <table>
+                <input id="inputdofiltro"
+                type="text"
+                value={filtro}
+                onChange={handleFiltroChange}
+                placeholder="Filtrar por nomeou descrição"
+            />
                         <thead>
                             <tr>
                                 <th>Nome</th>
