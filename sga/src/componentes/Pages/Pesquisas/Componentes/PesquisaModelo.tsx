@@ -11,6 +11,7 @@ export default function PesquisaModelo(){
     const [descricao, setDescricao]= useState('')
     const [modelo, setModelo] = useState('')
     const [editando, setEditando] = useState(false)
+    const [filtro, setFiltro] = useState<string>('');
 
     useEffect(()=>{
         axios.get('http://localhost:8080/modelo/listar')
@@ -22,6 +23,15 @@ export default function PesquisaModelo(){
         })
     }, [])
 
+    const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFiltro(event.target.value);
+    };
+
+    const modelosFiltrados = modelos.filter(modelo =>
+        modelo.nome.toLowerCase().includes(filtro.toLowerCase()) ||
+        modelo.modelo.toLowerCase().includes(filtro.toLowerCase()) ||
+        modelo.descricao.toLowerCase().includes(filtro.toLowerCase())
+    );
 
     function AtualizarValores(){
         axios.get('http://localhost:8080/modelo/listar')
@@ -36,6 +46,12 @@ export default function PesquisaModelo(){
             <div className="BoxTabela">
                 <h2>Modelos Cadastrados</h2>
                 <table>
+                <input id="inputdofiltro"
+                type="text"
+                value={filtro}
+                onChange={handleFiltroChange}
+                placeholder="Filtrar por nome, modelo ou descrição"
+            />
                         <thead>
                             <tr>
                                 <th>Nome</th>

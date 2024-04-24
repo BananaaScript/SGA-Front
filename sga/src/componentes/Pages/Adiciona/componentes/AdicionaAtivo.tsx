@@ -14,6 +14,7 @@ export const AdicionaAtivo = () =>{
     const [cep, setCep]= useState('')
     const [erroNome, setErro] = useState('')
     const [ativos, setAtivos] = useState<Array<Ativo>>([])
+    const [filtro, setFiltro] = useState<string>('');
 
     useEffect(()=>{
         axios.get('http://localhost:8080/ativo/listar')
@@ -25,6 +26,17 @@ export const AdicionaAtivo = () =>{
         })
     }, [])
     let rota = 'http://localhost:8080/ativo/cadastrar'
+    
+    const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFiltro(event.target.value);
+    };
+
+    const ativosFiltrados = ativos.filter(ativo =>
+        ativo.nome.toLowerCase().includes(filtro.toLowerCase()) ||
+        ativo.rua.toLowerCase().includes(filtro.toLowerCase()) ||
+        ativo.bairro.toLowerCase().includes(filtro.toLowerCase()) ||
+        ativo.complemento.toLowerCase().includes(filtro.toLowerCase()) 
+    );
 
     function registrar(){
         console.clear()
@@ -79,6 +91,12 @@ export const AdicionaAtivo = () =>{
             </div>
             <div className="TabelaCadastro">
                 <table>
+                <input id="inputdofiltro"
+                        type="text"
+                        value={filtro}
+                        onChange={handleFiltroChange}
+                        placeholder="Filtrar por nome, modelo ou descrição"
+                />
                         <thead>
                             <tr>
                                 <th>Nome</th>

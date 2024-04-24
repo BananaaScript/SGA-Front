@@ -12,6 +12,7 @@ export default function EditaAtivo(){
     const [numero, setNumero] = useState('')
     const [cep, setCep]= useState('')
     const[editando, setEditando] = useState(false)
+    const [filtro, setFiltro] = useState<string>('');
 
     useEffect(()=>{
         axios.get('http://localhost:8080/ativo/listar')
@@ -22,6 +23,16 @@ export default function EditaAtivo(){
             console.error(error)
         })
     }, [])
+    const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFiltro(event.target.value);
+    };
+
+    const ativosFiltrados = ativos.filter(ativo =>
+        ativo.nome.toLowerCase().includes(filtro.toLowerCase()) ||
+        ativo.rua.toLowerCase().includes(filtro.toLowerCase()) ||
+        ativo.bairro.toLowerCase().includes(filtro.toLowerCase()) ||
+        ativo.complemento.toLowerCase().includes(filtro.toLowerCase()) 
+    );
 
     function Atualizar(){
         if(nome || rua || bairro || complemento || numero || cep){
@@ -78,6 +89,12 @@ export default function EditaAtivo(){
             <div className="BoxTabela">
                 <h2>Ativos Cadastrados</h2>
                 <table>
+                    <input id="inputdofiltro"
+                        type="text"
+                        value={filtro}
+                        onChange={handleFiltroChange}
+                        placeholder="Filtrar por nome, modelo ou descrição"
+                    />
                         <thead>
                             <tr>
                                 <th>Nome</th>
