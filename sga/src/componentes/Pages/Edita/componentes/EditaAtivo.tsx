@@ -2,9 +2,12 @@ import { useState } from "react"
 import {Ativo} from "../../../../modelos/ativo"
 import { useEffect } from "react"
 import axios from "axios"
+import {format} from 'date-fns'
+
 export default function EditaAtivo(){
     const[ativos, setAtivos] = useState<Array<Ativo>>([])
     const [id, setId] = useState('')
+    const [dataManutencao, setDataManutencao] = useState('')
     const [nome, setNome]= useState('')
     const [rua, setRua]= useState('')
     const [bairro, setBairro]= useState('')
@@ -34,12 +37,19 @@ export default function EditaAtivo(){
         ativo.complemento.toLowerCase().includes(filtro.toLowerCase()) 
     );
 
+    function formataData(data: string){
+        const dataFormatada = format(new Date(data), 'dd/MM/yyyy')
+        dataFormatada.toString()
+        return dataFormatada
+    }
+
     function Atualizar(){
-        if(nome || rua || bairro || complemento || numero || cep){
-            axios.put(`http://localhost:8080/ativo/atualizar/${id}`, {nome, rua, bairro, complemento, numero, cep})
+        if(nome || dataManutencao || rua || bairro || complemento || numero || cep){
+            axios.put(`http://localhost:8080/ativo/atualizar/${id}`, {nome, dataManutencao, rua, bairro, complemento, numero, cep})
             .then(()=>{
                 setEditando(false)
                 setNome('')
+                setDataManutencao('')
                 setRua('')
                 setBairro('')
                 setComplemento('')
@@ -98,6 +108,7 @@ export default function EditaAtivo(){
                         <thead>
                             <tr>
                                 <th>Nome</th>
+                                <th>Data Manutenção</th>
                                 <th>Rua</th>
                                 <th>Bairro</th>
                                 <th>Complemento</th>
@@ -111,6 +122,7 @@ export default function EditaAtivo(){
                             {ativos.map((ativo)=>(
                                 <tr key={ativo.id}>
                                     <td>{ativo.nome}</td>
+                                    <td>{formataData(ativo.dataManutencao)}</td>
                                     <td>{ativo.rua}</td>
                                     <td>{ativo.bairro}</td>
                                     <td>{ativo.complemento}</td>
@@ -130,8 +142,9 @@ export default function EditaAtivo(){
 
                                     <input type="text" value= {nome} onChange={(dado)=> setNome(dado.target.value)} placeholder="Novo nome"/>
 
-                                    <input type="text" value= {rua} onChange={(dado)=> setRua(dado.target.value)} placeholder="Nova rua"/>
+                                    <input type="date" value={dataManutencao} onChange={(dado)=> setDataManutencao(dado.target.value)} />
 
+                                    <input type="text" value= {rua} onChange={(dado)=> setRua(dado.target.value)} placeholder="Nova rua"/>
 
                                     <input type="text" value= {complemento} onChange={(dado)=> setComplemento(dado.target.value)} placeholder="Novo complemento"/>
 

@@ -6,6 +6,7 @@ import "../Adicionar.css"
 
 export const AdicionaAtivo = () =>{
     const [nome, setNome]= useState('')
+    const [numAtivo, setNumeroAtivo] = useState('')
     const [dataManutencao, setDataManutencao] = useState('')
     const [rua, setRua]= useState('')
     const [bairro, setBairro]= useState('')
@@ -41,11 +42,12 @@ export const AdicionaAtivo = () =>{
     function registrar(){
         console.clear()
         setErro('')
-        if(nome && dataManutencao && rua && bairro && complemento && numero && cep){
-            console.log(`conexão com banco de dados bem-sucedida, enviando dados`)
-            axios.post(rota, {nome, dataManutencao, rua, bairro, complemento, numero, cep})
+        console.log(numAtivo)
+        if(nome && dataManutencao && numAtivo && rua && bairro && complemento && numero && cep){
+            axios.post(rota, {nome, numAtivo, dataManutencao, rua, bairro, complemento, numero, cep})
             .then(()=>{
                 setNome('')
+                setNumeroAtivo('')
                 setDataManutencao('')
                 setRua('')
                 setBairro('')
@@ -57,6 +59,7 @@ export const AdicionaAtivo = () =>{
             .catch((error)=>{
                 console.error(error)
             })
+            console.log(`conexão com banco de dados bem-sucedida, dados enviados!`)
         }
         else if(!nome && !rua && !bairro && !complemento && !numero && !cep ){
             setErro('Informe os valores em branco!')
@@ -69,16 +72,18 @@ export const AdicionaAtivo = () =>{
                     <h2>Insira os Dados do Ativo que Deseja Cadastrar</h2>
                 
                     <input type="text" value={nome} onChange={(dado)=>setNome(dado.target.value)} placeholder="Nome"/>
+                    <input type="text" value={numAtivo} onChange={(dado)=>setNumeroAtivo(dado.target.value)} placeholder="Número ativo"/>
                     <label>Data de manutenção</label>
                     <input type="date" value={dataManutencao} onChange={(dado)=>setDataManutencao(dado.target.value)}  />
-
+                    
+                    <label htmlFor="">Endereço</label>
                     <input type="text" value={rua} onChange={(dado)=>setRua(dado.target.value)} placeholder="Rua" />
  
                     <input type="text" value={bairro} onChange={(dado)=>setBairro(dado.target.value)} placeholder="Bairro" />
  
                     <input type="text" value={complemento} onChange={(dado)=>setComplemento(dado.target.value)} placeholder="Complemento"/>
 
-                    <input type="number" value={numero} onChange={(dado)=>setNumero(dado.target.value)} placeholder="Numero"/>
+                    <input type="number" value={numero} onChange={(dado)=>setNumero(dado.target.value)} placeholder="Número"/>
 
                     <input type="number" value={cep} onChange={(dado)=>setCep(dado.target.value)} placeholder="CEP"/>
 
