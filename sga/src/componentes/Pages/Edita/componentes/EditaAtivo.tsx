@@ -7,14 +7,15 @@ import {format} from 'date-fns'
 export default function EditaAtivo(){
     const[ativos, setAtivos] = useState<Array<Ativo>>([])
     const [id, setId] = useState('')
-    const [dataManutencao, setDataManutencao] = useState('')
     const [nome, setNome]= useState('')
+    const [numeroAtivo, setNumeroAtivo] = useState('')
+    const [dataManutencao, setDataManutencao] = useState('')
     const [rua, setRua]= useState('')
     const [bairro, setBairro]= useState('')
     const [complemento, setComplemento]= useState('')
     const [numero, setNumero] = useState('')
     const [cep, setCep]= useState('')
-    const[editando, setEditando] = useState(false)
+    const [editando, setEditando] = useState(false)
     const [filtro, setFiltro] = useState<string>('');
 
     useEffect(()=>{
@@ -44,11 +45,12 @@ export default function EditaAtivo(){
     }
 
     function Atualizar(){
-        if(nome || dataManutencao || rua || bairro || complemento || numero || cep){
+        if(nome || numeroAtivo || dataManutencao || rua || bairro || complemento || numero || cep){
             axios.put(`http://localhost:8080/ativo/atualizar/${id}`, {nome, dataManutencao, rua, bairro, complemento, numero, cep})
             .then(()=>{
                 setEditando(false)
                 setNome('')
+                setNumeroAtivo('')
                 setDataManutencao('')
                 setRua('')
                 setBairro('')
@@ -62,9 +64,10 @@ export default function EditaAtivo(){
             })
         }
     }
-    function Editar(id: any, nome: string, rua: string, bairro: string, complemento: string, numero: any, cep: string){
+    function Editar(id: any, nome: string, dataManutencao: string, rua: string, bairro: string, complemento: string, numero: any, cep: string){
         setId(id)
         setNome(nome)
+        setDataManutencao(dataManutencao)
         setRua(rua)
         setBairro(bairro)
         setComplemento(complemento)
@@ -75,6 +78,7 @@ export default function EditaAtivo(){
     function Cancelar(){
         setEditando(false)
     }
+
     function Deletar(id: number){
         axios.delete(`http://localhost:8080/ativo/deletar/${id}`)
         .then(() =>{
@@ -94,8 +98,6 @@ export default function EditaAtivo(){
     return(
         <>
         <div>
-
-
             <div className="BoxTabela">
                 <h2>Ativos Cadastrados</h2>
                 <table>
@@ -108,6 +110,7 @@ export default function EditaAtivo(){
                         <thead>
                             <tr>
                                 <th>Nome</th>
+                                <th>Número ativo</th>
                                 <th>Data Manutenção</th>
                                 <th>Rua</th>
                                 <th>Bairro</th>
@@ -122,6 +125,7 @@ export default function EditaAtivo(){
                             {ativos.map((ativo)=>(
                                 <tr key={ativo.id}>
                                     <td>{ativo.nome}</td>
+                                    <td>{ativo.numAtivo}</td>
                                     <td>{formataData(ativo.dataManutencao)}</td>
                                     <td>{ativo.rua}</td>
                                     <td>{ativo.bairro}</td>
@@ -129,7 +133,7 @@ export default function EditaAtivo(){
                                     <td>{ativo.numero}</td>
                                     <td>{ativo.cep}</td>
                                     <td><button onClick={()=>Deletar(ativo.id)}>Deletar</button></td>
-                                        {!editando &&(<td><button onClick={() => Editar(ativo.id, ativo.nome, ativo.rua, ativo.bairro, ativo.complemento, ativo.numero, ativo.cep)}>Editar</button></td>)}
+                                        {!editando &&(<td><button onClick={() => Editar(ativo.id, ativo.nome, ativo.dataManutencao, ativo.rua, ativo.bairro, ativo.complemento, ativo.numero, ativo.cep)}>Editar</button></td>)}
                                 </tr>
                             ))}
                         </tbody>
