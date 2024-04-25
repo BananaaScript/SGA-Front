@@ -3,6 +3,8 @@ import axios from "axios"
 import {Ativo} from "../../../../modelos/ativo"
 import { useEffect } from "react"
 import "../Adicionar.css"
+import { Categoria } from "../../../../modelos/categoria"
+import { Modelo } from "../../../../modelos/modelo"
 
 export const AdicionaAtivo = () =>{
     const [nome, setNome]= useState('')
@@ -14,6 +16,10 @@ export const AdicionaAtivo = () =>{
     const [numero, setNumero] = useState('')
     const [cep, setCep]= useState('')
     const [erroNome, setErro] = useState('')
+    const [modeloSelecionado, setModeloSelecionado] = useState('');
+    const[modelos, setModelos] = useState<Array<Modelo>>([])
+    const [categorias, setCategorias] = useState<Array<Categoria>>([])
+    const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
     const [ativos, setAtivos] = useState<Array<Ativo>>([])
     const [filtro, setFiltro] = useState<string>('');
 
@@ -25,7 +31,33 @@ export const AdicionaAtivo = () =>{
         .catch((error)=>{
             console.error(error)
         })
-    }, [])
+
+        axios.get('http://localhost:8080/modelo/listar')
+        .then((response) => {
+            const todosModelos: Modelo[] = response.data; 
+            if (categoriaSelecionada) {
+                const categoriaSelecionadaObj = categorias.find(categoria => categoria.nome === categoriaSelecionada);
+                const id_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.id : null;
+
+                if (id_categoria) {
+                    const modelosFiltrados = todosModelos.filter((modelo: Modelo) => modelo.id_categoria === id_categoria); 
+                    setModelos(modelosFiltrados);
+                }
+            } 
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+
+        axios.get('http://localhost:8080/categoria/listar')
+        .then((response) => {
+            setCategorias(response.data);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+        
+    }, [categoriaSelecionada, categorias])
     let rota = 'http://localhost:8080/ativo/cadastrar'
     
     const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +76,16 @@ export const AdicionaAtivo = () =>{
         setErro('')
         console.log(numAtivo)
         if(nome && dataManutencao && numAtivo && rua && bairro && complemento && numero && cep){
-            axios.post(rota, {nome, numAtivo, dataManutencao, rua, bairro, complemento, numero, cep})
+
+            const modeloSelecionadoObj = modelos.find(modelo => modelo.nome === modeloSelecionado);
+            const id_modelo = modeloSelecionadoObj ? modeloSelecionadoObj.id : null;
+            const nome_modelo = modeloSelecionadoObj ? modeloSelecionadoObj.nome : null;
+
+            const categoriaSelecionadaObj = categorias.find(categoria => categoria.nome === categoriaSelecionada);
+            const id_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.id : null;
+            const nome_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.nome : null;
+
+            axios.post(rota, {nome, numAtivo, dataManutencao, rua, bairro, complemento, numero, cep, id_modelo, nome_modelo, id_categoria, nome_categoria})
             .then(()=>{
                 setNome('')
                 setNumeroAtivo('')
@@ -54,6 +95,8 @@ export const AdicionaAtivo = () =>{
                 setComplemento('')
                 setNumero('')
                 setCep('')
+                setModeloSelecionado('')
+                setCategoriaSelecionada('')
                 setErro('')
             })
             .catch((error)=>{
@@ -87,6 +130,20 @@ export const AdicionaAtivo = () =>{
 
                     <input type="number" value={cep} onChange={(dado)=>setCep(dado.target.value)} placeholder="CEP"/>
 
+                    <select value={categoriaSelecionada} onChange={(dado) => setCategoriaSelecionada(dado.target.value)}>
+                        <option value="">Selecione a Categoria</option>
+                        {categorias.map(categoria => (
+                            <option key={categoria.id} value={categoria.nome}>{categoria.nome}</option>
+                        ))}
+                    </select>
+
+                    <select value={modeloSelecionado} onChange={(dado) => setModeloSelecionado(dado.target.value)}>
+                        <option value="">Selecione o Modelo</option>
+                        {modelos.map(modelo => (
+                            <option key={modelo.id} value={modelo.nome}>{modelo.nome}</option>
+                        ))}
+                    </select>
+
                     <button onClick={registrar}>Registrar</button>
                 
                 {erroNome && <div style={{color: 'red'}}>{erroNome}</div>}
@@ -110,6 +167,8 @@ export const AdicionaAtivo = () =>{
                                 <th>Complemento</th>
                                 <th>Numero</th>
                                 <th>CEP</th>
+                                <th>Categoria</th>
+                                <th>Modelo</th>
                             </tr>
                         </thead>
                          <tbody>
@@ -121,6 +180,8 @@ export const AdicionaAtivo = () =>{
                                     <td>{ativo.complemento}</td>
                                     <td>{ativo.numero}</td>
                                     <td>{ativo.cep}</td>
+                                    <td>{ativo.nome_categoria}</td>
+                                    <td>{ativo.nome_modelo}</td>
                                 </tr>
                             ))}
                         </tbody>
