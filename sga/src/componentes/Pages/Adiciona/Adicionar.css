@@ -26,7 +26,6 @@
     margin:0;
     top:0;
     right:0;
-    height: 97.6vh;
     border: #BE0000;
     border-width: 8px;
     border-style: solid;
@@ -36,27 +35,38 @@
 .ComponenteCadastro {
 
         display: flex;
+        flex-direction: row;
+        
         
 }
 
 .BoxCadastro {
         display: flex;
-        align-items: center;
-        justify-content: center;
+        flex-direction: column;
 
-        width: 40%;
-        height: 60%;
+        width: 70%;
+        gap: 20px;
+        padding: 2%;
+        margin-top: 10px;
+        margin-left:2%;
+        margin-bottom: 9px;
 
         background-color: rgba(120, 142, 255, 0.3);
         border-radius: 30px;
-        flex-direction: column;
-        gap: 20px;
-        padding: 2%;
-
         color: #313056;
-        margin-left: 27.75%;
-        margin-top: 15px;
+
+
 }
+
+.CadastroInputs{
+        height:330px;
+        overflow:scroll;
+        overflow-x:hidden;
+
+}
+
+.CadastroInputFixo{height:330px;}
+
 
 .BoxCadastro input {
         padding: 1%;
@@ -64,8 +74,13 @@
         border: 2px solid rgb(255, 255, 255);
         background-color: rgba(255, 255, 255, 0.35);
         color: #313056;
-        width: 60%;
+        width: 80%;
+        margin: 1.5%;
+        margin-top: 0%;
+        margin-bottom: 0%;
+
         }
+
 
 .BoxCadastro button {
         width: 50%;
@@ -81,10 +96,56 @@
         align-items: center;
         justify-content: center;
 }
-.TabelaCadastro{
+
+.BoxCadastro p {
+        font-size: small;
+        margin-top: 20px;
+        margin-left: 2%;
+}
+
+.BoxCadastro select {
+        width: 35%;
+        margin-right: 2.5%;
+        margin-left: 2.5%;
+
+        background-color: #313056;
+        border-radius: 20px;
+        padding: 5px;
+        color: #fff;
+
+}
+
+
+.Box button{
+        position: absolute;
+        margin-left: 80%;
+        margin-top: -37.5%;
+        height: 500px;
+        width: 250px;
+        background-color: #313056;
+        color: #fff;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: x-large;
+}
+.Box02 button{
+        position: absolute;
+        margin-left: 80%;
+        margin-top: -475px;
+        height: 500px;
+        width: 250px;
+        background-color: #313056;
+        color: #fff;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: x-large;
+}
+
+.TabelaCadastrados{
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-direction: row;
 
         margin-left: 15px;
         max-width: 90%;

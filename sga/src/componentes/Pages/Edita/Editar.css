@@ -91,30 +91,32 @@ tr:hover:nth-child(1n + 2) {
 
 .BoxEditar {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
 
-    width: 40%;
-    height: 60%;
+    width: 90%;
+    gap: 20px;
+    padding: 2%;
+    margin-top: 10px;
+    margin-left:2%;
+    margin-bottom: 9px;
 
     background-color: rgba(120, 142, 255, 0.3);
     border-radius: 30px;
-    flex-direction: column;
-    gap: 20px;
-    padding: 2%;
-
     color: #313056;
-    margin-left: 27.75%;
-    margin-top: 35px;
+
+
 }
 
     .BoxEditar input {
-            padding: 1%;
-            border-radius: 30px;
-            border: 2px solid rgb(255, 255, 255);
-            background-color: rgba(255, 255, 255, 0.35);
-            color: #313056;
-            width: 60%;
+        padding: 1%;
+        border-radius: 30px;
+        border: 2px solid rgb(255, 255, 255);
+        background-color: rgba(255, 255, 255, 0.35);
+        color: #313056;
+        width: 80%;
+        margin: 1.5%;
+        margin-top: 0%;
+        margin-bottom: 0%;
           }
 
     .BoxEditar button {
@@ -126,6 +128,19 @@ tr:hover:nth-child(1n + 2) {
           color: white;
           cursor: pointer;
     }
+
+    .BoxEditar p {
+        font-size: small;
+        margin-top: 20px;
+        margin-left: 2%;
+}
+
+.EditarInputs{
+    height:180px;
+    overflow:scroll;
+    overflow-x:hidden;
+
+}
     
 #inputdofiltro {
     padding: 1%;

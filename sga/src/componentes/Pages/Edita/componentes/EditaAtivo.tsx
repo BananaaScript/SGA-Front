@@ -2,7 +2,7 @@ import { useState } from "react"
 import {Ativo} from "../../../../modelos/ativo"
 import { useEffect } from "react"
 import axios from "axios"
-import {format} from 'date-fns'
+// import {format} from 'date-fns'
 
 export default function EditaAtivo(){
     const[ativos, setAtivos] = useState<Array<Ativo>>([])
@@ -37,11 +37,11 @@ export default function EditaAtivo(){
         ativo.complemento.toLowerCase().includes(filtro.toLowerCase()) 
     );
 
-    function formataData(data: string){
-        const dataFormatada = format(new Date(data), 'dd/MM/yyyy')
-        dataFormatada.toString()
-        return dataFormatada
-    }
+    // function formataData(data: string){
+    //    const dataFormatada = format(new Date(data), 'dd/MM/yyyy')
+    //    dataFormatada.toString()
+    //    return dataFormatada
+    // }
 
     function Atualizar(){
         if(nome || dataManutencao || rua || bairro || complemento || numero || cep){
@@ -122,7 +122,8 @@ export default function EditaAtivo(){
                             {ativos.map((ativo)=>(
                                 <tr key={ativo.id}>
                                     <td>{ativo.nome}</td>
-                                    <td>{formataData(ativo.dataManutencao)}</td>
+                                    
+
                                     <td>{ativo.rua}</td>
                                     <td>{ativo.bairro}</td>
                                     <td>{ativo.complemento}</td>
@@ -139,24 +140,86 @@ export default function EditaAtivo(){
                         <div>
                             <div className="BoxEditar">
                                     <h2>Insira os Novos Dados da Categoria</h2>
+                            
+                                
+                                    <div className="EditarInputs">
 
-                                    <input type="text" value= {nome} onChange={(dado)=> setNome(dado.target.value)} placeholder="Novo nome"/>
+                                        <p>Nome do Ativo</p>
+                                            <input type="text" value={nome} onChange={(dado)=>setNome(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
 
-                                    <input type="date" value={dataManutencao} onChange={(dado)=> setDataManutencao(dado.target.value)} />
+                                        <p>Descrição do Ativo</p>
+                                            <input type="text" placeholder="(*OBRIGATORIO)" />
 
-                                    <input type="text" value= {rua} onChange={(dado)=> setRua(dado.target.value)} placeholder="Nova rua"/>
+                                        <p>Caracteristicas do Ativo</p>
+                                            <input type="text" placeholder="(*OPICIONAL)" />
 
-                                    <input type="text" value= {complemento} onChange={(dado)=> setComplemento(dado.target.value)} placeholder="Novo complemento"/>
+                                        <p>Complemento</p>
+                                            <input type="text" placeholder="(*OPICIONAL)" />
 
-                                    <input type="text" value= {numero} onChange={(dado)=> setNumero(dado.target.value)} placeholder="Novo numero"/>
+                                        <p>Código do Ativo</p>
+                                            <input type="text" placeholder="(*OBRIGATORIO)"/>
 
-                                    <input type="text" value= {cep} onChange={(dado)=> setCep(dado.target.value)} placeholder="Novo CEP"/>
+                                        <br /><br />
+                                        <hr /><br /><label><strong>Informações do ativo</strong> </label>
 
-                                    <button onClick={Atualizar}>Atualizar Ativo</button>
-                                    <button onClick={Cancelar}>Cancelar Edição</button>
+                                        <p>Data da Proxima Manutenção Agendada</p>
+                                            <input type="date" value={dataManutencao} onChange={(dado)=>setDataManutencao(dado.target.value)}   />
 
+                                        <p>Responsavel pelo Ativo</p>
+                                            <input type="text" placeholder="(*OBRIGATORIO)"/>
+
+                                        <p>Estado do Ativo</p>
+                                            <input type="text" placeholder="(*OBRIGATORIO)" />
+
+                                        <p>Valor Monetário do Ativo</p>
+                                            <input type="text" placeholder="(*OBRIGATORIO)" />
+
+                                        <p>Garantia do Ativo</p>
+                                            <input type="text" placeholder="(*OPICONAL)" />
+
+                                        <p>Data de Aquisição do Ativo </p>
+                                            <input type="text" placeholder="(*OBRIGATORIO)" />
+
+
+                                        <br /><br />
+                                        <hr /><br /><label><strong>Informações fiscais</strong>  </label>
+
+                                        <p>Documento Fiscal</p>
+                                            <input type="text" placeholder="(*OPICONAL)" />
+
+                                        <p>Nome do Emissor da Nota Fiscal</p>
+                                            <input type="text" placeholder="(*OPICONAL)" />
+
+                                        <br /><br />
+                                        <hr /><br /><label><strong>Localização do ativo</strong>  </label>
+
+                                        <p>Rua</p>
+                                            <input type="text" value={rua} onChange={(dado)=>setRua(dado.target.value)} placeholder="(*OBRIGATORIO)" />
+
+                                        <p>Bairro</p>
+                                            <input type="text" value={bairro} onChange={(dado)=>setBairro(dado.target.value)} placeholder="(*OBRIGATORIO)" />
+
+                                        <p>Complemento </p>
+                                            <input type="text" value={complemento} onChange={(dado)=>setComplemento(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
+
+                                        <p>Número</p>
+                                            <input type="number" value={numero} onChange={(dado)=>setNumero(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
+
+                                        <p>CEP</p>
+                                            <input type="number" value={cep} onChange={(dado)=>setCep(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
+
+                                            
+                                        </div>
+
+                                        <div>
+
+                                            <button onClick={Atualizar}>Atualizar Ativo</button>
+                                            <button onClick={Cancelar}>Cancelar Edição</button>
+                                        </div>
+
+                                </div>
                             </div>
-                        </div>
+                        
                     </>
                 ):
                 (

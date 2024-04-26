@@ -75,27 +75,52 @@ export default function AdicionaModelo(){
         <>
         <div className="ComponenteCadatro">
             <div className="BoxCadastro">
-
+                
+ 
                     <h2>Insira os Dados do Modelo que Deseja Cadastrar</h2>
+                
+                <div className="CadastroInputs">
 
-                    <input type="text" value={nome} onChange={(dado)=>setNome(dado.target.value)} placeholder="Nome" required/>
+                <p>Nome do Modelo</p>
+                    <input type="text" value={nome} onChange={(dado)=>setNome(dado.target.value)} placeholder="(*OBRIGATORIO)" required/>
 
-                    <input type="text" value={modelo} onChange={(dado)=>setModelo(dado.target.value)} placeholder="Modelo" required/>
-
-                    <input type="text" value={descricao} onChange={(dado)=>setDescricao(dado.target.value)} placeholder="Descrição" />
+                <p>Descrição do Modelo</p>
+                    <input type="text" value={descricao} onChange={(dado)=>setDescricao(dado.target.value)} placeholder="(*OBRIGATORIO)" />
                     
+                <p>Modelo Referente do Ativo</p>
+                    <input type="text" value={modelo} onChange={(dado)=>setModelo(dado.target.value)} placeholder="(*OPICONAL)" required/>
+
+                <p>Fabricante do Modelo</p>
+                    <input type="text" placeholder="(*OPICONAL)" />
+
+                <p>Imagem do Modelo</p>
+                    <input type="text" placeholder="(*OBRIGATORIO)" />
+
+                <p>Categoria Referente ao Modelo</p>
                     <select value={categoriaSelecionada} onChange={(dado) => setCategoriaSelecionada(dado.target.value)}>
                         <option value="">Selecione a Categoria</option>
                         {categorias.map(categoria => (
                             <option key={categoria.id} value={categoria.nome}>{categoria.nome}</option>
                         ))}
                     </select>
+                
+                </div>
 
                     <button onClick={registrar}>Registrar</button>
 
                 {erro && <div style={{color:'red'}}>{erro}</div>}
             </div>
         </div>
+
+                    
+        <div className="Box">
+                <button>
+                    Visualizar Modelos Cadastrados
+                </button>
+
+            </div>
+
+
         <div className="texto">
                 <h2>Categorias cadastradas</h2>
         </div>

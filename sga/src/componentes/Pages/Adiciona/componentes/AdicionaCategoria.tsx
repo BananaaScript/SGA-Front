@@ -58,15 +58,32 @@ export default function AdicionaCategoria(){
 
                     <h2>Insira os Dados da Categoria que Deseja Cadastrar</h2>
 
-                    <input type="text" value={nome} onChange={(dado)=>setNome(dado.target.value)} placeholder="Nome" required/>
+                    <div className="CadastroInputsFixo">
+                <p>Nome da Categoria</p>
+                    <input type="text" value={nome} onChange={(dado)=>setNome(dado.target.value)} placeholder="(OBRIGATORIO)" required/>
 
-                    <input type="text" value={descricao} onChange={(dado)=>setDescricao(dado.target.value)} placeholder="Descrição" />
+                <p>Descrição da Categoria</p>
+                    <input type="text" value={descricao} onChange={(dado)=>setDescricao(dado.target.value)} placeholder="(OBRIGATORIO)" />
 
+                <p>Complemento da Categoria</p>
+                    <input type="text" placeholder="(*OPICONAL)" />
+
+                </div>
                     <button onClick={registrar}>Registrar</button>
 
                 {erro && <div style={{color:'red'}}>{erro}</div>}
             </div>
         </div>
+
+                    
+        <div className="Box02">
+                <button>
+                    Visualizar Categorias Cadastrados
+                </button>
+
+            </div>
+
+
         <div className="texto">
                 <h2>Categorias cadastradas</h2>
         </div>

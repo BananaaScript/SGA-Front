@@ -5,6 +5,8 @@ import { useEffect } from "react"
 import "../Adicionar.css"
 import { Categoria } from "../../../../modelos/categoria"
 import { Modelo } from "../../../../modelos/modelo"
+import TabelaCadastrado from "../TabelaCadastrado";
+
 
 export const AdicionaAtivo = () =>{
     const [nome, setNome]= useState('')
@@ -108,86 +110,165 @@ export const AdicionaAtivo = () =>{
             setErro('Informe os valores em branco!')
         }
     }
+
+
+
+
     return(
         <div className="ComponenteCadatro">
+
+
+
             <div className="BoxCadastro">
 
                     <h2>Insira os Dados do Ativo que Deseja Cadastrar</h2>
-                
-                    <input type="text" value={nome} onChange={(dado)=>setNome(dado.target.value)} placeholder="Nome"/>
-                    <input type="text" value={numAtivo} onChange={(dado)=>setNumeroAtivo(dado.target.value)} placeholder="Número ativo"/>
-                    <label>Data de manutenção</label>
-                    <input type="date" value={dataManutencao} onChange={(dado)=>setDataManutencao(dado.target.value)}  />
+
+
+                <div className="CadastroInputs">
+
+                    <p>Nome do Ativo</p>
+                        <input type="text" value={nome} onChange={(dado)=>setNome(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
+
+                    <p>Descrição do Ativo</p>
+                        <input type="text" placeholder="(*OBRIGATORIO)" />
+
+                    <p>Caracteristicas do Ativo</p>
+                        <input type="text" placeholder="(*OPICIONAL)" />
+
+                    <p>Complemento</p>
+                        <input type="text" placeholder="(*OPICIONAL)" />
+
+                    <p>Código do Ativo</p>
+                        <input type="text" value={numAtivo} onChange={(dado)=>setNumeroAtivo(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
+
+                    <p>Selecione a Categoria e o Modelo referente ao Ativo</p>
+                        <select value={categoriaSelecionada} onChange={(dado) => setCategoriaSelecionada(dado.target.value)}>
+                            <option value="">Selecione a Categoria</option>
+                            {categorias.map(categoria => (
+                                <option key={categoria.id} value={categoria.nome}>{categoria.nome}</option>
+                            ))}
+                        </select>
+
+                        <select value={modeloSelecionado} onChange={(dado) => setModeloSelecionado(dado.target.value)}>
+                            <option value="">Selecione o Modelo</option>
+                            {modelos.map(modelo => (
+                                <option key={modelo.id} value={modelo.nome}>{modelo.nome}</option>
+                            ))}
+                        </select>
+
+                    <br /><br />
+                    <hr /><br /><label><strong>Informações do ativo</strong> </label>
+
+                    <p>Data da Proxima Manutenção Agendada</p>
+                        <input type="date" value={dataManutencao} onChange={(dado)=>setDataManutencao(dado.target.value)}   />
                     
-                    <label htmlFor="">Endereço</label>
-                    <input type="text" value={rua} onChange={(dado)=>setRua(dado.target.value)} placeholder="Rua" />
+                    <p>Responsavel pelo Ativo</p>
+                        <input type="text" placeholder="(*OBRIGATORIO)"/>
+
+                    <p>Estado do Ativo</p>
+                        <input type="text" placeholder="(*OBRIGATORIO)" />
+
+                    <p>Valor Monetário do Ativo</p>
+                        <input type="text" placeholder="(*OBRIGATORIO)" />
+
+                    <p>Garantia do Ativo</p>
+                        <input type="text" placeholder="(*OPICONAL)" />
+
+                    <p>Data de Aquisição do Ativo </p>
+                        <input type="text" placeholder="(*OBRIGATORIO)" />
+
+
+                    <br /><br />
+                    <hr /><br /><label><strong>Informações fiscais</strong>  </label>
+
+                    <p>Documento Fiscal</p>
+                        <input type="text" placeholder="(*OPICONAL)" />
+
+                    <p>Nome do Emissor da Nota Fiscal</p>
+                        <input type="text" placeholder="(*OPICONAL)" />
+                    
+                    <br /><br />
+                    <hr /><br /><label><strong>Localização do ativo</strong>  </label>
+
+                    <p>Rua</p>
+                        <input type="text" value={rua} onChange={(dado)=>setRua(dado.target.value)} placeholder="(*OBRIGATORIO)" />
  
-                    <input type="text" value={bairro} onChange={(dado)=>setBairro(dado.target.value)} placeholder="Bairro" />
+                    <p>Bairro</p>
+                        <input type="text" value={bairro} onChange={(dado)=>setBairro(dado.target.value)} placeholder="(*OBRIGATORIO)" />
  
-                    <input type="text" value={complemento} onChange={(dado)=>setComplemento(dado.target.value)} placeholder="Complemento"/>
+                    <p>Complemento </p>
+                        <input type="text" value={complemento} onChange={(dado)=>setComplemento(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
+                    
+                    <p>Número</p>
+                        <input type="number" value={numero} onChange={(dado)=>setNumero(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
 
-                    <input type="number" value={numero} onChange={(dado)=>setNumero(dado.target.value)} placeholder="Número"/>
+                    <p>CEP</p>
+                        <input type="number" value={cep} onChange={(dado)=>setCep(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
 
-                    <input type="number" value={cep} onChange={(dado)=>setCep(dado.target.value)} placeholder="CEP"/>
 
-                    <select value={categoriaSelecionada} onChange={(dado) => setCategoriaSelecionada(dado.target.value)}>
-                        <option value="">Selecione a Categoria</option>
-                        {categorias.map(categoria => (
-                            <option key={categoria.id} value={categoria.nome}>{categoria.nome}</option>
-                        ))}
-                    </select>
 
-                    <select value={modeloSelecionado} onChange={(dado) => setModeloSelecionado(dado.target.value)}>
-                        <option value="">Selecione o Modelo</option>
-                        {modelos.map(modelo => (
-                            <option key={modelo.id} value={modelo.nome}>{modelo.nome}</option>
-                        ))}
-                    </select>
+                </div>
 
                     <button onClick={registrar}>Registrar</button>
                 
                 {erroNome && <div style={{color: 'red'}}>{erroNome}</div>}
             </div>
+            
+
+            
+            <div className="Box">
+                <button>
+                    Visualizar Ativos Cadastrados
+                </button>
+
+            </div>
+
             <div className="texto">
                 <h2>Ativos cadastrados</h2>
             </div>
+
             <div className="TabelaCadastro">
                 <table>
-                <input id="inputdofiltro"
+                    <input id="inputdofiltro"
                         type="text"
                         value={filtro}
                         onChange={handleFiltroChange}
                         placeholder="Filtrar por nome, modelo ou descrição"
-                />
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Rua</th>
-                                <th>Bairro</th>
-                                <th>Complemento</th>
-                                <th>Numero</th>
-                                <th>CEP</th>
-                                <th>Categoria</th>
-                                <th>Modelo</th>
-                            </tr>
-                        </thead>
-                         <tbody>
-                            {ativos.map((ativo)=>(
-                                <tr key={ativo.id}>
-                                    <td>{ativo.nome}</td>
-                                    <td>{ativo.rua}</td>
-                                    <td>{ativo.bairro}</td>
-                                    <td>{ativo.complemento}</td>
-                                    <td>{ativo.numero}</td>
-                                    <td>{ativo.cep}</td>
-                                    <td>{ativo.nome_categoria}</td>
-                                    <td>{ativo.nome_modelo}</td>
-                                </tr>
-                            ))}
-                        </tbody>
+                    />
+
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Rua</th>
+                            <th>Bairro</th>
+                            <th>Complemento</th>
+                            <th>Numero</th>
+                            <th>CEP</th>
+                            <th>Categoria</th>
+                            <th>Modelo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {ativos.map((ativo)=>(
+                        <tr key={ativo.id}>
+                            <td>{ativo.nome}</td>
+                            <td>{ativo.rua}</td>
+                            <td>{ativo.bairro}</td>
+                            <td>{ativo.complemento}</td>
+                            <td>{ativo.numero}</td>
+                            <td>{ativo.cep}</td>
+                            <td>{ativo.nome_categoria}</td>
+                            <td>{ativo.nome_modelo}</td>
+                        </tr>
+                        ))}
+                    </tbody>
                 </table>
-        </div>
+            </div>
+
+            
+
         </div>
         
     )
+
 }

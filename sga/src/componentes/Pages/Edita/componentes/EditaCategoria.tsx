@@ -106,13 +106,24 @@ export default function EditaCategoria(){
                         <div>
                             <div className="BoxEditar">
                                 <h2>Insira os Novos Dados da Categoria</h2>
+
+                                <div className="EditarInputs">
                                 
-                                    <input type="text" value= {nome} onChange={(dado)=> setNome(dado.target.value)} placeholder="Novo nome"/>
+                                <p>Nome da Categoria</p>
+                                    <input type="text" value= {nome} onChange={(dado)=> setNome(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
 
-                                    <input type="text" value= {descricao} onChange={(dado)=> setDescricao(dado.target.value)} placeholder="Nova descricao"/>
+                                <p>Descrição da Categoria</p>
+                                    <input type="text" value= {descricao} onChange={(dado)=> setDescricao(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
 
+                                <p>Complemento da Categoria</p>
+                                    <input type="text" placeholder="(*OPICONAL)"/>
+
+                                </div>
+
+                                <div>
                                     <button onClick={Atualizar}>Atualizar Categoria</button>
                                     <button onClick={Cancelar}>Cancelar Edição</button>
+                                </div>
 
                             </div>
                         </div>
