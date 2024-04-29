@@ -28,7 +28,8 @@
     margin:0;
     top:0;
     right:0;
-    height: 97.6vh;
+    min-height: 95.5vh;
+    height: 100%;
     border: #4449C2;
     border-width: 8px;
     border-style: solid;

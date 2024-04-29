@@ -33,6 +33,7 @@ export default function Editamodelo() {
     );
 
     function Deletar(id: number) {
+        alert("Modelo deletado com sucesso!");
         axios.delete(`http://localhost:8080/modelo/deletar/${id}`)
             .then(() => {
                 AtualizarValores();
@@ -82,13 +83,13 @@ export default function Editamodelo() {
     return (
         <div className="BoxTabela">
             <h2>Modelos Cadastrados</h2>
-            <table>
-            <input id="inputdofiltro"
+            <input 
                 type="text"
                 value={filtro}
                 onChange={handleFiltroChange}
-                placeholder="Filtrar por nome, modelo ou descrição"
+                placeholder="Filtrar por Nome, Modelo ou Descrição"
             />
+            <table>
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -113,7 +114,7 @@ export default function Editamodelo() {
             {editando ? (
                 <div>
                     <div className="BoxEditar">
-                        <h2>Insira os Novos Dados da Categoria</h2>
+                        <h2>Insira os Novos Dados do Modelo </h2>
                         
                         <div className="EditarInputs">
                         

@@ -28,7 +28,8 @@
     margin:0;
     top:0;
     right:0;
-    height: 97.6vh;
+    min-height: 97.5vh;
+    height: 100%;
     border: #F5B960;
     border-width: 8px;
     border-style: solid;
@@ -42,7 +43,12 @@
     margin-left: 2%;
     min-width: 90vw;
     max-width: 90vw;
-    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 4%;
+    
 
 table, th, td {
     border: 1px solid black;
@@ -58,7 +64,7 @@ table {
 th, td{
     padding: 10px;
     text-align: center;
-    min-width:  8.5vw;
+    min-width:  6.5vw;
     word-break: break-all;
 }
     
@@ -88,17 +94,26 @@ tr:hover:nth-child(1n + 2) {
     cursor: pointer;
 }
 
+.BoxTabela input {
+    padding: 10px;
+    border-radius: 30px;
+    border: 2px solid;
+    background-color: rgba(255, 255, 255, 0.35);
+    color: #313056;
+    width: 40%;
+    margin: 2%;
+}
+
 
 .BoxEditar {
     display: flex;
     flex-direction: column;
 
-    width: 90%;
+    width: 250%;
     gap: 20px;
     padding: 2%;
     margin-top: 10px;
-    margin-left:2%;
-    margin-bottom: 9px;
+    margin-left:-80%;
 
     background-color: rgba(120, 142, 255, 0.3);
     border-radius: 30px;
@@ -120,13 +135,14 @@ tr:hover:nth-child(1n + 2) {
           }
 
     .BoxEditar button {
-          width: 50%;
+          width: 46%;
           padding: 12px;
           background-color: #313056;
           border-radius: 30px;
           border: 2px solid white;
           color: white;
           cursor: pointer;
+          margin: 2%;
     }
 
     .BoxEditar p {

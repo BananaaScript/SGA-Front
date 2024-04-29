@@ -71,6 +71,12 @@ export default function AdicionaModelo(){
         setErro('Preencha os campos nome e modelo')
     }
     }
+
+
+    const [tabelaModelos, setTabelaModelos] = useState(false)
+    function exibirTabelaModelos(){setTabelaModelos(true)}
+    function fecharTabelaModelos(){setTabelaModelos(false)}
+
     return(
         <>
         <div className="ComponenteCadatro">
@@ -114,24 +120,28 @@ export default function AdicionaModelo(){
 
                     
         <div className="Box">
-                <button>
-                    Visualizar Modelos Cadastrados
-                </button>
+                {!tabelaModelos && (
+                <button onClick={exibirTabelaModelos}>Visualizar Modelos Cadastrados</button>
+                )}
+
 
             </div>
 
-
+{tabelaModelos &&(
+    <>
         <div className="texto">
                 <h2>Categorias cadastradas</h2>
+            <button onClick={fecharTabelaModelos}>Fechar Tabela</button>
         </div>
-        <div className="TabelaCadastro">
-        <table>
-        <input id="inputdofiltro"
-                type="text"
-                value={filtro}
-                onChange={handleFiltroChange}
-                placeholder="Filtrar por nome, modelo ou descrição"
-            />
+        <div className="BoxTabela">
+            <input
+                    type="text"
+                    value={filtro}
+                    onChange={handleFiltroChange}
+                    placeholder="Filtrar por Nome, Modelo ou Descrição"
+                />
+                <table>
+        
                         <thead>
                             <tr>
                                 <th>Nome</th>
@@ -153,5 +163,6 @@ export default function AdicionaModelo(){
                 </table>
         </div>
         </>
-    )
-}
+    )}
+    </>
+)}

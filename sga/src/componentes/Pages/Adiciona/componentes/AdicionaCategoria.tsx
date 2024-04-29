@@ -51,10 +51,15 @@ export default function AdicionaCategoria(){
         setErro('Preencha os campos vazios')
     }
     }
+
+    const [tabelaCategorias, setTabelaCategorias] = useState(false)
+    function exibirTabelaCategorias(){setTabelaCategorias(true)}
+    function fecharTabelaCategorias(){setTabelaCategorias(false)}
+
     return(
         <>
         <div className="ComponenteCadatro">
-            <div className="BoxCadastro">
+            <div className="BoxCadastro" >
 
                     <h2>Insira os Dados da Categoria que Deseja Cadastrar</h2>
 
@@ -74,44 +79,53 @@ export default function AdicionaCategoria(){
                 {erro && <div style={{color:'red'}}>{erro}</div>}
             </div>
         </div>
+        <br /><br /><br />
 
                     
-        <div className="Box02">
-                <button>
-                    Visualizar Categorias Cadastrados
-                </button>
+        <div className="Box">
+                {!tabelaCategorias && (
+                    <button onClick={exibirTabelaCategorias}> Visualizar Ativos Cadastrados </button>
+                    
+                    ) }
 
             </div>
 
+    {tabelaCategorias && (
+        <>
+            <div className="texto">
+                    <h2>Categorias cadastradas</h2>
+                    <button onClick={fecharTabelaCategorias}>Fechar Tabela</button>
+            </div>
 
-        <div className="texto">
-                <h2>Categorias cadastradas</h2>
-        </div>
-        <div className="TabelaCadastro">
-        <table>
-            <input id="inputdofiltro"
-                type="text"
-                value={filtro}
-                onChange={handleFiltroChange}
-                placeholder="Filtrar por nome ou descrição"
-            />
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Descrição</th>
-                            </tr>
-                        </thead>
-                         <tbody>
-                            {categoriasFiltrados.map((categoria)=>(
-                                <tr key={categoria.id}>
-                                    <td>{categoria.nome}</td>
-                                    <td>{categoria.descricao}</td>
+            <div className="BoxTabela">
+                    <input 
+                        type="text"
+                        value={filtro}
+                        onChange={handleFiltroChange}
+                        placeholder="Filtrar por Nome ou Descrição"
+                    />
+                <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Descrição</th>
                                 </tr>
-                            ))}
-                        </tbody>
+                            </thead>
+                             <tbody>
+                                {categoriasFiltrados.map((categoria)=>(
+                                    <tr key={categoria.id}>
+                                        <td>{categoria.nome}</td>
+                                        <td>{categoria.descricao}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
                 </table>
-        </div>
+            </div>
+
         </>
-        
-    )
+
+        )}
+    </>
+)
 }
+    

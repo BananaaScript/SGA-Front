@@ -5,7 +5,7 @@ import { useEffect } from "react"
 import "../Adicionar.css"
 import { Categoria } from "../../../../modelos/categoria"
 import { Modelo } from "../../../../modelos/modelo"
-import TabelaCadastrado from "../TabelaCadastrado";
+
 
 
 export const AdicionaAtivo = () =>{
@@ -111,7 +111,9 @@ export const AdicionaAtivo = () =>{
         }
     }
 
-
+    const [tabelaAtivos, setTabelaAtivos] = useState(false)
+    function exibirTabelaAtivos(){setTabelaAtivos(true)}
+    function fecharTabelaAtivos(){setTabelaAtivos(false)}
 
 
     return(
@@ -217,58 +219,66 @@ export const AdicionaAtivo = () =>{
 
             
             <div className="Box">
-                <button>
-                    Visualizar Ativos Cadastrados
-                </button>
-
+                
+                    {!tabelaAtivos && (
+                    <button onClick={exibirTabelaAtivos}> Visualizar Ativos Cadastrados </button>
+                    
+                    ) }
+                
             </div>
 
-            <div className="texto">
-                <h2>Ativos cadastrados</h2>
-            </div>
+        {tabelaAtivos && (
+           	<>            
+                <div>
 
-            <div className="TabelaCadastro">
-                <table>
-                    <input id="inputdofiltro"
-                        type="text"
-                        value={filtro}
-                        onChange={handleFiltroChange}
-                        placeholder="Filtrar por nome, modelo ou descrição"
-                    />
+                    <div className="texto">
+                        <h2>Ativos cadastrados</h2>
 
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Rua</th>
-                            <th>Bairro</th>
-                            <th>Complemento</th>
-                            <th>Numero</th>
-                            <th>CEP</th>
-                            <th>Categoria</th>
-                            <th>Modelo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {ativosFiltrados.map((ativo)=>(
-                        <tr key={ativo.id}>
-                            <td>{ativo.nome}</td>
-                            <td>{ativo.rua}</td>
-                            <td>{ativo.bairro}</td>
-                            <td>{ativo.complemento}</td>
-                            <td>{ativo.numero}</td>
-                            <td>{ativo.cep}</td>
-                            <td>{ativo.nome_categoria}</td>
-                            <td>{ativo.nome_modelo}</td>
-                        </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                        <button onClick={fecharTabelaAtivos}>Fechar Tabela</button>
+                    </div>
 
+                    <div className="BoxTabela">
+                                <input 
+                                    type="text"
+                                    value={filtro}
+                                    onChange={handleFiltroChange}
+                                    placeholder="Filtrar por Nome"
+                                />
+                            <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Rua</th>
+                                    <th>Bairro</th>
+                                    <th>Complemento</th>
+                                    <th>Numero</th>
+                                    <th>CEP</th>
+                                    <th>Categoria</th>
+                                    <th>Modelo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {ativosFiltrados.map((ativo)=>(
+                                <tr key={ativo.id}>
+                                    <td>{ativo.nome}</td>
+                                    <td>{ativo.rua}</td>
+                                    <td>{ativo.bairro}</td>
+                                    <td>{ativo.complemento}</td>
+                                    <td>{ativo.numero}</td>
+                                    <td>{ativo.cep}</td>
+                                    <td>{ativo.nome_categoria}</td>
+                                    <td>{ativo.nome_modelo}</td>
+                                </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </>
             
-
-        </div>
-        
-    )
-
-}
+        )}
+    </div>
+    )}  
+    

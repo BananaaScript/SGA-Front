@@ -5,7 +5,8 @@
     margin:0;
     top:0;
     right:0;
-    height: 97.6vh;
+    min-height: 97.5vh;
+    height: 100%;
     border: #FF6C2D;
     border-width: 8px;
     border-style: solid;

@@ -45,13 +45,13 @@ export default function PesquisaModelo(){
         <>
             <div className="BoxTabela">
                 <h2>Modelos Cadastrados</h2>
-                <table>
-                <input id="inputdofiltro"
+                <input 
                 type="text"
                 value={filtro}
                 onChange={handleFiltroChange}
-                placeholder="Filtrar por nome, modelo ou descrição"
+                placeholder="Filtrar por Nome, Modelo ou Descrição"
             />
+                <table>
                         <thead>
                             <tr>
                                 <th>Nome</th>

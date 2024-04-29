@@ -42,13 +42,13 @@ export default function PesquisaCategoria(){
         <>
             <div className="BoxTabela">
                 <h2>Categorias Cadastradas</h2>
-                <table>
-                <input id="inputdofiltro"
+                <input 
                 type="text"
                 value={filtro}
                 onChange={handleFiltroChange}
-                placeholder="Filtrar por nomeou descrição"
+                placeholder="Filtrar por Nome ou Descrição"
             />
+                <table>
                         <thead>
                             <tr>
                                 <th>Nome</th>

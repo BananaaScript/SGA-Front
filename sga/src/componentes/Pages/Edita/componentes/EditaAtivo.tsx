@@ -2,7 +2,7 @@ import { useState } from "react"
 import {Ativo} from "../../../../modelos/ativo"
 import { useEffect } from "react"
 import axios from "axios"
-// import {format} from 'date-fns'
+ import {format} from 'date-fns'
 
 export default function EditaAtivo(){
     const[ativos, setAtivos] = useState<Array<Ativo>>([])
@@ -38,11 +38,11 @@ export default function EditaAtivo(){
         ativo.complemento.toLowerCase().includes(filtro.toLowerCase()) 
     );
 
-    // function formataData(data: string){
-    //    const dataFormatada = format(new Date(data), 'dd/MM/yyyy')
-    //    dataFormatada.toString()
-    //    return dataFormatada
-    // }
+     function formataData(data: string){
+        const dataFormatada = format(new Date(data), 'dd/MM/yyyy')
+        dataFormatada.toString()
+        return dataFormatada
+     }
 
     function Atualizar(){
         if(nome || numeroAtivo || dataManutencao || rua || bairro || complemento || numero || cep){
@@ -80,6 +80,7 @@ export default function EditaAtivo(){
     }
 
     function Deletar(id: number){
+        alert("Ativo deletado com sucesso!")
         axios.delete(`http://localhost:8080/ativo/deletar/${id}`)
         .then(() =>{
             AtualizarValores();
@@ -100,13 +101,13 @@ export default function EditaAtivo(){
         <div>
             <div className="BoxTabela">
                 <h2>Ativos Cadastrados</h2>
-                <table>
-                    <input id="inputdofiltro"
+                    <input 
                         type="text"
                         value={filtro}
                         onChange={handleFiltroChange}
-                        placeholder="Filtrar por nome, modelo ou descrição"
+                        placeholder="Filtrar por Nome"
                     />
+                <table>
                         <thead>
                             <tr>
                                 <th>Nome</th>
@@ -126,7 +127,7 @@ export default function EditaAtivo(){
                                 <tr key={ativo.id}>
                                     <td>{ativo.nome}</td>
                                     <td>{ativo.numAtivo}</td>
-                                    
+                                    <td>{formataData(ativo.dataManutencao)}</td>
 
                                     <td>{ativo.rua}</td>
                                     <td>{ativo.bairro}</td>
@@ -143,7 +144,7 @@ export default function EditaAtivo(){
                     <>
                         <div>
                             <div className="BoxEditar">
-                                    <h2>Insira os Novos Dados da Categoria</h2>
+                                    <h2>Insira os Novos Dados do Ativo</h2>
                             
                                 
                                     <div className="EditarInputs">

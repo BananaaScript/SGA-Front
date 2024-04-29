@@ -28,6 +28,7 @@ export default function EditaCategoria(){
         categoria.descricao.toLowerCase().includes(filtro.toLowerCase())
     );
     function Deletar(id: number){
+        alert("Categoria deletada com sucesso!")
         axios.delete(`http://localhost:8080/categoria/deletar/${id}`)
         .then(() =>{
             AtualizarValores();
@@ -75,13 +76,13 @@ export default function EditaCategoria(){
         <>
             <div className="BoxTabela">
                 <h2>Categorias Cadastradas</h2>
-                <table>
-                <input id="inputdofiltro"
+            <input 
                 type="text"
                 value={filtro}
                 onChange={handleFiltroChange}
-                placeholder="Filtrar por nomeou descrição"
+                placeholder="Filtrar por Nome ou Descrição"
             />
+                <table>
                         <thead>
                             <tr>
                                 <th>Nome</th>

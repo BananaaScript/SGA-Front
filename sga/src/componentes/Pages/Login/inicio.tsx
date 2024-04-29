@@ -1,18 +1,19 @@
 import { useState } from 'react';
 import './LoginInicio.css';
 import Roteador from '../../Roteamento/roteador';
+import { useEffect } from 'react';
 
 export default function Login() {
     const [nome, setNome] = useState('');
     const [senha, setSenha] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    //useEffect(() => {
-        //const token = localStorage.getItem('token');
-        //if (token) {
-            //setIsLoggedIn(true);
-        //}
-    //}, []);
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            setIsLoggedIn(true);
+        }
+    }, []);
 
     const handleNomeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setNome(event.target.value);
