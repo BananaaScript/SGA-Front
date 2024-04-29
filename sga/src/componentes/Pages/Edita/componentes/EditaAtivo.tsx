@@ -2,7 +2,7 @@ import { useState } from "react"
 import {Ativo} from "../../../../modelos/ativo"
 import { useEffect } from "react"
 import axios from "axios"
- import {format} from 'date-fns'
+import { formataData } from "../../../../functions/formataData"
 
 export default function EditaAtivo(){
     const[ativos, setAtivos] = useState<Array<Ativo>>([])
@@ -37,12 +37,6 @@ export default function EditaAtivo(){
         ativo.bairro.toLowerCase().includes(filtro.toLowerCase()) ||
         ativo.complemento.toLowerCase().includes(filtro.toLowerCase()) 
     );
-
-     function formataData(data: string){
-        const dataFormatada = format(new Date(data), 'dd/MM/yyyy')
-        dataFormatada.toString()
-        return dataFormatada
-     }
 
     function Atualizar(){
         if(nome || numeroAtivo || dataManutencao || rua || bairro || complemento || numero || cep){
