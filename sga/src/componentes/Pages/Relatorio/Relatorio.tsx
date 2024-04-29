@@ -12,10 +12,6 @@ export default function Relatorio(){
     return(
         <>
             <div className="relcss">
-                <head>
-                    <link rel="stylesheet" href="./Relatorios.css" />
-                </head>
-                
                 <div className="TopBar">
                     <button onClick={()=>selecionarComponente('R1')}><b>Relatorio 01</b></button>
                     <button onClick={()=>selecionarComponente('R2')}><b>Relatorio 02</b></button>
@@ -26,8 +22,6 @@ export default function Relatorio(){
                 {selecionado === 'R2' && <Relatorio02/>}
                 {selecionado === 'R3' && <Relatorio03/>}
             </div>
-
-
         </>
     )
 }

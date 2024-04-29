@@ -1,7 +1,7 @@
 import { useState } from "react"
+import "./Pesquisar.css"
 import PesquisarCategoria from "./Componentes/PesquisaCategoria"
 import PesquisarModelo from "./Componentes/PesquisaModelo"
-import "./Pesquisar.css"
 
 export default function Pesquisa(){
     const [selecionado, setSelecionado] = useState('Nenhum')

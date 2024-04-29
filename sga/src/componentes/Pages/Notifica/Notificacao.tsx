@@ -13,19 +13,16 @@ export default function Notificacao(){
     return(
         <>
             <div className="notfcss">
-            <div className="TopBar">
-                <button onClick={()=>selecionarComponente('data manutencao')}><b>Alterar Data de Manutencao</b></button>
-                <button onClick={()=>selecionarComponente('estado notificacao')}><b>Estado dos Ativos</b></button>
-                <button onClick={()=>selecionarComponente('edicaoNotificacao')}><b>Editar Notificações</b></button>
-            </div>
-            <div>
-                <head>
-                    <link rel="stylesheet" href="./Notificar.css" />
-                </head>
-                {selecionado === 'data manutencao' && <DataManutencao/>}
-                {selecionado === 'estado notificacao' && <EstadoNotificacao/>}
-                {selecionado === 'edicaoNotificacao' && <EdicaoNotificacao/>}
-            </div>
+                <div className="TopBar">
+                    <button onClick={()=>selecionarComponente('data manutencao')}><b>Alterar Data de Manutencao</b></button>
+                    <button onClick={()=>selecionarComponente('estado notificacao')}><b>Estado dos Ativos</b></button>
+                    <button onClick={()=>selecionarComponente('edicaoNotificacao')}><b>Editar Notificações</b></button>
+                </div>
+                <div>
+                    {selecionado === 'data manutencao' && <DataManutencao/>}
+                    {selecionado === 'estado notificacao' && <EstadoNotificacao/>}
+                    {selecionado === 'edicaoNotificacao' && <EdicaoNotificacao/>}
+                </div>
             </div>
         </>
     )

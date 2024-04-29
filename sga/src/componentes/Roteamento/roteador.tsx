@@ -12,17 +12,15 @@ import Adicionar from "../Pages/Adiciona/Adicionar";
 import Login from "../Pages/Login/inicio";
 import BotaoLogin from "./CompLogin";
 
-
-
-type state = {
+type State = {
     tela: string
 }
 
-export default class Roteador extends Component<{}, state>{
-    constructor(props: {} | Readonly<{}>) {
+export default class Roteador extends Component<{ tela?: string }, State>{
+    constructor(props: { tela: string }) {
         super(props)
         this.state = {
-            tela: 'Inicio'
+            tela: props.tela || 'Inicio'
         }
         this.selecionarView = this.selecionarView.bind(this)
     }
@@ -35,101 +33,93 @@ export default class Roteador extends Component<{}, state>{
     }
 
     render() {
-        let barraNavegacao = <BarraNavegacao seletorView={this.selecionarView} botoes={[ 'Home','Pesquisa','Relatorio','Tabelas', 'Adicionar', 'Editar', 'Notificacoes']} />
-        if(this.state.tela === 'Inicio'){
-            let login = <BotaoLogin seletorView={this.selecionarView}botoes={['Home']} />
-            return(
+        console.log("Estado da tela:", this.state.tela); 
+        let barraNavegacao = <BarraNavegacao seletorView={this.selecionarView} botoes={['Home', 'Pesquisa', 'Relatorio', 'Tabelas', 'Adicionar', 'Editar', 'Notificacoes']} />
+        if (this.state.tela === 'Inicio') {
+            let login = <BotaoLogin seletorView={this.selecionarView} botoes={['Home']} />
+            return (
                 <>
                     <div className="TelaLogin">
-                            <Login/>
-                            <div className="divLogin">
-                                {login}
-                            </div>
-                    </div>
-                </>
-            )
-        }
-        else if (this.state.tela === 'Home'){
-            return(
-                <>
-                    <div >
-                        {barraNavegacao}
-                        <div className="Componente">
-                            <TelaHome/>
-                        </div>
- 
-
-                    </div>
-                </>
-            )
-        }
-        else if(this.state.tela === 'Pesquisa'){
-            return(
-                <>
-                    <div>
-                        {barraNavegacao}
-                        <div className="Componente">
-                            <Pesquisa/>
+                        <Login />
+                        <div className="divLogin">
+                            {login}
                         </div>
                     </div>
                 </>
             )
-        }
-        else if(this.state.tela === 'Relatorio'){
-            return(
+        } else if (this.state.tela === 'Home') {
+            return (
                 <>
                     <div>
                         {barraNavegacao}
                         <div className="Componente">
-                            <Relatorio/>
+                            <TelaHome />
                         </div>
                     </div>
                 </>
             )
-        }
-        else if(this.state.tela === 'Tabelas'){
-            return(
+        } else if (this.state.tela === 'Pesquisa') {
+            return (
                 <>
                     <div>
                         {barraNavegacao}
                         <div className="Componente">
-                            <Tabela/>
+                            <Pesquisa />
                         </div>
                     </div>
                 </>
             )
-        }
-        else if(this.state.tela === 'Adicionar'){
-            return(
+        } else if (this.state.tela === 'Relatorio') {
+            return (
                 <>
                     <div>
                         {barraNavegacao}
                         <div className="Componente">
-                            <Adicionar/>
+                            <Relatorio />
                         </div>
                     </div>
                 </>
             )
-        }
-        else if(this.state.tela === 'Editar'){
-            return(
+        } else if (this.state.tela === 'Tabelas') {
+            return (
                 <>
                     <div>
                         {barraNavegacao}
                         <div className="Componente">
-                            <Editar/>
+                            <Tabela />
                         </div>
                     </div>
                 </>
             )
-        }
-        else if (this.state.tela === 'Notificacoes'){
-            return(
+        } else if (this.state.tela === 'Adicionar') {
+            return (
                 <>
                     <div>
                         {barraNavegacao}
                         <div className="Componente">
-                            <ConfigurarNotificacao/>
+                            <Adicionar />
+                        </div>
+                    </div>
+                </>
+            )
+        } else if (this.state.tela === 'Editar') {
+            return (
+                <>
+                    <div>
+                        {barraNavegacao}
+                        <div className="Componente">
+                            <Editar />
+                        </div>
+                    </div>
+                </>
+            )
+        } else if (this.state.tela === 'Notificacoes') {
+            return (
+                <>
+                    <div>
+                        {barraNavegacao}
+                        <div className="Componente">
+                            <ConfigurarNotificacao />
                         </div>
                     </div>
                 </>

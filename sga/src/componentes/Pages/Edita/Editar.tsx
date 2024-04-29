@@ -15,16 +15,12 @@ export default function Editar(){
     return(
         <>
             <div className="editcss">
-                <head>
-                    <link rel="stylesheet" href="./Editar.css" />
-                </head>
                 <div className="TopBar">
                     <button onClick={()=>selecionarComponente('categoria')}><b>Editar Categoria</b></button>
                     <button onClick={()=>selecionarComponente('modelo')}><b>Editar Modelo</b></button>
                     <button onClick={()=>selecionarComponente('ativo')}><b>Editar Ativo</b></button>
                     <button onClick={()=>selecionarComponente('destinatario')}><b>Editar Destinatario</b></button>
                     <button onClick={()=>selecionarComponente('adm')}><b>Editar Administrador</b></button>
-
                 </div>
                 <div>
                     {selecionado === 'adm' && <EditaADM/>}
@@ -32,7 +28,6 @@ export default function Editar(){
                     {selecionado === 'categoria' && <EditaCategoria/>}
                     {selecionado === 'destinatario' && <EditaDestinatario/>}
                     {selecionado === 'modelo' && <EditaModelo/>}
-
                 </div>
             </div>
         </>

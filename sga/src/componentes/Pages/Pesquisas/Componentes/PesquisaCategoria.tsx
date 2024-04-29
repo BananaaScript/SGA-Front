@@ -3,7 +3,6 @@ import {Categoria} from "../../../../modelos/categoria"
 import { useEffect } from "react"
 import axios from "axios"
 
-
 export default function PesquisaCategoria(){
     const [categorias, setCategorias] = useState<Array<Categoria>>([])
     const [id, setId] = useState('')

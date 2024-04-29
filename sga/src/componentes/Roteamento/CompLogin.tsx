@@ -1,6 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Component } from "react";
-import Inicio from "../Pages/Login/inicio";
 import '../BaseCSS/NavBar.css'
 
 type props = {
