@@ -20,7 +20,7 @@ export default class Roteador extends Component<{ tela?: string }, State>{
     constructor(props: { tela: string }) {
         super(props)
         this.state = {
-            tela: props.tela || 'Inicio'
+            tela: props.tela || 'Home'
         }
         this.selecionarView = this.selecionarView.bind(this)
     }
@@ -33,9 +33,8 @@ export default class Roteador extends Component<{ tela?: string }, State>{
     }
 
     render() {
-        console.log("Estado da tela:", this.state.tela); 
         let barraNavegacao = <BarraNavegacao seletorView={this.selecionarView} botoes={['Home', 'Pesquisa', 'Relatorio', 'Tabelas', 'Adicionar', 'Editar', 'Notificacoes']} />
-        if (this.state.tela === 'Inicio') {
+/*         if (this.state.tela === 'Inicio') {
             let login = <BotaoLogin seletorView={this.selecionarView} botoes={['Home']} />
             return (
                 <>
@@ -47,7 +46,8 @@ export default class Roteador extends Component<{ tela?: string }, State>{
                     </div>
                 </>
             )
-        } else if (this.state.tela === 'Home') {
+        } */
+        if (this.state.tela === 'Home') {
             return (
                 <>
                     <div>

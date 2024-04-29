@@ -72,7 +72,7 @@ export default function Login() {
     };
 
     if(isLoggedIn){
-        return <Roteador tela='Home'/>
+        return <Roteador/>
     }
 
 

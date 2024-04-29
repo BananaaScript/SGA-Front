@@ -4,6 +4,7 @@ import './componentes/BaseCSS/index.css';
 import reportWebVitals from './reportWebVitals';
 import Roteador from './componentes/Roteamento/roteador';
 import './index.css'
+import Login from './componentes/Pages/Login/inicio';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,7 +12,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <div>
-      <Roteador/>
+      <Login/>
     </div>
   </React.StrictMode>,
 
