@@ -102,7 +102,7 @@ export default function AdicionaCategoria(){
                             </tr>
                         </thead>
                          <tbody>
-                            {categorias.map((categoria)=>(
+                            {categoriasFiltrados.map((categoria)=>(
                                 <tr key={categoria.id}>
                                     <td>{categoria.nome}</td>
                                     <td>{categoria.descricao}</td>

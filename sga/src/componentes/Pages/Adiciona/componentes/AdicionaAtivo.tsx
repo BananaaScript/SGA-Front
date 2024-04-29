@@ -249,7 +249,7 @@ export const AdicionaAtivo = () =>{
                         </tr>
                     </thead>
                     <tbody>
-                        {ativos.map((ativo)=>(
+                        {ativosFiltrados.map((ativo)=>(
                         <tr key={ativo.id}>
                             <td>{ativo.nome}</td>
                             <td>{ativo.rua}</td>

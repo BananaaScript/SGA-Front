@@ -122,7 +122,7 @@ export default function EditaAtivo(){
                             </tr>
                         </thead>
                          <tbody>
-                            {ativos.map((ativo)=>(
+                            {ativosFiltrados.map((ativo)=>(
                                 <tr key={ativo.id}>
                                     <td>{ativo.nome}</td>
                                     <td>{ativo.numAtivo}</td>

@@ -141,7 +141,7 @@ export default function AdicionaModelo(){
                             </tr>
                         </thead>
                          <tbody>
-                            {modelos.map((modelo)=>(
+                            {modelosFiltrados.map((modelo)=>(
                                 <tr key={modelo.id}>
                                     <td>{modelo.nome}</td>
                                     <td>{modelo.modelo}</td>

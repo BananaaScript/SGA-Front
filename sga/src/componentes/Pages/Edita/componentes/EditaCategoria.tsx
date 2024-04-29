@@ -91,7 +91,7 @@ export default function EditaCategoria(){
                             </tr>
                         </thead>
                          <tbody>
-                            {categorias.map((categoria)=>(
+                            {categoriasFiltrados.map((categoria)=>(
                                 <tr key={categoria.id}>
                                     <td>{categoria.nome}</td>
                                     <td>{categoria.descricao}</td>
