@@ -58,7 +58,7 @@ export default function EditaAtivo(){
             console.error(error);
         });
         
-    }, [])
+    }, [categoriaSelecionada, categorias])
     const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFiltro(event.target.value);
     };
