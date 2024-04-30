@@ -29,22 +29,39 @@
   justify-content: center;
 }
 
-.Login input {
-  padding: 2%;
-  border-radius: 30px;
-  border: 2px solid rgb(255, 255, 255);
-  background-color: rgba(255, 255, 255, 0.35);
-  color: #313056;
-  width: 60%;
+.inputsenha input {
+    padding: 2%;
+    border-radius: 30px;
+    height: 40px;
+    border: 2px solid rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.35);
+    color: #313056;
+    width: 150%;
+    margin-top: 50px;
+    margin-left: -30%;
+}
+.inputusuario input {
+    padding: 2%;
+    border-radius: 30px;
+    height: 40px;
+    border: 2px solid rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.35);
+    color: #313056;
+    width: 150%;
+    margin-top: 50px;
+    margin-left: -30%;
 }
 .Login button{
-  width: 50%;
+  width: 60%;
+  height: 50px;
   padding: 12px;
   background-color: #313056;
   border-radius: 30px;
   border: 2px solid white;
   color: white;
   cursor: pointer;
+  margin-top: 40px;
+  margin-left: 20%;
 }
 
 @media (max-width:1024px) {
