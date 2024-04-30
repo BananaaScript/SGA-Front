@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './componentes/BaseCSS/index.css';
 import reportWebVitals from './reportWebVitals';
-import Roteador from './componentes/Roteamento/roteador';
-import './index.css'
 import Login from './componentes/Pages/Login/inicio';
 
 const root = ReactDOM.createRoot(
@@ -11,9 +9,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <div>
       <Login/>
-    </div>
   </React.StrictMode>,
 
 );

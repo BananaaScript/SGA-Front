@@ -78,14 +78,16 @@ export default function Login() {
 
 
     return (
-        <div className="Login">
-            <h1>FAÇA LOGIN</h1>
-            <form onSubmit={handleLogin}>
-                <input type="text" placeholder="Usuário" value={nome} onChange={handleNomeChange} />
-                <input type="password" placeholder="Senha" value={senha} onChange={handleSenhaChange} />
-                <br />
-                <button type="submit">Login</button>
-            </form>
+        <div className='telaLogin'>
+            <div className="Login">
+                <h1>FAÇA LOGIN</h1>
+                <form onSubmit={handleLogin}>
+                    <input type="text" placeholder="Usuário" value={nome} onChange={handleNomeChange} />
+                    <input type="password" placeholder="Senha" value={senha} onChange={handleSenhaChange} />
+                    <br />
+                    <button type="submit" className='Login button'>Login</button>
+                </form>
+            </div>
         </div>
     );
 }

@@ -17,6 +17,17 @@
   color: #313056;
 
 }
+.telaLogin{
+  background-image: url("../../../assets/fundo.png");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .Login input {
   padding: 2%;
@@ -26,15 +37,20 @@
   color: #313056;
   width: 60%;
 }
+.Login button{
+  width: 50%;
+  padding: 12px;
+  background-color: #313056;
+  border-radius: 30px;
+  border: 2px solid white;
+  color: white;
+  cursor: pointer;
+}
 
 @media (max-width:1024px) {
 .Login {
   width: 300px;
   gap: 20px;
   padding-bottom: 5%;
-}
-.Login input{
-  width: 50%;
-
 }
 }
