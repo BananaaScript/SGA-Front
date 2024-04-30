@@ -3,6 +3,8 @@ import {Ativo} from "../../../../modelos/ativo"
 import { useEffect } from "react"
 import axios from "axios"
 import { formataData } from "../../../../functions/formataData"
+import { Categoria } from "../../../../modelos/categoria"
+import { Modelo } from "../../../../modelos/modelo"
 
 export default function EditaAtivo(){
     const[ativos, setAtivos] = useState<Array<Ativo>>([])
@@ -15,6 +17,10 @@ export default function EditaAtivo(){
     const [complemento, setComplemento]= useState('')
     const [numero, setNumero] = useState('')
     const [cep, setCep]= useState('')
+    const [modeloSelecionado, setModeloSelecionado] = useState('');
+    const [modelos, setModelos] = useState<Array<Modelo>>([])
+    const [categorias, setCategorias] = useState<Array<Categoria>>([])
+    const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
     const [editando, setEditando] = useState(false)
     const [filtro, setFiltro] = useState<string>('');
 
@@ -26,6 +32,32 @@ export default function EditaAtivo(){
         .catch((error)=>{
             console.error(error)
         })
+
+        axios.get('http://localhost:8080/modelo/listar')
+        .then((response) => {
+            const todosModelos: Modelo[] = response.data; 
+            if (categoriaSelecionada) {
+                const categoriaSelecionadaObj = categorias.find(categoria => categoria.nome === categoriaSelecionada);
+                const id_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.id : null;
+
+                if (id_categoria) {
+                    const modelosFiltrados = todosModelos.filter((modelo: Modelo) => modelo.id_categoria === id_categoria); 
+                    setModelos(modelosFiltrados);
+                }
+            } 
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+
+        axios.get('http://localhost:8080/categoria/listar')
+        .then((response) => {
+            setCategorias(response.data);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+        
     }, [])
     const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFiltro(event.target.value);
@@ -39,8 +71,18 @@ export default function EditaAtivo(){
     );
 
     function Atualizar(){
+        
+        const modeloSelecionadoObj = modelos.find(modelo => modelo.nome === modeloSelecionado);
+        const id_modelo = modeloSelecionadoObj ? modeloSelecionadoObj.id : null;
+        const nome_modelo = modeloSelecionadoObj ? modeloSelecionadoObj.nome : null;
+
+        const categoriaSelecionadaObj = categorias.find(categoria => categoria.nome === categoriaSelecionada);
+        const id_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.id : null;
+        const nome_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.nome : null;
+
         if(nome || numeroAtivo || dataManutencao || rua || bairro || complemento || numero || cep){
-            axios.put(`http://localhost:8080/ativo/atualizar/${id}`, {nome, dataManutencao, rua, bairro, complemento, numero, cep})
+            console.log("entrandoooooooooooooooooooooo")
+            axios.put(`http://localhost:8080/ativo/atualizar/${id}`, {nome, dataManutencao, rua, bairro, complemento, numero, cep, id_modelo, nome_modelo, id_categoria, nome_categoria})
             .then(()=>{
                 setEditando(false)
                 setNome('')
@@ -112,6 +154,8 @@ export default function EditaAtivo(){
                                 <th>Complemento</th>
                                 <th>Numero</th>
                                 <th>CEP</th>
+                                <th>Categoria</th>
+                                <th>Modelo</th>
                                 <th>---</th>
                                 <th>---</th>
                             </tr>
@@ -128,6 +172,8 @@ export default function EditaAtivo(){
                                     <td>{ativo.complemento}</td>
                                     <td>{ativo.numero}</td>
                                     <td>{ativo.cep}</td>
+                                    <td>{ativo.nome_categoria}</td>
+                                    <td>{ativo.nome_modelo}</td>
                                     <td><button onClick={()=>Deletar(ativo.id)}>Deletar</button></td>
                                         {!editando &&(<td><button onClick={() => Editar(ativo.id, ativo.nome, ativo.dataManutencao, ativo.rua, ativo.bairro, ativo.complemento, ativo.numero, ativo.cep)}>Editar</button></td>)}
                                 </tr>
@@ -157,6 +203,21 @@ export default function EditaAtivo(){
 
                                         <p>Código do Ativo</p>
                                             <input type="text" placeholder="(*OBRIGATORIO)"/>
+
+                                            <p>Selecione a Categoria e o Modelo referente ao Ativo</p>
+                                        <select value={categoriaSelecionada} onChange={(dado) => setCategoriaSelecionada(dado.target.value)}>
+                                            <option value="">Selecione a Categoria</option>
+                                            {categorias.map(categoria => (
+                                                <option key={categoria.id} value={categoria.nome}>{categoria.nome}</option>
+                                            ))}
+                                        </select>
+
+                                        <select value={modeloSelecionado} onChange={(dado) => setModeloSelecionado(dado.target.value)}>
+                                            <option value="">Selecione o Modelo</option>
+                                            {modelos.map(modelo => (
+                                                <option key={modelo.id} value={modelo.nome}>{modelo.nome}</option>
+                                            ))}
+                                        </select>
 
                                         <br /><br />
                                         <hr /><br /><label><strong>Informações do ativo</strong> </label>

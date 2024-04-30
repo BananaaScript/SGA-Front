@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {Modelo}  from "../../../../modelos/modelo";
 import axios from "axios";
 import "../Editar.css"
+import { Categoria } from "../../../../modelos/categoria";
 
 export default function Editamodelo() {
     const [modelos, setModelos] = useState<Array<Modelo>>([]);
@@ -10,6 +11,8 @@ export default function Editamodelo() {
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
     const [modelo, setModelo] = useState('');
+    const [categorias, setCategorias] = useState<Array<Categoria>>([])
+    const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
     const [editando, setEditando] = useState(false);
 
     useEffect(() => {
@@ -20,6 +23,15 @@ export default function Editamodelo() {
             .catch((error) => {
                 console.error(error);
             });
+
+        axios.get('http://localhost:8080/categoria/listar')
+        .then((response)=>{
+            setCategorias(response.data)
+        })
+        .catch((error)=>{
+            console.error(error)
+        })
+
     }, []);
 
     const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,12 +68,18 @@ export default function Editamodelo() {
     }
 
     function Atualizar() {
+
+        const categoriaSelecionadaObj = categorias.find(Categoria => Categoria.nome === categoriaSelecionada);
+        const id_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.id : null;
+        const nome_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.nome : null;
+
         if (nome || descricao) {
-            axios.put(`http://localhost:8080/modelo/atualizar/${id}`, { nome, descricao, modelo })
+            axios.put(`http://localhost:8080/modelo/atualizar/${id}`, { nome, descricao, modelo, id_categoria, nome_categoria })
                 .then(() => {
                     setEditando(false);
                     setNome('');
                     setDescricao('');
+                    setCategoriaSelecionada('')
                     AtualizarValores();
                 })
                 .catch((error) => {
@@ -95,6 +113,7 @@ export default function Editamodelo() {
                         <th>Nome</th>
                         <th>Modelo</th>
                         <th>Descrição</th>
+                        <th>Categoria</th>
                         <th>---</th>
                         <th>---</th>
                     </tr>
@@ -105,6 +124,7 @@ export default function Editamodelo() {
                             <td>{modelo.nome}</td>
                             <td>{modelo.modelo}</td>
                             <td>{modelo.descricao}</td>
+                            <td>{modelo.nome_categoria}</td>
                             <td><button onClick={() => Deletar(modelo.id)}>Deletar</button></td>
                             {!editando && (<td><button onClick={() => Editar(modelo.id, modelo.nome, modelo.descricao, modelo.modelo)}>Editar</button></td>)}
                         </tr>
@@ -132,6 +152,13 @@ export default function Editamodelo() {
 
                         <p>Imagem do Modelo</p>
                             <input type="text" placeholder="(*OBRIGATORIO)" />
+                        <p>Categoria Referente ao Modelo</p>
+                            <select value={categoriaSelecionada} onChange={(dado) => setCategoriaSelecionada(dado.target.value)}>
+                                <option value="">Selecione a Categoria</option>
+                                {categorias.map(categoria => (
+                                    <option key={categoria.id} value={categoria.nome}>{categoria.nome}</option>
+                                ))}
+                            </select>
 
                         </div>
 
