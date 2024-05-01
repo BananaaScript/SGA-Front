@@ -16,8 +16,7 @@ export default function EstadoNotificacao(){
         .catch((error)=>{
             console.error(error)
         })
-    }, [])
-    useEffect(()=>{
+
         axios.get('http://localhost:8080/notifica/expirados')
         .then((response)=>{
             setAtivosExpirados(response.data)
@@ -26,6 +25,15 @@ export default function EstadoNotificacao(){
             console.error(error)
         })
     }, [])
+
+    function definirCor(dias:any){
+        if(dias <= 3){
+           return { backgroundColor: '#ffff00' }
+        }
+        else if(dias > 3 && dias <= 10){
+            return { backgroundColor: '#add8e6' }
+        }
+    }
 
     return(
         <>
@@ -37,12 +45,14 @@ export default function EstadoNotificacao(){
                             <tr>
                                 <th>Usuário</th>
                                 <th>Data de expiração</th>
+                                <th>Dias até expirar</th>
                             </tr>
                             <tbody>
                                 {notificacoes.map((noti)=>(
-                                    <tr key={noti.id}>
+                                    <tr key={noti.id} style={definirCor(noti.dias)}>
                                         <td>{noti.usuario}</td>
                                         <td>{formataData(noti.dataExpiracao)}</td>
+                                        <td>{noti.dias}</td>
                                     </tr>
                                 ))}
                             </tbody>

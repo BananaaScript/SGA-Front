@@ -6,4 +6,5 @@ export type Notificacao = {
     numero_ativo: string
     usuario:string
     dataExpiracao: string
+    dias: string
 }
