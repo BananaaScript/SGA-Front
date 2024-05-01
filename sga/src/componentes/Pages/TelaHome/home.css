@@ -1,3 +1,4 @@
+
 .TelaInicial{
     font-family: 'JetBrains Mono', monospace;
     position:relative;
@@ -30,12 +31,77 @@
 
 .UserData {
     display: flex;
-    margin-top: 10%;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: bisque;
     
+    background-color: aliceblue;
+    width: 32%;
+    padding: 2%;
+    height: 100%;
+
+
+    margin-left: 63%;
+    margin-top: -350px;
+    margin-bottom: 5%;
+
+    border-radius: 20px;
+}
+
+.UserName {
+    margin-left: -0%;
+    font-size: larger;
+    width: 90%;
+
+    border-radius: 15px;
+    padding: 1%;
+    
+    
+}
+
+.titUser {
+    margin: 0%;
+    margin-left: -60%;
+    margin-top: 5%;
+}
+
+.btnUser {
+    margin-right: -75%;
+    padding: 16px;
+    border-radius: 20px;
+
+    background-color: #313056;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btnUserSave {
+    margin-top: 5%;
+    padding: 12px;
+    width: 60%;
+    background-color: #313056;
+    color: #fff;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: x-large;
+}
+
+.btnUserData{
+    position: absolute;
+    margin-top: -450px;
+    margin-left: 90%;
+    cursor: pointer;
+
+    padding: 15px;
+    border-radius: 50%;
+
+    border-color: #313056;
+    border-style: solid;
+    border-width: 5px;
+}
+
+.btnUserData img {
+    max-width: 50px;
+    max-height: 50px;
 }
 
 @-webkit-keyframes AnimationName {
@@ -52,4 +118,51 @@
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
     100%{background-position:0% 50%}
+}
+
+
+
+
+.TabelaAtivosHome{
+    margin-left: -25%;
+    min-width: 90vw;
+    max-width: 90vw;
+
+    flex-direction: column;
+    margin-bottom: 4%;
+    
+
+table, th, td {
+    border: 1px solid black;
+    min-width: 225px;
+}
+    
+table {
+    border-collapse: collapse;
+
+    margin: auto;
+}
+    
+th, td{
+    padding: 10px;
+    text-align: center;
+    min-width:  10.5vw;
+    word-break: break-all;
+}
+    
+th{
+    font-weight: bold;
+    background-color: #313056;
+    color: #fff;
+}
+    
+    
+tr:nth-child(even) {
+    background-color: #9591ff;
+}
+    
+tr:hover:nth-child(1n + 2) {
+    background-color: #6461aa;
+    color: #fff;
+}
 }

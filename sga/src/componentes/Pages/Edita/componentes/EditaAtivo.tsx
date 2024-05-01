@@ -116,9 +116,9 @@ export default function EditaAtivo(){
     }
 
     function Deletar(id: number){
-        alert("Ativo deletado com sucesso!")
         axios.delete(`http://localhost:8080/ativo/deletar/${id}`)
         .then(() =>{
+            alert("Ativo deletado com sucesso!")
             AtualizarValores();
         })
         .catch((error) =>{

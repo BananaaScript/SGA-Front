@@ -149,7 +149,19 @@ tr:hover:nth-child(1n + 2) {
         font-size: small;
         margin-top: 20px;
         margin-left: 2%;
-}
+    }
+
+    .BoxEditar select {
+        width: 35%;
+        margin-right: 2.5%;
+        margin-left: 2.5%;
+
+        background-color: #313056;
+        border-radius: 20px;
+        padding: 5px;
+        color: #fff;
+    }
+
 
 .EditarInputs{
     height:180px;

@@ -45,9 +45,9 @@ export default function Editamodelo() {
     );
 
     function Deletar(id: number) {
-        alert("Modelo deletado com sucesso!");
         axios.delete(`http://localhost:8080/modelo/deletar/${id}`)
-            .then(() => {
+        .then(() => {
+                alert("Modelo deletado com sucesso!");
                 AtualizarValores();
             })
             .catch((error) => {

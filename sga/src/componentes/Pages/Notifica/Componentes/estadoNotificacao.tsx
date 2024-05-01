@@ -38,7 +38,7 @@ export default function EstadoNotificacao(){
     return(
         <>
             <div>
-                <div className='UserData'>
+                <div>
                     <div>
                         <h3>Notificações:</h3>
                         <table>

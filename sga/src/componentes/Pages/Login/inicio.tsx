@@ -3,17 +3,19 @@ import './LoginInicio.css';
 import Roteador from '../../Roteamento/roteador';
 import { useEffect } from 'react';
 
+
 export default function Login() {
     const [nome, setNome] = useState('');
     const [senha, setSenha] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
             setIsLoggedIn(true);
         }
-    }, []);
+    }, [])
 
     const handleNomeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setNome(event.target.value);
@@ -51,26 +53,7 @@ export default function Login() {
         }
     };
 
-    const handleLogout = async () => {
-        try {
-            const response = await fetch('http://localhost:8080/auth/logout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            if (response.ok) {
-                localStorage.removeItem('token'); 
-                setIsLoggedIn(false);
-                console.log("Logout bem sucedido");
-            } else {
-                alert("Erro ao efetuar logout");
-            }
-        } catch (error) {
-            console.error('Erro ao efetuar logout:', error);
-            alert("Erro ao efetuar logout. Por favor, tente novamente mais tarde.");
-        }
-    };
+
 
     if(isLoggedIn){
         return <Roteador/>

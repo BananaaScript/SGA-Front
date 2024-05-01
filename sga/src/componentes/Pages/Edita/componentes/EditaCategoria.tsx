@@ -28,9 +28,9 @@ export default function EditaCategoria(){
         categoria.descricao.toLowerCase().includes(filtro.toLowerCase())
     );
     function Deletar(id: number){
-        alert("Categoria deletada com sucesso!")
         axios.delete(`http://localhost:8080/categoria/deletar/${id}`)
         .then(() =>{
+            alert("Categoria deletada com sucesso!")
             AtualizarValores();
         })
         .catch((error) =>{
