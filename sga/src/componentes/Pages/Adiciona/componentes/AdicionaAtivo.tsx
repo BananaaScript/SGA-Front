@@ -5,6 +5,7 @@ import { useEffect } from "react"
 import "../Adicionar.css"
 import { Categoria } from "../../../../modelos/categoria"
 import { Modelo } from "../../../../modelos/modelo"
+import { Usuario } from "../../../../modelos/usuario"
 
 
 
@@ -22,6 +23,8 @@ export const AdicionaAtivo = () =>{
     const[modelos, setModelos] = useState<Array<Modelo>>([])
     const [categorias, setCategorias] = useState<Array<Categoria>>([])
     const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
+    const [usuarios, setUsuarios] = useState<Array<Usuario>>([])
+    const [usuarioSelecionado, setUsuarioSelecionado] = useState('');
     const [ativos, setAtivos] = useState<Array<Ativo>>([])
     const [filtro, setFiltro] = useState<string>('');
 
@@ -58,6 +61,14 @@ export const AdicionaAtivo = () =>{
         .catch((error) => {
             console.error(error);
         });
+
+        axios.get('http://localhost:8080/usuario/listar')
+        .then((response) => {
+            setUsuarios(response.data);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
         
     }, [categoriaSelecionada, categorias])
     let rota = 'http://localhost:8080/ativo/cadastrar'
@@ -79,6 +90,10 @@ export const AdicionaAtivo = () =>{
         console.log(numAtivo)
         if(nome && dataManutencao && numAtivo && rua && bairro && complemento && numero && cep){
 
+            const usuarioSelecionadoObj = usuarios.find(usuario => usuario.nome === usuarioSelecionado);
+            const id_responsavel = usuarioSelecionadoObj ? usuarioSelecionadoObj.id : null;
+            const responsavel = usuarioSelecionadoObj ? usuarioSelecionadoObj.nome : null;
+
             const modeloSelecionadoObj = modelos.find(modelo => modelo.nome === modeloSelecionado);
             const id_modelo = modeloSelecionadoObj ? modeloSelecionadoObj.id : null;
             const nome_modelo = modeloSelecionadoObj ? modeloSelecionadoObj.nome : null;
@@ -87,7 +102,7 @@ export const AdicionaAtivo = () =>{
             const id_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.id : null;
             const nome_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.nome : null;
 
-            axios.post(rota, {nome, numAtivo, dataManutencao, rua, bairro, complemento, numero, cep, id_modelo, nome_modelo, id_categoria, nome_categoria})
+            axios.post(rota, {nome, numAtivo, dataManutencao, rua, bairro, complemento, numero, cep, id_responsavel, responsavel, id_modelo, nome_modelo, id_categoria, nome_categoria})
             .then(()=>{
                 setNome('')
                 setNumeroAtivo('')
@@ -97,6 +112,7 @@ export const AdicionaAtivo = () =>{
                 setComplemento('')
                 setNumero('')
                 setCep('')
+                setUsuarioSelecionado('')
                 setModeloSelecionado('')
                 setCategoriaSelecionada('')
                 setErro('')
@@ -155,6 +171,14 @@ export const AdicionaAtivo = () =>{
                             <option value="">Selecione o Modelo</option>
                             {modelos.map(modelo => (
                                 <option key={modelo.id} value={modelo.nome}>{modelo.nome}</option>
+                            ))}
+                        </select>
+
+                    <p>Selecione o Usuário responsável pelo ativo.</p>
+                        <select value={usuarioSelecionado} onChange={(dado) => setUsuarioSelecionado(dado.target.value)}>
+                            <option value="">Selecione o Usuário</option>
+                            {usuarios.map(usuario => (
+                                <option key={usuario.id} value={usuario.nome}>{usuario.nome}</option>
                             ))}
                         </select>
 
@@ -256,6 +280,7 @@ export const AdicionaAtivo = () =>{
                                     <th>CEP</th>
                                     <th>Categoria</th>
                                     <th>Modelo</th>
+                                    <th>Responsável</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -269,6 +294,7 @@ export const AdicionaAtivo = () =>{
                                     <td>{ativo.cep}</td>
                                     <td>{ativo.nome_categoria}</td>
                                     <td>{ativo.nome_modelo}</td>
+                                    <td>{ativo.responsavel}</td>
                                 </tr>
                                 ))}
                             </tbody>

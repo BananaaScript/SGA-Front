@@ -3,6 +3,8 @@ export type Ativo = {
     nome: string
     id_modelo: number
     nome_modelo: string
+    id_responsavel: number
+    responsavel: string
     id_categoria: number
     nome_categoria: string
     numAtivo: string
