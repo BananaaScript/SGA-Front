@@ -13,13 +13,15 @@ export const AdicionaAtivo = () =>{
     const [nome, setNome]= useState('')
     const [descricao, setDescricao] = useState('')
     const [complementoAtivo, setComplementoAtivo] = useState('')
-    const [numSerie, setNumSerie] = useState('')
+    const [numero_serie, setNumero_serie] = useState('')
     const [valor, setValor] = useState('')
     const [numAtivo, setNumeroAtivo] = useState('')
     const [dataManutencao, setDataManutencao] = useState('')
     const [dataTransacao, setDataTransacao] = useState('')
     const [rua, setRua]= useState('')
     const [bairro, setBairro]= useState('')
+    const [cidade, setCidade]= useState('')
+    const [pais, setPais]= useState('')
     const [complemento, setComplemento]= useState('')
     const [numero, setNumero] = useState('')
     const [cep, setCep]= useState('')
@@ -93,9 +95,10 @@ export const AdicionaAtivo = () =>{
         let descricaoNinfo = descricao !== '' ? descricao : 'Não informado'
         let complementoAtivoNinfo = complementoAtivo !== '' ? complementoAtivo: 'Não informado'
         let valorNinfo = valor !== '' ? valor: 'Não informado'
-        let numSerieNinfo = numSerie !== '' ? numSerie: 'Não informado'
+        let numSerieNinfo = numero_serie !== '' ? numero_serie: 'Não informado'
+        let padraoCEP:RegExp = /^\d{5}-\d{3}$/ 
 
-        if(nome && dataManutencao && numAtivo && rua && bairro && complemento && numero && cep && categoriaSelecionada && modeloSelecionado && dataManutencao && dataTransacao && estado){
+        if(nome && dataManutencao && numAtivo && rua && bairro && cidade && pais && complemento && numero && padraoCEP.test(cep) && categoriaSelecionada && modeloSelecionado && dataManutencao && dataTransacao && estado){
             const usuarioSelecionadoObj = usuarios.find(usuario => usuario.nome === usuarioSelecionado);
             const id_responsavel = usuarioSelecionadoObj ? usuarioSelecionadoObj.id : null;
             const responsavel = usuarioSelecionadoObj ? usuarioSelecionadoObj.nome : null;
@@ -108,18 +111,21 @@ export const AdicionaAtivo = () =>{
             const id_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.id : null;
             const nome_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.nome : null;
 
-            axios.post('http://localhost:8080/ativo/cadastrar', {id_modelo, id_categoria, id_responsavel, nome_modelo, nome_categoria, nome, descricaoNinfo, complementoAtivoNinfo, responsavel, numSerieNinfo, valorNinfo, numAtivo, dataManutencao, dataTransacao, rua, bairro, complemento, numero, cep, estado})
+            axios.post('http://localhost:8080/ativo/cadastrar', {id_modelo, id_categoria, id_responsavel, nome_modelo, nome_categoria, nome, descricao: descricaoNinfo, complementoAtivo:complementoAtivoNinfo, responsavel, numero_serie: numSerieNinfo, valor:valorNinfo, numAtivo, dataManutencao, dataTransacao, rua, bairro, cidade, pais, complemento, numero, cep, estado})
             .then(()=>{
+                console.log(numero_serie)
                 setNome('')
                 setDescricao('')
                 setComplementoAtivo('')
-                setNumSerie('')
+                setNumero_serie('')
                 setValor('')
                 setNumeroAtivo('')
                 setDataManutencao('')
                 setDataTransacao('')
                 setRua('')
                 setBairro('')
+                setCidade('')
+                setPais('')
                 setComplemento('')
                 setNumero('')
                 setCep('')
@@ -133,8 +139,11 @@ export const AdicionaAtivo = () =>{
                 console.error(error)
             })
         }
-        else if (nome || dataManutencao || numAtivo || rua || bairro || complemento || numero || cep || categoriaSelecionada || modeloSelecionado || dataManutencao || dataTransacao || estado){
-            alert ("Preencha os campos obrigatórios!")
+        else if(!nome || !dataManutencao || !numAtivo || !rua || !bairro || !cidade || !pais || !complemento || !numero || !cep || !categoriaSelecionada || !modeloSelecionado || !dataManutencao || !dataTransacao || !estado){
+            alert("Preencha todos os campos obrigatórios")
+        }
+        else if (!padraoCEP.test(cep)){
+            alert("Verifique o CEP fornecido, o padrão deve ser XXXXX-XXX")
         }
     }
 
@@ -206,13 +215,13 @@ export const AdicionaAtivo = () =>{
                         </select>
                     
                     <p>Número de série do ativo</p>
-                        <input type="text" value={numSerie} onChange={(event) => setNumSerie(event.target.value)} placeholder="(OPCIONAL)" />
+                        <input type="text" value={numero_serie} onChange={(event) => setNumero_serie(event.target.value)} placeholder="(OPCIONAL)" />
 
                     <p>Valor Monetário do Ativo</p>
                         <input type="number" value={valor} onChange={(event) => setValor(event.target.value)} placeholder="(OPCIONAL)" />
 
-                    <p>Data de Aquisição do Ativo </p>
-                        <input type="Date" value={dataTransacao} onChange={(event) => setDataTransacao(event.target.value)}/>
+                    <p>Data de Aquisição do Ativo *</p>
+                        <input type="Date" value={dataTransacao} onChange={(event) => setDataTransacao(event.target.value)} required/>
 
                     <br /><br />
                     <hr /><br /><label><strong>Localização do ativo</strong>  </label>
@@ -222,7 +231,13 @@ export const AdicionaAtivo = () =>{
  
                     <p>Bairro *</p>
                         <input type="text" value={bairro} onChange={(event)=>setBairro(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
+
+                    <p>Cidade *</p>
+                        <input type="text" value={cidade} onChange={(event)=>setCidade(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
  
+                    <p>País *</p>
+                        <input type="text" value={pais} onChange={(event)=>setPais(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
+
                     <p>Complemento *</p>
                         <input type="text" value={complemento} onChange={(event)=>setComplemento(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
                     
@@ -230,7 +245,7 @@ export const AdicionaAtivo = () =>{
                         <input type="number" value={numero} onChange={(event)=>setNumero(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
 
                     <p>CEP *</p>
-                        <input type="number" value={cep} onChange={(event)=>setCep(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
+                        <input type="text" value={cep} onChange={(event)=>setCep(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
 
 
 

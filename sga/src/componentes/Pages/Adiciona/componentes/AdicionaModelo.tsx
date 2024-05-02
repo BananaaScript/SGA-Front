@@ -9,7 +9,7 @@ export default function AdicionaModelo(){
     const [nome, setNome] = useState('')
     const [modelo, setModelo] = useState('')
     const [descricao, setDescricao] = useState('')
-    const [erro, setErro] = useState('')
+    const [fabricante, setFabricante] = useState('')
     const [modelos, setmodelos] = useState<Array<Modelo>>([])
     const [categorias, setCategorias] = useState<Array<Categoria>>([])
     const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
@@ -33,7 +33,6 @@ export default function AdicionaModelo(){
         })
 
     }, [])
-    let rota = 'http://localhost:8080/modelo/cadastrar'
 
     const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFiltro(event.target.value);
@@ -46,29 +45,29 @@ export default function AdicionaModelo(){
     );
    function registrar(){
     console.clear()
-    setErro('')
 
     const categoriaSelecionadaObj = categorias.find(Categoria => Categoria.nome === categoriaSelecionada);
     const id_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.id : null;
     const nome_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.nome : null;
 
-    let descricaoNaoInformada = descricao !== '' ? descricao : 'Não informado';
-    if(nome !== '' && modelo !== ''){
-        console.log(`conexão com banco de dados bem-sucedida, enviando dados`)
-        axios.post(rota, {nome, descricao:descricaoNaoInformada, modelo, id_categoria, nome_categoria})
+    let fabricanteNinformado= fabricante !== '' ? fabricante : 'Não informado';
+    let modeloNinformado = modelo !== '' ? modelo : 'Não informado';
+
+    if(nome && descricao && categoriaSelecionada){
+        axios.post('http://localhost:8080/modelo/cadastrar', {id_categoria, nome_categoria, nome, descricao, modelo: modeloNinformado, fabricante: fabricanteNinformado})
         .then(()=>{
             setNome('')
             setModelo('')
             setDescricao('')
+            setFabricante('')
             setCategoriaSelecionada('')
-            setErro('')
         })
         .catch((error)=>{
             console.error(error)
         })
     }
-    else{
-        setErro('Preencha os campos nome e modelo')
+    else if(!nome || !descricao || !categoriaSelecionada){
+        alert("Verifique os campos obrigatórios!")
     }
     }
 
@@ -87,23 +86,20 @@ export default function AdicionaModelo(){
                 
                 <div className="CadastroInputs">
 
-                <p>Nome do Modelo</p>
-                    <input type="text" value={nome} onChange={(dado)=>setNome(dado.target.value)} placeholder="(*OBRIGATORIO)" required/>
+                <p>Nome do Modelo *</p>
+                    <input type="text" value={nome} onChange={(event)=>setNome(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
 
-                <p>Descrição do Modelo</p>
-                    <input type="text" value={descricao} onChange={(dado)=>setDescricao(dado.target.value)} placeholder="(*OBRIGATORIO)" />
+                <p>Descrição do Modelo *</p>
+                    <input type="text" value={descricao} onChange={(event)=>setDescricao(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
                     
                 <p>Modelo Referente do Ativo</p>
-                    <input type="text" value={modelo} onChange={(dado)=>setModelo(dado.target.value)} placeholder="(*OPICONAL)" required/>
+                    <input type="text" value={modelo} onChange={(event)=>setModelo(event.target.value)} placeholder="(OPCIONAL)"/>
 
                 <p>Fabricante do Modelo</p>
-                    <input type="text" placeholder="(*OPICONAL)" />
+                    <input type="text" value={fabricante} onChange={(event) => setFabricante(event.target.value)} placeholder="(OPCIONAL)" />
 
-                <p>Imagem do Modelo</p>
-                    <input type="text" placeholder="(*OBRIGATORIO)" />
-
-                <p>Categoria Referente ao Modelo</p>
-                    <select value={categoriaSelecionada} onChange={(dado) => setCategoriaSelecionada(dado.target.value)}>
+                <p>Categoria Referente ao Modelo *</p>
+                    <select value={categoriaSelecionada} onChange={(dado) => setCategoriaSelecionada(dado.target.value)} required>
                         <option value="">Selecione a Categoria</option>
                         {categorias.map(categoria => (
                             <option key={categoria.id} value={categoria.nome}>{categoria.nome}</option>
@@ -113,8 +109,6 @@ export default function AdicionaModelo(){
                 </div>
 
                     <button onClick={registrar}>Registrar</button>
-
-                {erro && <div style={{color:'red'}}>{erro}</div>}
             </div>
         </div>
 

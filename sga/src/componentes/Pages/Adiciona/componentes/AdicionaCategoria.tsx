@@ -7,7 +7,7 @@ import "../Adicionar.css"
 export default function AdicionaCategoria(){
     const [nome, setNome] = useState('')
     const [descricao, setDescricao] = useState('')
-    const [erro, setErro] = useState('')
+    const [complemento, setComplemento] = useState('')
     const [categorias, setCategorias] = useState<Array<Categoria>>([])
     const [filtro, setFiltro] = useState<string>('');
     useEffect(()=>{
@@ -29,29 +29,24 @@ export default function AdicionaCategoria(){
         categoria.descricao.toLowerCase().includes(filtro.toLowerCase())
     );
 
-    let rota = 'http://localhost:8080/categoria/cadastrar'
-
    function registrar(){
         console.clear()
-        setErro('')
-        let descricaoNaoInformada = descricao !== '' ? descricao : 'Não informado';
+        let complementoNaoInformada = complemento !== '' ? complemento : 'Não informado';
         if(nome !== ''){
-            console.log(`conexão com banco de dados bem-sucedida, enviando dados`)
-            axios.post(rota, {nome, descricao:descricaoNaoInformada})
+            axios.post('http://localhost:8080/categoria/cadastrar', {nome, descricao , complemento:complementoNaoInformada})
             .then(()=>{
                 setNome('')
                 setDescricao('')
-                setErro('')
+                setComplemento('')
             })
             .catch((error)=>{
                 console.error(error)
             })
         }
         else{
-            setErro('Preencha os campos vazios')
+            alert("Preencha os campos obrigatórios!")
         }
     }
-
 
     const [tabelaCategorias, setTabelaCategorias] = useState(false)
     function exibirTabelaCategorias(){setTabelaCategorias(true)}
@@ -65,19 +60,17 @@ export default function AdicionaCategoria(){
                     <h2>Insira os Dados da Categoria que Deseja Cadastrar</h2>
 
                     <div className="CadastroInputsFixo">
-                <p>Nome da Categoria</p>
-                    <input type="text" value={nome} onChange={(dado)=>setNome(dado.target.value)} placeholder="(OBRIGATORIO)" required/>
+                <p>Nome da Categoria *</p>
+                    <input type="text" value={nome} onChange={(event)=>setNome(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
 
-                <p>Descrição da Categoria</p>
-                    <input type="text" value={descricao} onChange={(dado)=>setDescricao(dado.target.value)} placeholder="(OBRIGATORIO)" />
+                <p>Descrição da Categoria *</p>
+                    <input type="text" value={descricao} onChange={(event)=>setDescricao(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
 
                 <p>Complemento da Categoria</p>
-                    <input type="text" placeholder="(*OPICONAL)" />
+                    <input type="text" value={complemento} onChange={(event) => setComplemento(event.target.value)} placeholder="(OPCIONAL)" />
 
                 </div>
                     <button onClick={registrar}>Registrar</button>
-
-                {erro && <div style={{color:'red'}}>{erro}</div>}
             </div>
         </div>
         <br /><br /><br />
@@ -88,7 +81,6 @@ export default function AdicionaCategoria(){
                     <button onClick={exibirTabelaCategorias}> Visualizar Ativos Cadastrados </button>
                     
                     ) }
-
             </div>
 
     {tabelaCategorias && (
