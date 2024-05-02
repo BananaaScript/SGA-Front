@@ -32,25 +32,26 @@ export default function AdicionaCategoria(){
     let rota = 'http://localhost:8080/categoria/cadastrar'
 
    function registrar(){
-    console.clear()
-    setErro('')
-    let descricaoNaoInformada = descricao !== '' ? descricao : 'Não informado';
-    if(nome !== ''){
-        console.log(`conexão com banco de dados bem-sucedida, enviando dados`)
-        axios.post(rota, {nome, descricao:descricaoNaoInformada})
-        .then(()=>{
-            setNome('')
-            setDescricao('')
-            setErro('')
-        })
-        .catch((error)=>{
-            console.error(error)
-        })
+        console.clear()
+        setErro('')
+        let descricaoNaoInformada = descricao !== '' ? descricao : 'Não informado';
+        if(nome !== ''){
+            console.log(`conexão com banco de dados bem-sucedida, enviando dados`)
+            axios.post(rota, {nome, descricao:descricaoNaoInformada})
+            .then(()=>{
+                setNome('')
+                setDescricao('')
+                setErro('')
+            })
+            .catch((error)=>{
+                console.error(error)
+            })
+        }
+        else{
+            setErro('Preencha os campos vazios')
+        }
     }
-    else{
-        setErro('Preencha os campos vazios')
-    }
-    }
+
 
     const [tabelaCategorias, setTabelaCategorias] = useState(false)
     function exibirTabelaCategorias(){setTabelaCategorias(true)}

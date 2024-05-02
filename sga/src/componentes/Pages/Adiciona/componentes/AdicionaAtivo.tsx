@@ -7,20 +7,25 @@ import { Categoria } from "../../../../modelos/categoria"
 import { Modelo } from "../../../../modelos/modelo"
 import { Usuario } from "../../../../modelos/usuario"
 
-
+/* Abençoa senhor... */
 
 export const AdicionaAtivo = () =>{
     const [nome, setNome]= useState('')
+    const [descricao, setDescricao] = useState('')
+    const [complementoAtivo, setComplementoAtivo] = useState('')
+    const [numSerie, setNumSerie] = useState('')
+    const [valor, setValor] = useState('')
     const [numAtivo, setNumeroAtivo] = useState('')
     const [dataManutencao, setDataManutencao] = useState('')
+    const [dataTransacao, setDataTransacao] = useState('')
     const [rua, setRua]= useState('')
     const [bairro, setBairro]= useState('')
     const [complemento, setComplemento]= useState('')
     const [numero, setNumero] = useState('')
     const [cep, setCep]= useState('')
-    const [erroNome, setErro] = useState('')
+    const [estado, setEstado] = useState('')
     const [modeloSelecionado, setModeloSelecionado] = useState('');
-    const[modelos, setModelos] = useState<Array<Modelo>>([])
+    const [modelos, setModelos] = useState<Array<Modelo>>([])
     const [categorias, setCategorias] = useState<Array<Categoria>>([])
     const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
     const [usuarios, setUsuarios] = useState<Array<Usuario>>([])
@@ -71,7 +76,6 @@ export const AdicionaAtivo = () =>{
         });
         
     }, [categoriaSelecionada, categorias])
-    let rota = 'http://localhost:8080/ativo/cadastrar'
     
     const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFiltro(event.target.value);
@@ -86,10 +90,12 @@ export const AdicionaAtivo = () =>{
 
     function registrar(){
         console.clear()
-        setErro('')
-        console.log(numAtivo)
-        if(nome && dataManutencao && numAtivo && rua && bairro && complemento && numero && cep){
+        let descricaoNinfo = descricao !== '' ? descricao : 'Não informado'
+        let complementoAtivoNinfo = complementoAtivo !== '' ? complementoAtivo: 'Não informado'
+        let valorNinfo = valor !== '' ? valor: 'Não informado'
+        let numSerieNinfo = numSerie !== '' ? numSerie: 'Não informado'
 
+        if(nome && dataManutencao && numAtivo && rua && bairro && complemento && numero && cep && categoriaSelecionada && modeloSelecionado && dataManutencao && dataTransacao && estado){
             const usuarioSelecionadoObj = usuarios.find(usuario => usuario.nome === usuarioSelecionado);
             const id_responsavel = usuarioSelecionadoObj ? usuarioSelecionadoObj.id : null;
             const responsavel = usuarioSelecionadoObj ? usuarioSelecionadoObj.nome : null;
@@ -102,28 +108,33 @@ export const AdicionaAtivo = () =>{
             const id_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.id : null;
             const nome_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.nome : null;
 
-            axios.post(rota, {nome, numAtivo, dataManutencao, rua, bairro, complemento, numero, cep, id_responsavel, responsavel, id_modelo, nome_modelo, id_categoria, nome_categoria})
+            axios.post('http://localhost:8080/ativo/cadastrar', {id_modelo, id_categoria, id_responsavel, nome_modelo, nome_categoria, nome, descricaoNinfo, complementoAtivoNinfo, responsavel, numSerieNinfo, valorNinfo, numAtivo, dataManutencao, dataTransacao, rua, bairro, complemento, numero, cep, estado})
             .then(()=>{
                 setNome('')
+                setDescricao('')
+                setComplementoAtivo('')
+                setNumSerie('')
+                setValor('')
                 setNumeroAtivo('')
                 setDataManutencao('')
+                setDataTransacao('')
                 setRua('')
                 setBairro('')
                 setComplemento('')
                 setNumero('')
                 setCep('')
+                setEstado('')
                 setUsuarioSelecionado('')
                 setModeloSelecionado('')
                 setCategoriaSelecionada('')
-                setErro('')
+                console.log(`conexão com banco de dados bem-sucedida, dados enviados!`)
             })
             .catch((error)=>{
                 console.error(error)
             })
-            console.log(`conexão com banco de dados bem-sucedida, dados enviados!`)
         }
-        else if(!nome && !rua && !bairro && !complemento && !numero && !cep ){
-            setErro('Informe os valores em branco!')
+        else if (nome || dataManutencao || numAtivo || rua || bairro || complemento || numero || cep || categoriaSelecionada || modeloSelecionado || dataManutencao || dataTransacao || estado){
+            alert ("Preencha os campos obrigatórios!")
         }
     }
 
@@ -139,43 +150,40 @@ export const AdicionaAtivo = () =>{
 
             <div className="BoxCadastro">
 
-                    <h2>Insira os Dados do Ativo que Deseja Cadastrar</h2>
+                    <h2>Insira os events do Ativo que Deseja Cadastrar</h2>
 
 
                 <div className="CadastroInputs">
 
-                    <p>Nome do Ativo</p>
-                        <input type="text" value={nome} onChange={(dado)=>setNome(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
+                    <p>Nome do Ativo *</p>
+                        <input type="text" value={nome} onChange={(event)=>setNome(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
 
                     <p>Descrição do Ativo</p>
-                        <input type="text" placeholder="(*OBRIGATORIO)" />
-
-                    <p>Caracteristicas do Ativo</p>
-                        <input type="text" placeholder="(*OPICIONAL)" />
+                        <input type="text" value={descricao} onChange={(event)=>setDescricao(event.target.value)} placeholder="(*OPCIONAL)" />
 
                     <p>Complemento</p>
-                        <input type="text" placeholder="(*OPICIONAL)" />
+                        <input type="text" value={complementoAtivo} onChange={(event) =>setComplementoAtivo(event.target.value)} placeholder="(*OPCIONAL)" />
 
-                    <p>Código do Ativo</p>
-                        <input type="text" value={numAtivo} onChange={(dado)=>setNumeroAtivo(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
+                    <p>Número do Ativo *</p>
+                        <input type="text" value={numAtivo} onChange={(event)=>setNumeroAtivo(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
 
-                    <p>Selecione a Categoria e o Modelo referente ao Ativo</p>
-                        <select value={categoriaSelecionada} onChange={(dado) => setCategoriaSelecionada(dado.target.value)}>
+                    <p>Categoria e o Modelo referente ao Ativo *</p>
+                        <select value={categoriaSelecionada} onChange={(event) => setCategoriaSelecionada(event.target.value)} required>
                             <option value="">Selecione a Categoria</option>
                             {categorias.map(categoria => (
                                 <option key={categoria.id} value={categoria.nome}>{categoria.nome}</option>
                             ))}
                         </select>
 
-                        <select value={modeloSelecionado} onChange={(dado) => setModeloSelecionado(dado.target.value)}>
+                        <select value={modeloSelecionado} onChange={(event) => setModeloSelecionado(event.target.value)} required>
                             <option value="">Selecione o Modelo</option>
                             {modelos.map(modelo => (
                                 <option key={modelo.id} value={modelo.nome}>{modelo.nome}</option>
                             ))}
                         </select>
 
-                    <p>Selecione o Usuário responsável pelo ativo.</p>
-                        <select value={usuarioSelecionado} onChange={(dado) => setUsuarioSelecionado(dado.target.value)}>
+                    <p>Usuário responsável pelo ativo *</p>
+                        <select value={usuarioSelecionado} onChange={(event) => setUsuarioSelecionado(event.target.value)} required>
                             <option value="">Selecione o Usuário</option>
                             {usuarios.map(usuario => (
                                 <option key={usuario.id} value={usuario.nome}>{usuario.nome}</option>
@@ -185,59 +193,50 @@ export const AdicionaAtivo = () =>{
                     <br /><br />
                     <hr /><br /><label><strong>Informações do ativo</strong> </label>
 
-                    <p>Data da Proxima Manutenção Agendada</p>
-                        <input type="date" value={dataManutencao} onChange={(dado)=>setDataManutencao(dado.target.value)}   />
-                    
-                    <p>Responsavel pelo Ativo</p>
-                        <input type="text" placeholder="(*OBRIGATORIO)"/>
+                    <p>Data da Proxima Manutenção Agendada *</p>
+                        <input type="date" value={dataManutencao} onChange={(event)=>setDataManutencao(event.target.value)} required/>
 
-                    <p>Estado do Ativo</p>
-                        <input type="text" placeholder="(*OBRIGATORIO)" />
+                    <p>Estado do Ativo *</p>
+                        <select value={estado} onChange={(event) => setEstado(event.target.value)} required>
+                            <option value="">Selecione o estado</option>
+                            <option value="QUEBRADO">Quebrado</option>
+                            <option value="DISPONIVEL">Disponível</option>
+                            <option value="INATIVO">Inativo</option>
+                            <option value="DESCARTADO">Descartado</option>
+                        </select>
+                    
+                    <p>Número de série do ativo</p>
+                        <input type="text" value={numSerie} onChange={(event) => setNumSerie(event.target.value)} placeholder="(OPCIONAL)" />
 
                     <p>Valor Monetário do Ativo</p>
-                        <input type="text" placeholder="(*OBRIGATORIO)" />
-
-                    <p>Garantia do Ativo</p>
-                        <input type="text" placeholder="(*OPICONAL)" />
+                        <input type="number" value={valor} onChange={(event) => setValor(event.target.value)} placeholder="(OPCIONAL)" />
 
                     <p>Data de Aquisição do Ativo </p>
-                        <input type="text" placeholder="(*OBRIGATORIO)" />
+                        <input type="Date" value={dataTransacao} onChange={(event) => setDataTransacao(event.target.value)}/>
 
-
-                    <br /><br />
-                    <hr /><br /><label><strong>Informações fiscais</strong>  </label>
-
-                    <p>Documento Fiscal</p>
-                        <input type="text" placeholder="(*OPICONAL)" />
-
-                    <p>Nome do Emissor da Nota Fiscal</p>
-                        <input type="text" placeholder="(*OPICONAL)" />
-                    
                     <br /><br />
                     <hr /><br /><label><strong>Localização do ativo</strong>  </label>
 
-                    <p>Rua</p>
-                        <input type="text" value={rua} onChange={(dado)=>setRua(dado.target.value)} placeholder="(*OBRIGATORIO)" />
+                    <p>Rua *</p>
+                        <input type="text" value={rua} onChange={(event)=>setRua(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
  
-                    <p>Bairro</p>
-                        <input type="text" value={bairro} onChange={(dado)=>setBairro(dado.target.value)} placeholder="(*OBRIGATORIO)" />
+                    <p>Bairro *</p>
+                        <input type="text" value={bairro} onChange={(event)=>setBairro(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
  
-                    <p>Complemento </p>
-                        <input type="text" value={complemento} onChange={(dado)=>setComplemento(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
+                    <p>Complemento *</p>
+                        <input type="text" value={complemento} onChange={(event)=>setComplemento(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
                     
-                    <p>Número</p>
-                        <input type="number" value={numero} onChange={(dado)=>setNumero(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
+                    <p>Número *</p>
+                        <input type="number" value={numero} onChange={(event)=>setNumero(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
 
-                    <p>CEP</p>
-                        <input type="number" value={cep} onChange={(dado)=>setCep(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
+                    <p>CEP *</p>
+                        <input type="number" value={cep} onChange={(event)=>setCep(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
 
 
 
                 </div>
 
                     <button onClick={registrar}>Registrar</button>
-                
-                {erroNome && <div style={{color: 'red'}}>{erroNome}</div>}
             </div>
             
 
@@ -273,28 +272,18 @@ export const AdicionaAtivo = () =>{
                             <thead>
                                 <tr>
                                     <th>Nome</th>
-                                    <th>Rua</th>
-                                    <th>Bairro</th>
-                                    <th>Complemento</th>
-                                    <th>Numero</th>
-                                    <th>CEP</th>
+                                    <th>Responsável</th>
                                     <th>Categoria</th>
                                     <th>Modelo</th>
-                                    <th>Responsável</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {ativosFiltrados.map((ativo)=>(
                                 <tr key={ativo.id}>
                                     <td>{ativo.nome}</td>
-                                    <td>{ativo.rua}</td>
-                                    <td>{ativo.bairro}</td>
-                                    <td>{ativo.complemento}</td>
-                                    <td>{ativo.numero}</td>
-                                    <td>{ativo.cep}</td>
+                                    <td>{ativo.responsavel}</td>
                                     <td>{ativo.nome_categoria}</td>
                                     <td>{ativo.nome_modelo}</td>
-                                    <td>{ativo.responsavel}</td>
                                 </tr>
                                 ))}
                             </tbody>
