@@ -41,7 +41,7 @@
 
 
     margin-left: 63%;
-    margin-top: -350px;
+    margin-top: -450px;
     margin-bottom: 5%;
 
     border-radius: 20px;
@@ -87,7 +87,7 @@
 
 .btnUserData{
     position: absolute;
-    margin-top: -450px;
+    margin-top: -500px;
     margin-left: 90%;
     cursor: pointer;
 
@@ -155,14 +155,22 @@ th{
     background-color: #313056;
     color: #fff;
 }
-    
-    
-tr:nth-child(even) {
-    background-color: #9591ff;
+
 }
-    
-tr:hover:nth-child(1n + 2) {
-    background-color: #6461aa;
-    color: #fff;
-}
+
+.PopUpNotificação {
+    background-color: #fff;
+
+    padding: 2%;
+    margin: 5%;
+    margin-left: 45%;
+    margin-top: -175px;
+
+    width: 50%;
+    max-height: 200px;
+    position: absolute;
+
+    border-radius: 45px;
+    border-style: solid;
+    border-color: #313056;
 }
