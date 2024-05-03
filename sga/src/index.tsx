@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './componentes/BaseCSS/index.css';
 import reportWebVitals from './reportWebVitals';
 import Login from './componentes/Pages/Login/inicio';
+import Roteador from './componentes/Roteamento/roteador';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-      <Login/>
+      <Roteador/>
   </React.StrictMode>,
 
 );
