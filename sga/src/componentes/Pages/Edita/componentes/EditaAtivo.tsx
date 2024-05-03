@@ -88,10 +88,6 @@ export default function EditaAtivo(){
                 setNome('')
                 setNumeroAtivo('')
                 setDataManutencao('')
-                setRua('')
-                setBairro('')
-                setComplemento('')
-                setNumero('')
                 setCep('')
                 AtualizarValores()
             })
@@ -104,10 +100,6 @@ export default function EditaAtivo(){
         setId(id)
         setNome(nome)
         setDataManutencao(dataManutencao)
-        setRua(rua)
-        setBairro(bairro)
-        setComplemento(complemento)
-        setNumero(numero)
         setCep(cep)
         setEditando(true)
     }
@@ -149,10 +141,6 @@ export default function EditaAtivo(){
                                 <th>Nome</th>
                                 <th>Número ativo</th>
                                 <th>Data Manutenção</th>
-                                <th>Rua</th>
-                                <th>Bairro</th>
-                                <th>Complemento</th>
-                                <th>Numero</th>
                                 <th>CEP</th>
                                 <th>Categoria</th>
                                 <th>Modelo</th>
@@ -167,10 +155,6 @@ export default function EditaAtivo(){
                                     <td>{ativo.numAtivo}</td>
                                     <td>{formataData(ativo.dataManutencao)}</td>
 
-                                    <td>{ativo.rua}</td>
-                                    <td>{ativo.bairro}</td>
-                                    <td>{ativo.complemento}</td>
-                                    <td>{ativo.numero}</td>
                                     <td>{ativo.cep}</td>
                                     <td>{ativo.nome_categoria}</td>
                                     <td>{ativo.nome_modelo}</td>

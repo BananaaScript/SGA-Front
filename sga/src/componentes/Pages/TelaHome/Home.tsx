@@ -230,7 +230,7 @@ export default function Home() {
 
                     )}
 
-                    <div>{!tabelaUserAtivos && (<button className='btnUserData' onClick={exibirtabelaUserAtivos}><img src="../../../img/perfil.png" alt="User" /></button>)}</div>
+                    <div className='botaousuario'>{!tabelaUserAtivos && (<button className='btnUserData' onClick={exibirtabelaUserAtivos}><img src="../../../img/perfil.png" alt="User" /></button>)}</div>
 
                         {tabelaUserAtivos &&(
                         
