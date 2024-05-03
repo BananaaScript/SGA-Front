@@ -90,25 +90,23 @@ export default function Home() {
         }
     }
 
-    //function NotificarPopup (dias:any) {//function App() {
-    //    useEffect(() => {
+
 
     type NotificarProps = {
         dias: number; // Assuming dias is a number
       };
         function Notificar ({dias: diasN}: NotificarProps) {
             if(diasN >= 0 && diasN <= 3){
-                exibirNotificacaoTresDias()
+                alert ("Você possui ativos que vão expirar em 3 dias ou menos")
              }
              if(diasN > 3 && diasN <= 15){
-                 exibirNotificacaoQuinzeDias()
+                alert ("Você possui ativos que vão expirar entre 3 e 15 dias")
                 }
             if(diasN < 0){
-                exibirNotificacaoAtrazada()
+                alert ("Você possui ativos expirados, por favor verifique-os")
             } 
              return null;
         } 
-    //}, []) }
 
         
 
@@ -148,7 +146,7 @@ export default function Home() {
                         </table>
                     </div>
                 
-                    
+                {/*
                                     {notificacoes.map((noti, index)=>(
                                         <Notificar key={index} dias={parseInt(noti.dias)}/>
                                     ))}
@@ -230,7 +228,9 @@ export default function Home() {
 
                     )}
 
-                    <div className='botaousuario'>{!tabelaUserAtivos && (<button className='btnUserData' onClick={exibirtabelaUserAtivos}><img src="../../../img/perfil.png" alt="User" /></button>)}</div>
+                */}
+
+                    <div>{!tabelaUserAtivos && (<button className='btnUserData' onClick={exibirtabelaUserAtivos}><img src="../../../img/perfil.png" alt="User" /></button>)}</div>
 
                         {tabelaUserAtivos &&(
                         

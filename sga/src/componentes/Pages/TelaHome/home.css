@@ -164,7 +164,7 @@ th{
     padding: 2%;
     margin: 5%;
     margin-left: 45%;
-    margin-top: -875px;
+    margin-top: -175px;
 
     width: 50%;
     max-height: 200px;
@@ -173,10 +173,4 @@ th{
     border-radius: 45px;
     border-style: solid;
     border-color: #313056;
-}
-
-.botaousuario {
-    margin-top: -700px;
-    margin-left: 50px;
-    display: flex;
 }
