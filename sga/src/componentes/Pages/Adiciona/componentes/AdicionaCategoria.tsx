@@ -38,6 +38,7 @@ export default function AdicionaCategoria(){
                 setNome('')
                 setDescricao('')
                 setComplemento('')
+                alert("Categoria Cadastrada com Sucesso!")
             })
             .catch((error)=>{
                 console.error(error)

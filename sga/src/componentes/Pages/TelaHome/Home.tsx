@@ -12,32 +12,16 @@ import { Notificacao } from "../../../modelos/notificacao"
 
 
 export default function Home() {
-
+    
     const [tabelaUserAtivos, settabelaUserAtivos] = useState(false)
     function exibirtabelaUserAtivos(){settabelaUserAtivos(true)}
     function fechartabelaUserAtivos(){settabelaUserAtivos(false)}
-
-    const [notificacaoAtrazada, setnotificacaoAtrazada] = useState(false)
-    function exibirNotificacaoAtrazada(){setnotificacaoAtrazada(true)}
-    function fecharNotificacaoAtrazada(){setnotificacaoAtrazada(false)}
-
-    const [notificacaoTresDias, setnotificacaoTresDias] = useState(false)
-    function exibirNotificacaoTresDias(){setnotificacaoTresDias(true)}
-    function fecharNotificacaoTresDias(){setnotificacaoTresDias(false)}
-
-    const [notificacaoQuinzeDias, setnotificacaoQuinzeDias] = useState(false)
-    function exibirNotificacaoQuinzeDias(){setnotificacaoQuinzeDias(true)}
-    function fecharNotificacaoQuinzeDias(){setnotificacaoQuinzeDias(false)}
-
-    const [notificacaoPrevista, setnotificacaoPrevista] = useState(false)
-    function exibirNotificacaoPrevista(){setnotificacaoPrevista(true)}
-    function fecharNotificacaoPrevista(){setnotificacaoPrevista(false)}
-
-
+    
+    
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     
-
-        // logout
+    
+    // logout
     const handleLogout = async () => {
         try {
             const response = await fetch('http://localhost:8080/auth/logout', {
@@ -59,11 +43,11 @@ export default function Home() {
             alert("Erro ao efetuar logout. Por favor, tente novamente mais tarde.");
         }
     };
-
-
+    
+    
     // tabela de notificações
     const [notificacoes, setNotificacoes] = useState<Array<Notificacao>>([])
-
+    
     useEffect(()=>{
         axios.get('http://localhost:8080/notifica/listar')
         .then((response)=>{
@@ -73,60 +57,73 @@ export default function Home() {
             console.error(error)
         })
     }, []);
-
-    //muda a cor
-    function definirCor(dias:any){
-        if(dias >= 0 && dias <= 3){
-           return { backgroundColor: '#ffff00' }
-        }
-        else if(dias > 3 && dias <= 15){
-            return { backgroundColor: '#87CEFA' }
-        }
-        else if(dias > 15){
-            return {backgroundColor: '#3CB371'}
-        }
-        else if(dias < 0){
-            return {backgroundColor: '#FA8072'}
-        }
-    }
-
-
-
+    
     type NotificarProps = {
-        dias: number; // Assuming dias is a number
+        dias: { dias: string }[];
       };
-        function Notificar ({dias: diasN}: NotificarProps) {
-            if(diasN >= 0 && diasN <= 3){
-                alert ("Você possui ativos que vão expirar em 3 dias ou menos")
-             }
-             if(diasN > 3 && diasN <= 15){
-                alert ("Você possui ativos que vão expirar entre 3 e 15 dias")
-                }
-            if(diasN < 0){
-                alert ("Você possui ativos expirados, por favor verifique-os")
-            } 
-             return null;
-        } 
+      
+   
+  function Notificar({ dias }: NotificarProps) {
+    for (let i = 0; i < dias.length; i++) {
+      const noti = dias[i];
+      const diasNumber = parseInt(noti.dias); 
+  
+      if (diasNumber <= 0) {
+        return  <div>
+                    <div className='PopUpNotificacao2'>
 
+                        <h5>⚠️ Você possui ativos expirados, por favor verifique-os. ⚠️</h5>
+                    </div>
+                </div>;
+        };
         
+        if (diasNumber <= 15 && diasNumber > 3) {
+            return  <div>
+                    <div className='PopUpNotificacao1'>
+                        <h5>❕ Você possui ativos que vão expirar em menos de 15 dias. ❕</h5>
+                    </div>
+                </div>;
+        }; 
 
-
+        if (diasNumber <= 3 && diasNumber > 0) {
+          return  <div>
+                      <div className='PopUpNotificacao1'>
+                          <h5>❕ Você possui ativos que vão expirar em menos de 3 dias. ❕</h5>
+                      </div>
+                  </div>;
+          };
+          
+    }
+  
+    return null
+  };
+    
+    
     return (
         <>
             <div className='TelaInicial'>
-
-            
+                
 
                 <div className='Cabecalho'>
                     <h1>Sistema de Gerenciamento de Ativos - SGA </h1>
                     <h6>___________________________________________________________________________________________________________________________________</h6>
                     
                     <h3>Bem Vindo Usuario!</h3>
-                    <h4>Este sistema permite que sua empresa tenha o controle total de todos os ativos, separados por Categorias, posteriormente Modelos e enfim Ativos. Além disso também é possivel acompanhar um ativo especifico ou acompanhar por Modelo e Categoria. </h4>
-                    <h5>Abaixo você pode conferir os ativos que possui:  </h5>
+                    <h4>Este sistema permite que sua empresa tenha o controle total de todos os ativos, separados por Categorias, posteriormente Modelos e enfim Ativos. Além disso também é possivel acompanhar um ativo especifico ou por Modelos e Categorias. </h4>
+
+
+                                {notificacoes.map((noti) => (
+                                    <div key={noti.id}>
+                                      <Notificar dias={[{ dias: noti.dias }]} />
+                                    </div>
+                                ))}
+
+
+                    <h4>Abaixo você pode conferir os ativos que possui:  </h4>
                 </div>
 
 
+                
                 <div className="TabelaAtivosHome">  
                         <table>
                             <tr>
@@ -136,100 +133,17 @@ export default function Home() {
                             </tr>
                             <tbody>
                                 {notificacoes.map((noti)=>(
-                                    <tr key={noti.id} style={definirCor(noti.dias)} >
+                                    <tr key={noti.id}  >
                                         <td>{noti.usuario}</td>
                                         <td>{formataData(noti.dataExpiracao)}  </td>
                                         <td>{noti.dias} </td>
                                     </tr>
                                 ))}
                             </tbody>
+                            
                         </table>
+                          
                     </div>
-                
-                {/*
-                                    {notificacoes.map((noti, index)=>(
-                                        <Notificar key={index} dias={parseInt(noti.dias)}/>
-                                    ))}
-
-                    { notificacaoQuinzeDias &&(
-                    
-                        <div className='PopUpNotificação'>
-                        <h2>Há ativos que vão expirar em 15 dias</h2>
-                        <table>
-                            <tr>
-                                <th>Ativo   |</th>
-                                <th>Data de expiração     |</th>
-                                <th>Dias até expirar</th>
-                            </tr>
-                            <tbody>
-                                {notificacoes.map((noti)=>(
-                                    <tr key={noti.id} style={definirCor(noti.dias)} >
-                                        <td>{noti.usuario}</td>
-                                        <td>{formataData(noti.dataExpiracao)}  </td>
-                                        <td>{noti.dias} </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                            <hr />
-                        <button onClick={fecharNotificacaoQuinzeDias}>Fechar</button>
-                        </div>
-
-                    )}
-
-                    { notificacaoTresDias &&(
-                    
-                        <div className='PopUpNotificação'>
-                            <h2>Há ativos que vão expirar em 3 dias</h2>
-                            <table>
-                            <tr>
-                                <th>Ativo   |</th>
-                                <th>Data de expiração     |</th>
-                                <th>Dias até expirar</th>
-                            </tr>
-                            <tbody>
-                                {notificacoes.map((noti)=>(
-                                    <tr key={noti.id} style={definirCor(noti.dias)} >
-                                        <td>{noti.usuario}</td>
-                                        <td>{formataData(noti.dataExpiracao)}  </td>
-                                        <td>{noti.dias} </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                            <hr />
-                            <button onClick={fecharNotificacaoTresDias}>Fechar</button>
-                        </div>
-                    )}
-                    
-                    { notificacaoAtrazada &&(
-
-                         <div className='PopUpNotificação'>
-                             <h2>Há Ativos Atrazados! </h2>
-                             <table>
-                            <tr>
-                                <th>Ativo    |</th>
-                                <th>Data de expiração     |</th>
-                                <th>Dias até expirar</th>
-                            </tr>
-                            <tbody>
-                                {notificacoes.map((noti)=>(
-                                    <tr key={noti.id} style={definirCor(noti.dias)} >
-                                        <td>{noti.usuario}</td>
-                                        <td>{formataData(noti.dataExpiracao)}  </td>
-                                        <td>{noti.dias} </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                             <hr />
-                             <button onClick={fecharNotificacaoAtrazada}>Fechar</button>
-                         </div>
-
-                    )}
-
-                */}
-
                     <div>{!tabelaUserAtivos && (<button className='btnUserData' onClick={exibirtabelaUserAtivos}><img src="../../../img/perfil.png" alt="User" /></button>)}</div>
 
                         {tabelaUserAtivos &&(
@@ -263,7 +177,9 @@ export default function Home() {
                             </div>
                         )}
 
+
+
                     </div>
         </>
     );
-}
+} 

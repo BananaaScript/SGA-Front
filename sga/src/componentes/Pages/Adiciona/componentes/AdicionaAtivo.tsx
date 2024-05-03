@@ -134,6 +134,7 @@ export const AdicionaAtivo = () =>{
                 setModeloSelecionado('')
                 setCategoriaSelecionada('')
                 console.log(`conexão com banco de dados bem-sucedida, dados enviados!`)
+                alert("Ativo Cadastrado com Sucesso")
             })
             .catch((error)=>{
                 console.error(error)
@@ -190,6 +191,9 @@ export const AdicionaAtivo = () =>{
                                 <option key={modelo.id} value={modelo.nome}>{modelo.nome}</option>
                             ))}
                         </select>
+                        
+                    <br /><br />
+                    <hr /><br /><label><strong>Informações do ativo</strong> </label>
 
                     <p>Usuário responsável pelo ativo *</p>
                         <select value={usuarioSelecionado} onChange={(event) => setUsuarioSelecionado(event.target.value)} required>
@@ -199,8 +203,6 @@ export const AdicionaAtivo = () =>{
                             ))}
                         </select>
 
-                    <br /><br />
-                    <hr /><br /><label><strong>Informações do ativo</strong> </label>
 
                     <p>Data da Proxima Manutenção Agendada *</p>
                         <input type="date" value={dataManutencao} onChange={(event)=>setDataManutencao(event.target.value)} required/>

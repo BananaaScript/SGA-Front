@@ -61,6 +61,7 @@ export default function AdicionaModelo(){
             setDescricao('')
             setFabricante('')
             setCategoriaSelecionada('')
+            alert ("Modelo Cadastrado com Sucesso!")
         })
         .catch((error)=>{
             console.error(error)
