@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './LoginInicio.css';
 import Roteador from '../../Roteamento/roteador';
 import { useEffect } from 'react';
-
+import Home from '../TelaHome/Home';
 
 export default function Login() {
     const [nome, setNome] = useState('');
@@ -14,6 +14,10 @@ export default function Login() {
         const token = localStorage.getItem('token');
         if (token) {
             setIsLoggedIn(true);
+            const role = localStorage.getItem('role');
+            if (role === 'ROLE_ADMIN' || role === 'ROLE_USER') {
+                localStorage.setItem('role', role);
+            }
         }
     }, [])
 
@@ -40,8 +44,9 @@ export default function Login() {
             if (response.ok) {
                 const data = await response.json();
                 const token = data.token;
+                const role = data.role;
                 localStorage.setItem('token', token);
-                console.log("Token: ", token);
+                localStorage.setItem('role', role); 
                 setIsLoggedIn(true);
                 alert("Login bem sucedido");
             } else {
@@ -53,10 +58,10 @@ export default function Login() {
         }
     };
 
-
-
-    if(isLoggedIn){
-        return <Roteador/>
+    if (isLoggedIn && localStorage.getItem('role') === 'ADMIN') {
+        return <Roteador />
+    } else if (isLoggedIn && localStorage.getItem('role') === 'USER') {
+        return <Home/>
     }
 
 
@@ -68,10 +73,11 @@ export default function Login() {
                     <div className='inputusuario'> 
                         <input type="text" placeholder="Usuário" value={nome} onChange={handleNomeChange} />
                     </div>
+
                     <div className='inputsenha'>
-                    <input type="password" placeholder="Senha" value={senha} onChange={handleSenhaChange} />
-                        </div>
-                    <br />
+                        <input type="password" placeholder="Senha" value={senha} onChange={handleSenhaChange} />
+                    </div><br/>
+
                     <button type="submit" className='Login button'>Login</button>
                 </form>
             </div>
