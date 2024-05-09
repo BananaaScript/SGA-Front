@@ -79,10 +79,7 @@ tr:nth-child(even) {
     background-color: #9591ff;
 }
     
-tr:hover:nth-child(1n + 2) {
-    background-color: #6461aa;
-    color: #fff;
-}
+
 
 }
 .BoxTabela table tbody tr td button {

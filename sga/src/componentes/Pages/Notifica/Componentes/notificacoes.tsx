@@ -19,12 +19,15 @@ export default function Notificacao1(){
     }, [])
 
     function definirCor(dias:any){
-        if(dias <= 3){
+        if(dias <= 3 && dias > 0){
            return { backgroundColor: '#ffff00' }
         }
         else if(dias > 3 && dias <= 10){
             return { backgroundColor: '#add8e6' }
         }
+        else if (dias <= 0){
+            return { backgroundColor: '#DC143C' }
+        } else return { backgroundColor: 'white' }
     }
 
     return(

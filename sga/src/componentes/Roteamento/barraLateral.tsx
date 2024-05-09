@@ -22,7 +22,16 @@ export default class BarraNavegacao extends Component<props>{
             let lista = this.props.botoes.map(valor =>
                 <div className="butaos" key={valor} >
                     
-                    <a  href="#" onClick={(e) => this.props.seletorView(valor, e)}><img className='icon' src={`img/${valor}.png`} alt={valor}></img></a>
+                    <a  href="#" onClick={(e) => this.props.seletorView(valor, e)}>
+                        <img className='icon' src={`img/${valor}.png`} alt={valor}></img>
+
+                        <br />
+
+                        <p >{valor}</p>
+
+                    </a>
+                    
+
                 </div>
             )
             return lista

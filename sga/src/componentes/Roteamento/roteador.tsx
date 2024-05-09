@@ -124,6 +124,6 @@ export default class Roteador extends Component<{ tela?: string }, State>{
                     </div>
                 </>
             )
-        }
+        } else return (<></>)
     }
 }

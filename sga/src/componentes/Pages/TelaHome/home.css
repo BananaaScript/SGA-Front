@@ -41,7 +41,7 @@
 
 
     margin-left: 63%;
-    margin-top: -425px;
+    margin-top: -400px;
     margin-bottom: 5%;
 
     border-radius: 20px;
@@ -87,9 +87,9 @@
 }
 
 .btnUserData{
-    position: fixed;
-    margin-top: -500px;
-    margin-left: 80%;
+    position: absolute;
+    margin-top: -30%;
+    margin-left: 85%;
     cursor: pointer;
 
     padding: 15px;
@@ -98,6 +98,7 @@
     border-color: #313056;
     border-style: solid;
     border-width: 5px;
+    background-color: #fff;
 }
 
 .btnUserData img {

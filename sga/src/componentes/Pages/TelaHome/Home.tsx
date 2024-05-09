@@ -127,7 +127,7 @@ export default function Home() {
                 <div className="TabelaAtivosHome">  
                         <table>
                             <tr>
-                                <th>Ativo</th>
+                                <th>Responsavel</th>
                                 <th>Data de expiração</th>
                                 <th>Dias até expirar</th>
                             </tr>

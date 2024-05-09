@@ -43,6 +43,8 @@ nav {
     height: 100vh;
     background: var(--cor-navbar);
 }
+
+
 .icon{
   max-width: 100%;
   max-height: 100%;
