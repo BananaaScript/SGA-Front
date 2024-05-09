@@ -39,7 +39,7 @@
 
 
 
-.BoxTabela{
+/* .BoxTabela{
     margin-left: 2%;
     min-width: 90vw;
     max-width: 90vw;
@@ -89,18 +89,7 @@ tr:nth-child(even) {
     border: 2px solid white;
     color: white;
     cursor: pointer;
-}
-
-.BoxTabela input {
-    padding: 10px;
-    border-radius: 30px;
-    border: 2px solid;
-    background-color: rgba(255, 255, 255, 0.35);
-    color: #313056;
-    width: 40%;
-    margin: 2%;
-}
-
+} */
 
 .BoxEditar {
     display: flex;

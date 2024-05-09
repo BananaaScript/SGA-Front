@@ -8,3 +8,72 @@ body {
   div {
     font-family: 'JetBrains Mono', monospace;
 }
+
+.BoxTabela input {
+  padding: 10px;
+  border-radius: 30px;
+  border: 2px solid;
+  background-color: rgba(255, 255, 255, 0.35);
+  color: #313056;
+  width: 40%;
+  margin: 2%;
+}
+
+.BoxTabela {
+  margin: 2% auto;
+  max-width: 90vw;
+}
+
+.BoxTabela table {
+  width: 100%;
+  border-collapse: separate;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.BoxTabela th,
+.BoxTabela td {
+  padding: 12px;
+  text-align: left;
+}
+
+.BoxTabela thead {
+  background-color: #313131;
+  color: #ffffff;
+}
+
+.BoxTabela tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.BoxTabela tbody tr:hover {
+  background-color: #dddddd;
+}
+
+.BoxTabela tbody tr:hover td {
+  color: #313131;
+}
+
+.BoxTabela tbody td button {
+  padding: 8px 16px;
+  background-color: #313131;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.BoxTabela tbody td button:hover {
+  background-color: #555555;
+}
+
+.texto button {
+  padding: 12px;
+  background-color: #313056;
+  border-radius: 30px;
+  border: 2px solid white;
+  color: white;
+  cursor: pointer;
+}
