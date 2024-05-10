@@ -10,7 +10,7 @@ body {
 }
 
 
-.BoxTabela{
+/* .BoxTabela{
   min-width: 90vw;
   max-width: 90vw;
   display: flex;
@@ -60,7 +60,74 @@ tr:nth-child(even) {
   border: 2px solid white;
   color: white;
   cursor: pointer;
+} */
+
+.BoxTabela {
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
 }
+
+.BoxTabela h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.BoxTabela input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.BoxTabela table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.BoxTabela th, .BoxTabela td {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: left;
+}
+
+.BoxTabela th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.BoxTabela tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.BoxTabela tbody tr:hover {
+  background-color: #ddd;
+}
+
+.BoxTabela button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.BoxTabela button:hover {
+  background-color: #0056b3;
+}
+
+.BoxTabela #botaodeletar {
+  background-color: rgba(255, 43, 43, 0.911);
+}
+
+.BoxTabela #botaoeditar {
+  background-color: #007bff;
+}
+
+
 
 #inputdofiltro {
   padding: 1%;

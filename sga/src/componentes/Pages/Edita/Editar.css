@@ -40,7 +40,7 @@
 
  
 
-.BoxEditar {
+/* .BoxEditar {
     display: flex;
     flex-direction: column;
 
@@ -103,4 +103,67 @@
     overflow:scroll;
     overflow-x:hidden;
 
+} */
+.BoxEditar {
+    max-width: 800px;
+    margin: 200 auto;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+}
+
+.BoxEditar h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.BoxEditar input[type="text"],
+.BoxEditar select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.BoxEditar table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.BoxEditar th, 
+.BoxEditar td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+}
+
+.BoxEditar th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.botoes {
+    margin-top: 40px;
+}
+
+.botoes button {
+    padding: 8px 16px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#botaoatualizar {
+    background-color: #007bff;
+    margin-right: 10px;
+}
+
+#botaocancelar {
+    background-color: rgba(255, 43, 43, 0.911);
 }

@@ -96,8 +96,8 @@ export default function EditaCategoria(){
                                 <tr key={categoria.id}>
                                     <td>{categoria.nome}</td>
                                     <td>{categoria.descricao}</td>
-                                    <td><button onClick={()=>Deletar(categoria.id)}>Deletar</button></td>
-                                        {!editando &&(<td><button onClick={() => Editar(categoria.id, categoria.nome, categoria.descricao)}>Editar</button></td>)}
+                                    <td><button id="botaodeletar" onClick={()=>Deletar(categoria.id)}>Deletar</button></td>
+                                        {!editando &&(<td><button id="botaoeditar" onClick={() => Editar(categoria.id, categoria.nome, categoria.descricao)}>Editar</button></td>)}
                                 </tr>
                             ))}
                         </tbody>
@@ -121,9 +121,10 @@ export default function EditaCategoria(){
 
                                 </div>
 
-                                <div>
-                                    <button onClick={Atualizar}>Atualizar Categoria</button>
-                                    <button onClick={Cancelar}>Cancelar Edição</button>
+                                <div className="botoes">
+
+                                            <button id="botaoatualizar" onClick={Atualizar}>Atualizar Categoria</button>
+                                            <button id="botaocancelar" onClick={Cancelar}>Cancelar Edição</button>
                                 </div>
 
                             </div>

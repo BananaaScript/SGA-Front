@@ -125,8 +125,8 @@ export default function Editamodelo() {
                             <td>{modelo.modelo}</td>
                             <td>{modelo.descricao}</td>
                             <td>{modelo.nome_categoria}</td>
-                            <td><button onClick={() => Deletar(modelo.id)}>Deletar</button></td>
-                            {!editando && (<td><button onClick={() => Editar(modelo.id, modelo.nome, modelo.descricao, modelo.modelo)}>Editar</button></td>)}
+                            <td><button id="botaodeletar" onClick={() => Deletar(modelo.id)}>Deletar</button></td>
+                            {!editando && (<td><button id="botaoeditar" onClick={() => Editar(modelo.id, modelo.nome, modelo.descricao, modelo.modelo)}>Editar</button></td>)}
                         </tr>
                     ))}
                 </tbody>
@@ -163,10 +163,11 @@ export default function Editamodelo() {
                         </div>
 
 
-                        <div>
-                            <button onClick={Atualizar}>Atualizar Modelo</button>
-                            <button onClick={Cancelar}>Cancelar Edição</button>
-                        </div>
+                        <div className="botoes">
+
+                                            <button id="botaoatualizar" onClick={Atualizar}>Atualizar Modelo</button>
+                                            <button id="botaocancelar" onClick={Cancelar}>Cancelar Edição</button>
+                            </div>
 
                     </div>
                 </div>

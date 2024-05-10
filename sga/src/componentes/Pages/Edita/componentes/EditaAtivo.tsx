@@ -166,8 +166,8 @@ export default function EditaAtivo(){
                                     <td>{ativo.cep}</td>
                                     <td>{ativo.nome_categoria}</td>
                                     <td>{ativo.nome_modelo}</td>
-                                    <td><button onClick={()=>Deletar(ativo.id)}>Deletar</button></td>
-                                        {!editando &&(<td><button onClick={() => Editar(ativo.id, ativo.nome, ativo.dataManutencao, ativo.rua, ativo.bairro, ativo.complemento, ativo.numero, ativo.cep)}>Editar</button></td>)}
+                                    <td><button id="botaodeletar" onClick={()=>Deletar(ativo.id)}>Deletar</button></td>
+                                        {!editando &&(<td><button id="botaoeditar" onClick={() => Editar(ativo.id, ativo.nome, ativo.dataManutencao, ativo.rua, ativo.bairro, ativo.complemento, ativo.numero, ativo.cep)}>Editar</button></td>)}
                                 </tr>
                             ))}
                         </tbody>
@@ -263,10 +263,10 @@ export default function EditaAtivo(){
                                             
                                         </div>
 
-                                        <div>
+                                        <div className="botoes">
 
-                                            <button onClick={Atualizar}>Atualizar Ativo</button>
-                                            <button onClick={Cancelar}>Cancelar Edição</button>
+                                            <button id="botaoatualizar" onClick={Atualizar}>Atualizar Ativo</button>
+                                            <button id="botaocancelar" onClick={Cancelar}>Cancelar Edição</button>
                                         </div>
 
                                 </div>
