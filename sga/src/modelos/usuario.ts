@@ -3,7 +3,8 @@ export type Usuario = {
     nome: string
     senha: string
     cpf: string
-    genero: string
+    rg: string
     telefone: string
     email: string
+    role: string
 }

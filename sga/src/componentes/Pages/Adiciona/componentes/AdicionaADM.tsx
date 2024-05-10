@@ -14,7 +14,7 @@ export default function AdicionaADM(){
     const [senha, setSenha] = useState('')
     const [cpf, setCpf] = useState('')
     const [telefone, setTelefone] = useState('')
-
+    const role = 'ADMIN'
     
     const [usuarioSelecionado, setUsuarioSelecionado] = useState('');
 
@@ -29,14 +29,17 @@ export default function AdicionaADM(){
     function registrar(){
         console.clear()
     
+        
         if(nome && email && senha && cpf && telefone){
-            axios.post('http://localhost:8080/usuario/listar', {id, nome, email, senha, cpf, telefone})
+            axios.post('http://localhost:8080/usuario/cadastrar', {id, nome, email, senha, cpf, telefone, role})
             .then(()=>{
                 setNome('')
                 setEmail('')
                 setSenha('')
                 setCpf('')
                 setTelefone('')
+                
+                
                 alert ("Usuario Cadastrado com Sucesso!")
             })
             .catch((error)=>{
@@ -75,6 +78,7 @@ export default function AdicionaADM(){
                 <p>Telefone *</p>
                     <input type="text" value={telefone} onChange={(event) => setTelefone(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
                 
+
                 </div>
 
                     <button onClick={registrar}>Registrar</button>
