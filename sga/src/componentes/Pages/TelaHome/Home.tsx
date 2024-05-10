@@ -4,11 +4,11 @@ import './home.css';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
-import "../../../assets/img/perfil.png"
+
 
 import { formataData } from "../../../functions/formataData"
 import { Notificacao } from "../../../modelos/notificacao"
-
+import { Usuario } from "../../../modelos/usuario"
 
 
 export default function Home() {
@@ -16,11 +16,31 @@ export default function Home() {
     const [tabelaUserAtivos, settabelaUserAtivos] = useState(false)
     function exibirtabelaUserAtivos(){settabelaUserAtivos(true)}
     function fechartabelaUserAtivos(){settabelaUserAtivos(false)}
+
+    const [usuarios, setUsuarios] = useState<Array<Usuario>>([])
+    const [id, setId] = useState('')
     
+    const [nome, setNome] = useState('')
+    const [email, setEmail] = useState('')
+    const [senha, setSenha] = useState('')
+    const [cpf, setCpf] = useState('')
+    const [telefone, setTelefone] = useState('')
+    const [usuarioSelecionado, setUsuarioSelecionado] = useState('');
+
+    const [filtro, setFiltro] = useState<string>('');
     
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     
-    
+    axios.get('http://localhost:8080/usuario/listar')
+    .then((response) => {
+        setUsuarios(response.data);
+    })
+    .catch((error) => {
+        console.error(error);
+    });
+
+
+
     // logout
     const handleLogout = async () => {
         try {
@@ -98,6 +118,10 @@ export default function Home() {
     return null
   };
     
+
+const usuarioFiltrados = usuarios.filter(usuario => usuario.id === 1);
+
+
     
     return (
         <>
@@ -144,33 +168,36 @@ export default function Home() {
                         </table>
                           
                     </div>
-                    <div>{!tabelaUserAtivos && (<button className='btnUserData' onClick={exibirtabelaUserAtivos}><img src="../../../img/perfil.png" alt="User" /></button>)}</div>
+                    <div>{!tabelaUserAtivos && (<button className='btnUserData' onClick={exibirtabelaUserAtivos}><img src="img/perfil.png" alt="User" /></button>)}</div>
 
                         {tabelaUserAtivos &&(
                         
                             <div className='UserData'>
                                 <button className='btnUser' onClick={fechartabelaUserAtivos}>Fechar</button>
-                        
-                                {/*
-                                    <h3 className='titUser'>Nome:</h3>
-                                    <input className='UserName' type="text" />
-                        
-                                    <h3 className='titUser'>E-mail:</h3>
-                                    <input className='UserName' type="text" />
+                                <tbody className='tableUserData'>
 
-                                    <h3 className='titUser'>Senha:</h3>
-                                    <input className='UserName' type="text" placeholder=''/>
-                        
-                                    <h3 className='titUser'>Cpf:</h3>
-                                    <input className='UserName' type="text" placeholder=''/>
+                                    {usuarioFiltrados.map((usuario)=>(
+                                    
+                                        <td key={usuario.id}  >
+                                            <tr >Nome: {usuario.nome}</tr>
+                                            <hr />
+                                            <tr>E-mail: {usuario.email}</tr>
+                                            <hr />
+                                            <tr>Senha: ************</tr>
+                                            <hr />
+                                            <tr>CPF: {usuario.cpf}</tr>
+                                            <hr />
+                                            <tr>Telefone: {usuario.telefone}</tr>
+                                        </td>
+                                    
+                                    ))}
 
-                                    <h3 className='titUser'>Telefone:</h3>
-                                    <input className='UserName' type="text" placeholder=''/>
+                                </tbody>
 
-                                    <button className='btnUserSave' >Salvar</button>
-                                */}
+                                    <h5>* Para alterar seus dados, acesse o email enviado na data do cadastro e acesse o link disponivel lá.</h5>
 
-                                    <button type='submit' className='btnUserSave' onClick={handleLogout}> Sair </button>
+                                    <button type='submit' className='btnUserSave' onClick={handleLogout}> Logout </button>
+                                    
                             
                             
                             

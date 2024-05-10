@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function Relatorio01(){
+export default function Tabela03(){
     const [selecionado, setSelecionado] = useState('Nenhum')
     const selecionarComponente=(escolhido: string) => {
         setSelecionado(escolhido)

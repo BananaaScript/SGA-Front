@@ -28,7 +28,7 @@
     margin:0;
     top:0;
     right:0;
-    min-height: 97.5vh;
+    min-height: 99vh;
     height: 100%;
     border: #F5B960;
     border-width: 8px;
@@ -38,58 +38,7 @@
 }
 
 
-
-/* .BoxTabela{
-    margin-left: 2%;
-    min-width: 90vw;
-    max-width: 90vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    margin-bottom: 4%;
-    
-
-table, th, td {
-    border: 1px solid black;
-    min-width: 225px;
-}
-    
-table {
-    border-collapse: collapse;
-
-    margin: auto;
-}
-    
-th, td{
-    padding: 10px;
-    text-align: center;
-    min-width:  6.5vw;
-    word-break: break-all;
-}
-    
-th{
-    font-weight: bold;
-    background-color: #313056;
-    color: #fff;
-}
-    
-    
-tr:nth-child(even) {
-    background-color: #9591ff;
-}
-    
-
-
-}
-.BoxTabela table tbody tr td button {
-    padding: 5%;
-    background-color: #313056;
-    border-radius: 30px;
-    border: 2px solid white;
-    color: white;
-    cursor: pointer;
-} */
+ 
 
 .BoxEditar {
     display: flex;
@@ -154,14 +103,4 @@ tr:nth-child(even) {
     overflow:scroll;
     overflow-x:hidden;
 
-}
-    
-#inputdofiltro {
-    padding: 1%;
-    border-radius: 30px;
-    border: 2px solid black;
-    background-color: rgba(255, 255, 255, 0.35);
-    color: #313056;
-    width: 150%;
-    height: 30px;
 }

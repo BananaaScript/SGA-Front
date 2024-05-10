@@ -1,7 +1,7 @@
 import { useState } from "react"
-import Tabela01 from './Componentes/Tabela01'
-import Tabela02 from './Componentes/Tabela02'
-import Tabela03 from './Componentes/Tabela03'
+import PesquisaCategoria from './Componentes/TabelaCategoria'
+import PesquisaModelo from './Componentes/TabelaModelo'
+import PesquisaAtivo from './Componentes/TabelaAtivo'
 import "./Tabelas.css"
 
 export default function Tabela(){
@@ -13,14 +13,14 @@ export default function Tabela(){
         <>
             <div className="tabcss">
                 <div className="TopBar">
-                    <button onClick={()=>selecionarComponente('T1')}><b>Tabela 01</b></button>
-                    <button onClick={()=>selecionarComponente('T2')}><b>Tabela 02</b></button>
-                    <button onClick={()=>selecionarComponente('T3')}><b>Tabela 03</b></button>
+                    <button onClick={()=>selecionarComponente('categorias')}><b>Categorias</b></button>
+                    <button onClick={()=>selecionarComponente('modelos')}><b>Modelos</b></button>
+                    <button onClick={()=>selecionarComponente('ativos')}><b>Ativos</b></button>
                 </div>
             
-                {selecionado === 'T1' && <Tabela01/>}
-                {selecionado === 'T2' && <Tabela02/>}
-                {selecionado === 'T3' && <Tabela03/>}
+                {selecionado === 'categorias' && <PesquisaCategoria/>}
+                {selecionado === 'modelos' && <PesquisaModelo/>}
+                {selecionado === 'ativos' && <PesquisaAtivo/>}
             </div>
         </>
     )

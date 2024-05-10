@@ -9,71 +9,69 @@ body {
     font-family: 'JetBrains Mono', monospace;
 }
 
-.BoxTabela input {
-  padding: 10px;
-  border-radius: 30px;
-  border: 2px solid;
-  background-color: rgba(255, 255, 255, 0.35);
-  color: #313056;
-  width: 40%;
-  margin: 2%;
-}
 
-.BoxTabela {
-  margin: 2% auto;
+.BoxTabela{
+  min-width: 90vw;
   max-width: 90vw;
-}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 4%;
+  
 
-.BoxTabela table {
-  width: 100%;
-  border-collapse: separate;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+table, th, td {
+  border: 1px solid black;
+  min-width: 225px;
 }
+  
+table {
+  border-collapse: collapse;
 
-.BoxTabela th,
-.BoxTabela td {
-  padding: 12px;
-  text-align: left;
+  margin: auto;
 }
-
-.BoxTabela thead {
-  background-color: #313131;
-  color: #ffffff;
+  
+th, td{
+  padding: 10px;
+  text-align: center;
+  min-width:  6.5vw;
+  word-break: break-all;
 }
-
-.BoxTabela tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
+  
+th{
+  font-weight: bold;
+  background-color: #313056;
+  color: #fff;
 }
-
-.BoxTabela tbody tr:hover {
-  background-color: #dddddd;
+  
+  
+tr:nth-child(even) {
+  background-color: #9591ff;
 }
+  
 
-.BoxTabela tbody tr:hover td {
-  color: #313131;
+
+
 }
-
-.BoxTabela tbody td button {
-  padding: 8px 16px;
-  background-color: #313131;
-  border: none;
-  border-radius: 4px;
-  color: #ffffff;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.BoxTabela tbody td button:hover {
-  background-color: #555555;
-}
-
-.texto button {
-  padding: 12px;
+.BoxTabela table tbody tr td button {
+  padding: 5%;
   background-color: #313056;
   border-radius: 30px;
   border: 2px solid white;
   color: white;
   cursor: pointer;
+}
+
+#inputdofiltro {
+  padding: 1%;
+  border-radius: 30px;
+  border: 2px solid black;
+  background-color: rgba(255, 255, 255, 0.35);
+  color: #313056;
+  width: 150%;
+  height: 30px;
+}
+
+.ALL {
+  margin-top: -1%;
 }

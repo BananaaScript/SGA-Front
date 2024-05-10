@@ -5,12 +5,11 @@ import '../BaseCSS/Componente.css'
 import TelaHome from "../Pages/TelaHome/Home";
 import Editar from "../Pages/Edita/Editar";
 import ConfigurarNotificacao from "../Pages/Notifica/Notificacao";
-import Pesquisa from "../Pages/Pesquisas/Pesquisa";
+import Busca from "../Pages/Pesquisas/Pesquisa";
 import Relatorio from "../Pages/Relatorio/Relatorio";
 import Tabela from "../Pages/Tabela/Tabela";
 import Adicionar from "../Pages/Adiciona/Adicionar";
-import Login from "../Pages/Login/inicio";
-import BotaoLogin from "./CompLogin";
+
 
 type State = {
     tela: string
@@ -33,7 +32,7 @@ export default class Roteador extends Component<{ tela?: string }, State>{
     }
 
     render() {
-        let barraNavegacao = <BarraNavegacao seletorView={this.selecionarView} botoes={['Home', 'Pesquisa', 'Relatorio', 'Tabelas', 'Adicionar', 'Editar', 'Notificacoes']} />
+        let barraNavegacao = <BarraNavegacao seletorView={this.selecionarView} botoes={['Home', 'Tabelas', 'Relatorio', 'Busca', 'Adicionar', 'Editar', 'Avisos']} />
 /*         if (this.state.tela === 'Inicio') {
             let login = <BotaoLogin seletorView={this.selecionarView} botoes={['Home']} />
             return (
@@ -50,7 +49,7 @@ export default class Roteador extends Component<{ tela?: string }, State>{
         if (this.state.tela === 'Home') {
             return (
                 <>
-                    <div>
+                    <div className="ALL">
                         {barraNavegacao}
                         <div className="Componente">
                             <TelaHome />
@@ -58,32 +57,10 @@ export default class Roteador extends Component<{ tela?: string }, State>{
                     </div>
                 </>
             )
-        } else if (this.state.tela === 'Pesquisa') {
-            return (
-                <>
-                    <div>
-                        {barraNavegacao}
-                        <div className="Componente">
-                            <Pesquisa />
-                        </div>
-                    </div>
-                </>
-            )
-        } else if (this.state.tela === 'Relatorio') {
-            return (
-                <>
-                    <div>
-                        {barraNavegacao}
-                        <div className="Componente">
-                            <Relatorio />
-                        </div>
-                    </div>
-                </>
-            )
         } else if (this.state.tela === 'Tabelas') {
             return (
                 <>
-                    <div>
+                    <div className="ALL">
                         {barraNavegacao}
                         <div className="Componente">
                             <Tabela />
@@ -91,10 +68,32 @@ export default class Roteador extends Component<{ tela?: string }, State>{
                     </div>
                 </>
             )
+        } else if (this.state.tela === 'Relatorio') {
+            return (
+                <>
+                    <div className="ALL">
+                        {barraNavegacao}
+                        <div className="Componente">
+                            <Relatorio />
+                        </div>
+                    </div>
+                </>
+            )
+        } else if (this.state.tela === 'Busca') {
+            return (
+                <>
+                    <div className="ALL">
+                        {barraNavegacao}
+                        <div className="Componente">
+                            <Busca />
+                        </div>
+                    </div>
+                </>
+            )
         } else if (this.state.tela === 'Adicionar') {
             return (
                 <>
-                    <div>
+                    <div className="ALL">
                         {barraNavegacao}
                         <div className="Componente">
                             <Adicionar />
@@ -105,7 +104,7 @@ export default class Roteador extends Component<{ tela?: string }, State>{
         } else if (this.state.tela === 'Editar') {
             return (
                 <>
-                    <div>
+                    <div className="ALL">
                         {barraNavegacao}
                         <div className="Componente">
                             <Editar />
@@ -113,10 +112,10 @@ export default class Roteador extends Component<{ tela?: string }, State>{
                     </div>
                 </>
             )
-        } else if (this.state.tela === 'Notificacoes') {
+        } else if (this.state.tela === 'Avisos') {
             return (
                 <>
-                    <div>
+                    <div className="ALL">
                         {barraNavegacao}
                         <div className="Componente">
                             <ConfigurarNotificacao />

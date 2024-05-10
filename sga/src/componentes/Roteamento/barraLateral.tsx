@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Component, ImgHTMLAttributes } from "react";
+import { Component} from "react";
 import '../BaseCSS/NavBar.css'
 
 type props = {
@@ -41,15 +41,15 @@ export default class BarraNavegacao extends Component<props>{
     render() {
         return (
             <>
-            <div>
+            <div >
 
                 <head>
                     <link rel="stylesheet" href="../NavBar.css" />
                 </head>
 
-                <nav>
+                <nav >
                     <ul className="SideBar">
-
+                        <br />
                         {this.gerarListaBotoes()}
                     </ul>
 
