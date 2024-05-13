@@ -58,7 +58,7 @@ export default function EditaADM(){
     function Atualizar() {
 
         if (nome || email || senha || cpf || telefone || role) {
-            axios.put(`http://localhost:8080/usuarios/atualizar/${id}`, { nome, email, senha, cpf, telefone, role })
+            axios.put(`http://localhost:8080/usuario/atualizar/${id}`, { nome, email, senha, cpf, telefone, role })
                 .then(() => {
                     setEditando(false);
                     setNome('');
@@ -76,7 +76,7 @@ export default function EditaADM(){
     }
 
     function AtualizarValores() {
-        axios.get('http://localhost:8080/usuarios/listar')
+        axios.get('http://localhost:8080/usuario/listar')
             .then((response) => {
                 setUsuarios(response.data);
             })
