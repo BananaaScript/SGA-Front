@@ -78,7 +78,7 @@ export default function EditaADM(){
     }
 
     function AtualizarValores() {
-        axios.get('http://localhost:8080/usuarios/listar')
+        axios.get('http://localhost:8080/usuario/listar')
             .then((response) => {
                 setUsuarios(response.data);
             })
@@ -86,6 +86,8 @@ export default function EditaADM(){
                 console.error(error);
             });
     }
+
+    
 
 
     return(

@@ -9,6 +9,7 @@ import axios from 'axios';
 import { formataData } from "../../../functions/formataData"
 import { Notificacao } from "../../../modelos/notificacao"
 import { Usuario } from "../../../modelos/usuario"
+import { METHODS } from 'http';
 
 
 export default function Home() {
@@ -119,7 +120,26 @@ export default function Home() {
   };
     
 
-const usuarioFiltrados = usuarios.filter(usuario => usuario.id === 999);
+const usuarioInformacoes = async () => {
+    try {
+        const response = await fetch('http://localhost:8080/usuario/informacoes', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (response.ok) {
+            localStorage.getItem('token')
+        }else{
+            alert("Putz")
+        }
+
+    }catch(error){
+        console.error(error)
+    }
+}
+
+
 
 
     
@@ -176,14 +196,14 @@ const usuarioFiltrados = usuarios.filter(usuario => usuario.id === 999);
                                 <button className='btnUser' onClick={fechartabelaUserAtivos}>Fechar</button>
                                 <tbody className='tableUserData'>
 
-                                    {usuarioFiltrados.map((usuario)=>(
+                                    {usuarioInformacoes.map((usuario: Usuario)=>(
                                     
                                         <td key={usuario.id}  >
                                             <tr >Nome: {usuario.nome}</tr>
                                             <hr />
                                             <tr>E-mail: {usuario.email}</tr>
                                             <hr />
-                                            <tr>Senha: ************</tr>
+                                            <tr>Senha: {usuario.senha}</tr>
                                             <hr />
                                             <tr>CPF: {usuario.cpf}</tr>
                                             <hr />
