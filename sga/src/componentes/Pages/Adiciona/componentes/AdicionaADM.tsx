@@ -15,21 +15,23 @@ export default function AdicionaADM(){
     const [cpf, setCpf] = useState('')
     const [telefone, setTelefone] = useState('')
     const role = 'ADMIN'
-    
-    const [usuarioSelecionado, setUsuarioSelecionado] = useState('');
 
-    axios.get('http://localhost:8080/usuario/listar')
-    .then((response) => {
-        setUsuarios(response.data);
-    })
-    .catch((error) => {
-        console.error(error);
-    });
+    const [usuarioSelecionado, setUsuarioSelecionado] = useState('');
+    
+
+    useEffect(()=>{
+        axios.get('http://localhost:8080/usuario/listar')
+        .then((response) => {
+            setUsuarios(response.data);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    }, [usuarioSelecionado, usuarios])
 
     function registrar(){
         console.clear()
     
-        
         if(nome && email && senha && cpf && telefone){
             axios.post('http://localhost:8080/usuario/cadastrar', {id, nome, email, senha, cpf, telefone, role})
             .then(()=>{
@@ -38,8 +40,8 @@ export default function AdicionaADM(){
                 setSenha('')
                 setCpf('')
                 setTelefone('')
-                
-                
+
+
                 alert ("Usuario Cadastrado com Sucesso!")
             })
             .catch((error)=>{

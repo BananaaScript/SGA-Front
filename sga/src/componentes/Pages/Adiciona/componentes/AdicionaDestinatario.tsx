@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { Usuario } from "../../../../modelos/usuario"
 
-export default function AdicionaDestinatario(){
+export default function AdicionaADM(){
     const [usuarios, setUsuarios] = useState<Array<Usuario>>([])
     const [id, setId] = useState('')
     
@@ -13,30 +13,33 @@ export default function AdicionaDestinatario(){
     const [senha, setSenha] = useState('')
     const [cpf, setCpf] = useState('')
     const [telefone, setTelefone] = useState('')
-    const [role, setRole] = useState('')
-    
-    const [usuarioSelecionado, setUsuarioSelecionado] = useState('');
+    const role = 'USER'
 
-    axios.get('http://localhost:8080/usuario/listar')
-    .then((response) => {
-        setUsuarios(response.data);
-    })
-    .catch((error) => {
-        console.error(error);
-    });
+    const [usuarioSelecionado, setUsuarioSelecionado] = useState('');
+    
+
+    useEffect(()=>{
+        axios.get('http://localhost:8080/usuario/listar')
+        .then((response) => {
+            setUsuarios(response.data);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    }, [usuarioSelecionado, usuarios])
 
     function registrar(){
         console.clear()
     
         if(nome && email && senha && cpf && telefone){
-            axios.post('http://localhost:8080/usuario/cadastrar', {id, nome, email, senha, cpf, telefone})
+            axios.post('http://localhost:8080/usuario/cadastrar', {id, nome, email, senha, cpf, telefone, role})
             .then(()=>{
                 setNome('')
                 setEmail('')
                 setSenha('')
                 setCpf('')
                 setTelefone('')
-                setRole('USER')
+
 
                 alert ("Usuario Cadastrado com Sucesso!")
             })

@@ -40,16 +40,17 @@ export default function EditaADM(){
             });
     }
 
-    function Editar(id: any, nome: string, email: string, senha: string, cpf: string, telefone: string) {
+    function Editar(id: any, nome: string, email: string, senha: string, cpf: string, telefone: string, role: string) {
         setId(id);
         setNome(nome);
         setEmail(email);
         setSenha(senha);
         setCpf(cpf);
-        setTelefone(telefone);
-        setEmail(email);
+        setTelefone(telefone); 
+        setRole(role);
         setEditando(true);
     }
+    
 
     function Cancelar() {
         setEditando(false);
@@ -57,8 +58,8 @@ export default function EditaADM(){
 
     function Atualizar() {
         console.clear()
-        if (nome && email && senha && cpf && telefone) {
-            axios.put(`http://localhost:8080/usuario/editar/${id}`, { nome, email, senha, cpf, telefone })
+        if (nome && email && senha && cpf && telefone ) {
+            axios.put(`http://localhost:8080/usuario/atualizar/${id}`, { nome, email, senha, cpf, telefone })
                 .then(() => {
                     setEditando(false);
                     setId('');
@@ -87,6 +88,10 @@ export default function EditaADM(){
             });
     }
 
+    const usuariosFiltrados = usuarios.filter(usuario =>
+        usuario && usuario.role && usuario.role.includes('ADMIN')
+    );
+    
     
 
 
@@ -108,7 +113,7 @@ export default function EditaADM(){
                         </tr>
                     </thead>
                     <tbody>
-                        {usuarios.map((usuario) => (
+                        {usuariosFiltrados.map((usuario) => (
                             <tr key={usuario.id}>
                                 <td>{usuario.nome}</td>
                                 <td>{usuario.email}</td>
@@ -116,8 +121,8 @@ export default function EditaADM(){
                                 <td>{usuario.cpf}</td>
                                 <td>{usuario.telefone}</td>
                                 <td>{usuario.role}</td>
-                                <td><button onClick={() => Deletar}>Deletar</button></td>
-                                {!editando && (<td><button onClick={() => Editar(usuario.id, usuario.nome, usuario.email, usuario.senha, usuario.cpf, usuario.telefone  )}>Editar</button></td>)}
+                                <td><button onClick={() => Deletar(usuario.id)}>Deletar</button></td>
+                                {!editando && (<td><button onClick={() => Editar(usuario.id, usuario.nome, usuario.email, usuario.senha, usuario.cpf, usuario.telefone, usuario.role )}>Editar</button></td>)}
                             </tr>
                         ))}
                     </tbody>

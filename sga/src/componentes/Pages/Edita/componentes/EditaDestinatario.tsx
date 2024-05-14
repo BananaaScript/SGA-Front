@@ -46,19 +46,20 @@ export default function EditaADM(){
         setEmail(email);
         setSenha(senha);
         setCpf(cpf);
-        setEmail(email);
+        setTelefone(telefone); 
         setRole(role);
         setEditando(true);
     }
+    
 
     function Cancelar() {
         setEditando(false);
     }
 
     function Atualizar() {
-
-        if (nome || email || senha || cpf || telefone || role) {
-            axios.put(`http://localhost:8080/usuario/atualizar/${id}`, { nome, email, senha, cpf, telefone, role })
+        console.clear();
+        if (nome && email && senha && cpf && telefone ) {
+            axios.put(`http://localhost:8080/usuario/atualizar/${id}`, { nome, email, senha, cpf, telefone})
                 .then(() => {
                     setEditando(false);
                     setNome('');
@@ -66,12 +67,13 @@ export default function EditaADM(){
                     setSenha('');
                     setCpf('');
                     setTelefone('');
-                    setRole('USER');
                     AtualizarValores();
                 })
                 .catch((error) => {
                     console.error(error);
                 });
+        } else {
+            alert("Por favor, preencha todos os campos obrigatórios.");
         }
     }
 
@@ -86,10 +88,17 @@ export default function EditaADM(){
     }
 
 
+    const usuariosFiltrados = usuarios.filter(usuario =>
+        usuario && usuario.role && usuario.role.includes('USER')
+    );
+    
+    
+
+
     return(
         <>
             <div className="BoxTabela">
-            <h2>Usuários Administradores Cadastrados</h2>
+            <h2>Usuários Destinatarios Cadastrados</h2>
                 <table>
                     <thead>
                         <tr>
@@ -104,7 +113,7 @@ export default function EditaADM(){
                         </tr>
                     </thead>
                     <tbody>
-                        {usuarios.map((usuario) => (
+                        {usuariosFiltrados.map((usuario) => (
                             <tr key={usuario.id}>
                                 <td>{usuario.nome}</td>
                                 <td>{usuario.email}</td>
