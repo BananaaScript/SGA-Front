@@ -1,5 +1,3 @@
-
-
 import './home.css';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
@@ -19,6 +17,7 @@ export default function Home() {
     function fechartabelaUserAtivos(){settabelaUserAtivos(false)}
 
     const [usuarios, setUsuarios] = useState<Array<Usuario>>([])
+    const [usuarioInfromacao, setusuarioInfromacao] = useState<Array<Usuario>>([])
     const [id, setId] = useState('')
     
     const [nome, setNome] = useState('')
@@ -31,14 +30,6 @@ export default function Home() {
     const [filtro, setFiltro] = useState<string>('');
     
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    
-    axios.get('http://localhost:8080/usuario/listar')
-    .then((response) => {
-        setUsuarios(response.data);
-    })
-    .catch((error) => {
-        console.error(error);
-    });
 
 
 
@@ -77,6 +68,14 @@ export default function Home() {
         .catch((error)=>{
             console.error(error)
         })
+
+        axios.get('http://localhost:8080/usuario/listar')
+        .then((response) => {
+            setUsuarios(response.data);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
     }, []);
     
     type NotificarProps = {
@@ -120,24 +119,32 @@ export default function Home() {
   };
     
 
-const usuarioInformacoes = async () => {
-    try {
-        const response = await fetch('http://localhost:8080/usuario/informacoes', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        if (response.ok) {
-            localStorage.getItem('token')
-        }else{
-            alert("Putz")
-        }
+  useEffect(() => {
+    const informacaoUsuario = async () => {
+        try {
+            const token = localStorage.getItem('token')
+            console.log('Token:', token)
 
-    }catch(error){
-        console.error(error)
-    }
-}
+            const response = await axios.get('http://localhost:8080/usuario/informacoes', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (response.status === 200) {
+                setusuarioInfromacao(response.data)
+            } else {
+                alert("Erro ao obter informações do usuário")
+                console.error('Erro ao obter informações do usuário:', response.statusText)
+            }
+        } catch (error) {
+            console.error('Erro ao obter informações do usuário:', error)
+        }
+    };
+    informacaoUsuario()
+}, []);
+
+
 
 
 
@@ -196,21 +203,26 @@ const usuarioInformacoes = async () => {
                                 <button className='btnUser' onClick={fechartabelaUserAtivos}>Fechar</button>
                                 <tbody className='tableUserData'>
 
-                                    {usuarioInformacoes.map((usuario: Usuario)=>(
-                                    
-                                        <td key={usuario.id}  >
-                                            <tr >Nome: {usuario.nome}</tr>
-                                            <hr />
-                                            <tr>E-mail: {usuario.email}</tr>
-                                            <hr />
-                                            <tr>Senha: {usuario.senha}</tr>
-                                            <hr />
-                                            <tr>CPF: {usuario.cpf}</tr>
-                                            <hr />
-                                            <tr>Telefone: {usuario.telefone}</tr>
-                                        </td>
-                                    
-                                    ))}
+                                {usuarioInfromacao.map((usuario) => (
+                                    <div>
+                                        <tr>
+                                            <td>Nome: {usuario.nome}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>E-mail: {usuario.email}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Senha: {usuario.senha}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CPF: {usuario.cpf}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Telefone: {usuario.telefone}</td>
+                                        </tr>
+                                    </div>
+                                ))}
+
 
                                 </tbody>
 
