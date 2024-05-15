@@ -8,6 +8,7 @@ import { formataData } from "../../../functions/formataData"
 import { Notificacao } from "../../../modelos/notificacao"
 import { Usuario } from "../../../modelos/usuario"
 import { METHODS } from 'http';
+import { Ativo } from '../../../modelos/ativo';
 
 
 export default function Home() {
@@ -18,6 +19,8 @@ export default function Home() {
 
     const [usuarios, setUsuarios] = useState<Array<Usuario>>([])
     const [usuarioInfromacao, setusuarioInfromacao] = useState<Array<Usuario>>([])
+    const [ativoUsuario, setAtivoUsuario] = useState<Array<Ativo>>([])
+    
     const [id, setId] = useState('')
     
     const [nome, setNome] = useState('')
@@ -134,8 +137,8 @@ export default function Home() {
             if (response.status === 200) {
                 setusuarioInfromacao(response.data)
             } else {
-                alert("Erro ao obter informações do usuário")
-                console.error('Erro ao obter informações do usuário:', response.statusText)
+                alert("Erro ao obter informações do Usuário")
+                console.error('Erro ao obter informações do Usuário:', response.statusText)
             }
         } catch (error) {
             console.error('Erro ao obter informações do usuário:', error)
@@ -143,6 +146,30 @@ export default function Home() {
     };
     informacaoUsuario()
 }, []);
+
+useEffect(() => {
+    const ativoUsuario = async () => {
+        try {
+            const token = localStorage.getItem("token")
+
+            const response = await axios.get('http://localhost:8080/ativo/usuario', {
+                headers: {
+                    'Contente-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            if (response.status === 200)
+                setAtivoUsuario(response.data)
+            else{
+                alert("Erro ao encontrar ativos do Usuário")
+                console.error("Erro ao obter ativos do Usuário:", response.statusText)
+            }
+        } catch (error){
+            console.error('Erro ao obter ativos do Usuário:', error)
+        }
+    }
+    ativoUsuario()
+}, [])
 
 
 
@@ -179,15 +206,15 @@ export default function Home() {
                         <table>
                             <tr>
                                 <th>Responsavel</th>
+                                <th>Ativo</th>
                                 <th>Data de expiração</th>
                                 <th>Dias até expirar</th>
                             </tr>
                             <tbody>
-                                {notificacoes.map((noti)=>(
-                                    <tr key={noti.id}  >
-                                        <td>{noti.usuario}</td>
-                                        <td>{formataData(noti.dataExpiracao)}  </td>
-                                        <td>{noti.dias} </td>
+                                {ativoUsuario.map((ativo)=>(
+                                    <tr >
+                                        <td>{ativo.responsavel}</td>
+                                        <td>{ativo.nome}</td>
                                     </tr>
                                 ))}
                             </tbody>
