@@ -1,150 +1,108 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
 
-.TopBar {
-        background-color:rgb(233, 233, 233);
-        font-family: 'JetBrains Mono', monospace;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        height: 100px;
-    
-}
-
-.TopBar button {
-        flex: 4;
-        padding: 10px;
-        margin: 35px;
-        border-radius: 20px;
-        font-family: 'JetBrains Mono', monospace;
-        
-}
 .addcss {
-    font-family: 'JetBrains Mono', monospace;
-    position:relative;
-    padding:0;
-    margin:0;
-    top:0;
-    right:0;
-    min-height: 99vh;
-    height: 100%;
-    border: #BE0000;
-    border-width: 8px;
-    border-style: solid;
-    box-sizing: border-box;
+    font-family: Arial, sans-serif; 
+    background-color: #f7f7f7; 
+    border: 1px solid #eaeaea;
+    padding: 20px;
+    border-radius: 10px; 
 }
 
 .ComponenteCadastro {
-
-        display: flex;
-        flex-direction: row;
-        
-        
-}
+    display: flex;
+    flex-direction: row;
+    }
 
 .BoxCadastro {
-        display: flex;
-        flex-direction: column;
-
-        width: 70%;
-        gap: 20px;
-        padding: 2%;
-        margin-top: 10px;
-        margin-left:2%;
-        margin-bottom: 9px;
-
-        background-color: rgba(120, 142, 255, 0.3);
-        border-radius: 30px;
-        color: #313056;
-
-
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 97%;
 }
 
-.CadastroInputs{
-        height:330px;
-        overflow:scroll;
-        overflow-x:hidden;
-
+.CadastroInputs {
+    overflow: auto; 
 }
 
-.CadastroInputFixo{height:330px;}
-
+.CadastroInputFixo {
+    height: 330px;
+}
 
 .BoxCadastro input {
-        padding: 1%;
-        border-radius: 30px;
-        border: 2px solid rgb(255, 255, 255);
-        background-color: rgba(255, 255, 255, 0.35);
-        color: #313056;
-        width: 80%;
-        margin: 1.5%;
-        margin-top: 0%;
-        margin-bottom: 0%;
-
-        }
-
+    width: calc(100% - 20px); 
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
 
 .BoxCadastro button {
-        width: 50%;
-        padding: 12px;
-        background-color: #313056;
-        border-radius: 30px;
-        border: 2px solid white;
-        color: white;
-        cursor: pointer;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
 }
+
 .texto {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    text-align: center; 
+    margin-bottom: 20px; 
 }
 
 .BoxCadastro p {
-        font-size: small;
-        margin-top: 20px;
-        margin-left: 2%;
+    font-size: 14px; 
+    margin-bottom: 10px; 
 }
 
 .BoxCadastro select {
-        width: 35%;
-        margin-right: 2.5%;
-        margin-left: 2.5%;
-
-        background-color: #313056;
-        border-radius: 20px;
-        padding: 5px;
-        color: #fff;
-
+    width: 100%; 
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
-
-.Box button{
-        position: absolute;
-        margin-left: 80%;
-        margin-top:-550px;
-        height: 500px;
-        width: 250px;
-        background-color: #313056;
-        color: #fff;
-        border-radius: 20px;
-        cursor: pointer;
-        font-size: x-large;
+.Box button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    text-align: center; 
 }
 
-.TabelaCadastrados{
-        table-layout: auto;
-        width: 100%;
-        border-color: #BE0000;
-        border-width: 2px;
+.TabelaCadastrados {
+    width: 100%;
+    border-collapse: collapse;
 }
 
+.TabelaCadastrados th,
+.TabelaCadastrados td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
 
 #inputdofiltro {
-        padding: 1%;
-        border-radius: 30px;
-        border: 2px solid black;
-        background-color: rgba(255, 255, 255, 0.35);
-        color: #313056;
-        width: 150%;
-        height: 30px;
-      }
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.texto button {
+        padding: 8px 16px;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 5px;
+        background-color: red;
+}
