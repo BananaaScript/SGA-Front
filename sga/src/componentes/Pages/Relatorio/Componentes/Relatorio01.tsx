@@ -1,81 +1,97 @@
-import { useState } from "react"
-import {Ativo} from "../../../../modelos/ativo"
-import { useEffect } from "react"
-import axios from "axios"
-import {format} from 'date-fns'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Pie } from "react-chartjs-2";
 
-export default function EditaAtivo(){
-    const[ativos, setAtivos] = useState<Array<Ativo>>([])
-    const [id, setId] = useState('')
-    const [nome, setNome]= useState('')
-    const [numeroAtivo, setNumeroAtivo] = useState('')
-    const [dataManutencao, setDataManutencao] = useState('')
-    const [estado, setEstadoAtivo] = useState('')
-    const [editando, setEditando] = useState(false)
-    const [filtro, setFiltro] = useState<string>('');
+// Registrando os componentes necessários do Chart.js
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-    useEffect(()=>{
-        axios.get('http://localhost:8080/ativo/listar')
-        .then((response)=>{
-            setAtivos(response.data)
-        })
-        .catch((error)=>{
-            console.error(error)
-        })
-    }, [])
-    const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFiltro(event.target.value);
-    };
+export default function EditaAtivo() {
+  const [ativos, setAtivos] = useState<Array<any>>([]);
+  const [filtro, setFiltro] = useState<string>("");
+  const [estado, setEstado] = useState<string>("");
 
-    const ativosFiltrados = ativos.filter(ativo =>
-        ativo.nome.toLowerCase().includes(filtro.toLowerCase()) ||
-        ativo.rua.toLowerCase().includes(filtro.toLowerCase()) ||
-        ativo.bairro.toLowerCase().includes(filtro.toLowerCase()) ||
-        ativo.complemento.toLowerCase().includes(filtro.toLowerCase()) 
-    );
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/ativo/listar")
+      .then((response) => {
+        setAtivos(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
-     function formataData(data: string){
-        const dataFormatada = format(new Date(data), 'dd/MM/yyyy')
-        dataFormatada.toString()
-        return dataFormatada
-     }
+  const ativosFiltrados = ativos.filter((ativo) =>
+    ativo.nome.toLowerCase().includes(filtro.toLowerCase())
+  );
 
-     return(
-        <>
-        <div>
-            <div className="BoxTabela">
-                <h2>Ativos Cadastrados</h2>
-                    <input 
-                        type="text"
-                        value={filtro}
-                        onChange={handleFiltroChange}
-                        placeholder="Filtrar por Nome"
-                    />
-                <table>
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Número ativo</th>
-                                <th>Estado do Ativo</th>
-                                <th>Data de Manutenção</th>
-                            </tr>
-                        </thead>
-                         <tbody>
-                            {ativosFiltrados.map((ativo)=>(
-                                <tr key={ativo.id}>
-                                    <td>{ativo.nome}</td>
-                                    <td>{ativo.numAtivo}</td>
-                                    <td>{ativo.estado}</td>
+  const estados = ativosFiltrados.map((ativo) => ativo.estado);
+  const estadoCounts: Record<string, number> = estados.reduce((acc, estado) => {
+    acc[estado] = (acc[estado] || 0) + 1;
+    return acc;
+  }, {});
 
-                                    <td>{formataData(ativo.dataManutencao)}</td>
+  const chartData = {
+    labels: Object.keys(estadoCounts),
+    datasets: [
+      {
+        label: "Número de Ativos",
+        backgroundColor: [
+          "rgba(255,99,132,0.2)",
+          "rgba(54,162,235,0.2)",
+          "rgba(255,206,86,0.2)",
+          "rgba(75,192,192,0.2)",
+        ],
+        borderColor: [
+          "rgba(255,99,132,1)",
+          "rgba(54,162,235,1)",
+          "rgba(255,206,86,1)",
+          "rgba(75,192,192,1)",
+        ],
+        borderWidth: 1,
+        data: Object.values(estadoCounts),
+      },
+    ],
+  };
 
-                                    
-                                </tr>
-                            ))}
-                        </tbody>
-                </table>
-            </div>
-        </div>
-        </>
-    )
+  return (
+    <div>
+
+      <div className="Graph">
+        <h2>Gráfico de Estados dos Ativos</h2>
+        <Pie data={chartData} />
+      </div>
+
+      {/* <div>
+        <p>Estado do Ativo *</p>
+        <select
+          value={estado}
+          onChange={(event) => setEstado(event.target.value)}
+          required
+        >
+          <option value="">Selecione o estado</option>
+          <option value="QUEBRADO">Quebrado</option>
+          <option value="DISPONIVEL">Disponível</option>
+          <option value="INATIVO">Inativo</option>
+          <option value="DESCARTADO">Descartado</option>
+        </select>
+      </div> */}
+    </div>
+  );
 }
