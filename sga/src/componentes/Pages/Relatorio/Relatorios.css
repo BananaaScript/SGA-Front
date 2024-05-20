@@ -12,3 +12,14 @@
     border-style: solid;
     box-sizing: border-box;
 }
+
+.Graph {
+    width: 500px;
+    height: 500px;
+}
+
+.graficos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

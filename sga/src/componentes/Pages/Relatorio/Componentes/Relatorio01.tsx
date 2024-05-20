@@ -71,27 +71,12 @@ export default function EditaAtivo() {
   };
 
   return (
-    <div>
+    <div className="graficos">
 
       <div className="Graph">
         <h2>Gráfico de Estados dos Ativos</h2>
         <Pie data={chartData} />
       </div>
-
-      {/* <div>
-        <p>Estado do Ativo *</p>
-        <select
-          value={estado}
-          onChange={(event) => setEstado(event.target.value)}
-          required
-        >
-          <option value="">Selecione o estado</option>
-          <option value="QUEBRADO">Quebrado</option>
-          <option value="DISPONIVEL">Disponível</option>
-          <option value="INATIVO">Inativo</option>
-          <option value="DESCARTADO">Descartado</option>
-        </select>
-      </div> */}
     </div>
   );
 }

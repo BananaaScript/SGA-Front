@@ -10,58 +10,6 @@ body {
 }
 
 
-/* .BoxTabela{
-  min-width: 90vw;
-  max-width: 90vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  margin-bottom: 4%;
-  
-
-table, th, td {
-  border: 1px solid black;
-  min-width: 225px;
-}
-  
-table {
-  border-collapse: collapse;
-
-  margin: auto;
-}
-  
-th, td{
-  padding: 10px;
-  text-align: center;
-  min-width:  6.5vw;
-  word-break: break-all;
-}
-  
-th{
-  font-weight: bold;
-  background-color: #313056;
-  color: #fff;
-}
-  
-  
-tr:nth-child(even) {
-  background-color: #9591ff;
-}
-  
-
-
-
-}
-.BoxTabela table tbody tr td button {
-  padding: 5%;
-  background-color: #313056;
-  border-radius: 30px;
-  border: 2px solid white;
-  color: white;
-  cursor: pointer;
-} */
-
 .BoxTabela {
   max-width: 800px;
   margin: 0 auto;
