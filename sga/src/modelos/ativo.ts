@@ -22,4 +22,5 @@ export type Ativo = {
     numero: number | string
     cep: string
     estado: string
+    dias: number | string
 }
