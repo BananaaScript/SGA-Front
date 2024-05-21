@@ -10,13 +10,14 @@ export type Ativo = {
     descricao: string
     complemento_ativo: string
     responsavel: string
-    numero_serie: string
     valor: string
     numAtivo: string
     dataManutencao: string
     dataTransacao: string
     rua: string
     bairro: string
+    cidade: string
+    pais: string
     complemento: string
     numero: number | string
     cep: string

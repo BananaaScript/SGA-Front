@@ -7,6 +7,7 @@ export default function EditaCategoria(){
     const [id, setId] = useState('')
     const [nome, setNome]= useState('')
     const [descricao, setDescricao]= useState('')
+    const [complemento, setComplemento] = useState('')
     const [editando, setEditando] = useState(false)
     const [filtro, setFiltro] = useState<string>('');
 
@@ -38,10 +39,11 @@ export default function EditaCategoria(){
         })
     }
 
-    function Editar(id: any, nome: string, descricao: string){
+    function Editar(id: any, nome: string, descricao: string, complemento: string){
         setId(id)
         setNome(nome)
         setDescricao(descricao)
+        setComplemento(complemento)
         setEditando(true)
     }
 
@@ -97,7 +99,7 @@ export default function EditaCategoria(){
                                     <td>{categoria.nome}</td>
                                     <td>{categoria.descricao}</td>
                                     <td><button id="botaodeletar" onClick={()=>Deletar(categoria.id)}>Deletar</button></td>
-                                        {!editando &&(<td><button id="botaoeditar" onClick={() => Editar(categoria.id, categoria.nome, categoria.descricao)}>Editar</button></td>)}
+                                        {!editando &&(<td><button id="botaoeditar" onClick={() => Editar(categoria.id, categoria.nome, categoria.descricao, categoria.complemento)}>Editar</button></td>)}
                                 </tr>
                             ))}
                         </tbody>
@@ -111,13 +113,13 @@ export default function EditaCategoria(){
                                 <div className="EditarInputs">
                                 
                                 <p>Nome da Categoria</p>
-                                    <input type="text" value= {nome} onChange={(dado)=> setNome(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
+                                    <input type="text" value= {nome} onChange={(dado)=> setNome(dado.target.value)} placeholder="(*OBRIGATÓRIO)"/>
 
                                 <p>Descrição da Categoria</p>
-                                    <input type="text" value= {descricao} onChange={(dado)=> setDescricao(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
+                                    <input type="text" value= {descricao} onChange={(dado)=> setDescricao(dado.target.value)} placeholder="(*OBRIGATÓRIO)"/>
 
                                 <p>Complemento da Categoria</p>
-                                    <input type="text" placeholder="(*OPICONAL)"/>
+                                    <input type="text" value={complemento} onChange={(event)=> setComplemento(event.target.value)} placeholder="(OPCIONAL)"/>
 
                                 </div>
 

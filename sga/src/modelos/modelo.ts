@@ -5,4 +5,5 @@ export type Modelo = {
     nome_categoria: string
     descricao: string
     modelo: string
+    fabricante: string
 }

@@ -11,6 +11,7 @@ export default function Editamodelo() {
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
     const [modelo, setModelo] = useState('');
+    const [fabricante, setFabricante] = useState('');
     const [categorias, setCategorias] = useState<Array<Categoria>>([])
     const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
     const [editando, setEditando] = useState(false);
@@ -55,11 +56,13 @@ export default function Editamodelo() {
             });
     }
 
-    function Editar(id: any, nome: string, descricao: string, modelo: string) {
+    function Editar(id: any, nome: string, descricao: string, modelo: string, fabrincante: string, categoria: string) {
         setId(id);
         setNome(nome);
         setDescricao(descricao);
         setModelo(modelo);
+        setFabricante(fabrincante)
+        setCategoriaSelecionada(categoria)
         setEditando(true);
     }
 
@@ -73,18 +76,22 @@ export default function Editamodelo() {
         const id_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.id : null;
         const nome_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.nome : null;
 
-        if (nome || descricao) {
-            axios.put(`http://localhost:8080/modelo/atualizar/${id}`, { nome, descricao, modelo, id_categoria, nome_categoria })
+        if (nome || descricao || modelo || fabricante || nome_categoria) {
+            axios.put(`http://localhost:8080/modelo/atualizar/${id}`, { nome, descricao, modelo, fabricante, id_categoria, nome_categoria })
                 .then(() => {
                     setEditando(false);
                     setNome('');
                     setDescricao('');
                     setCategoriaSelecionada('')
+                    setFabricante('')
                     AtualizarValores();
                 })
                 .catch((error) => {
                     console.error(error);
                 });
+        }
+        if (!nome_categoria){
+            alert("Selecione uma categoria.")
         }
     }
 
@@ -126,7 +133,7 @@ export default function Editamodelo() {
                             <td>{modelo.descricao}</td>
                             <td>{modelo.nome_categoria}</td>
                             <td><button id="botaodeletar" onClick={() => Deletar(modelo.id)}>Deletar</button></td>
-                            {!editando && (<td><button id="botaoeditar" onClick={() => Editar(modelo.id, modelo.nome, modelo.descricao, modelo.modelo)}>Editar</button></td>)}
+                            {!editando && (<td><button id="botaoeditar" onClick={() => Editar(modelo.id, modelo.nome, modelo.descricao, modelo.modelo, modelo.fabricante, modelo.nome_categoria)}>Editar</button></td>)}
                         </tr>
                     ))}
                 </tbody>
@@ -139,19 +146,16 @@ export default function Editamodelo() {
                         <div className="EditarInputs">
                         
                         <p>Nome do Modelo</p>
-                            <input type="text" value={nome} onChange={(dado) => setNome(dado.target.value)} placeholder="(*OBRIGATORIO)" />
+                            <input type="text" value={nome} onChange={(dado) => setNome(dado.target.value)} placeholder="(*OBRIGATÓRIO)" />
 
                         <p>Descrição do Modelo</p>
-                            <input type="text" value={descricao} onChange={(dado) => setDescricao(dado.target.value)} placeholder="(*OBRIGATORIO)" />
+                            <input type="text" value={descricao} onChange={(dado) => setDescricao(dado.target.value)} placeholder="(*OBRIGATÓRIO)" />
 
                         <p>Modelo Referente ao Ativo</p>
-                            <input type="text" value={modelo} onChange={(dado) => setModelo(dado.target.value)} placeholder="(*OPICIONAL)" />
+                            <input type="text" value={modelo} onChange={(dado) => setModelo(dado.target.value)} placeholder="(OPCIONAL)" />
                         
                         <p>Fabricante do Modelo</p>
-                            <input type="text" placeholder="(*OPICONAL)" />
-
-                        <p>Imagem do Modelo</p>
-                            <input type="text" placeholder="(*OBRIGATORIO)" />
+                            <input type="text" value= {fabricante} onChange={(event) => setFabricante(event.target.value)} placeholder="(OPCIONAL)" />
                         <p>Categoria Referente ao Modelo</p>
                             <select value={categoriaSelecionada} onChange={(dado) => setCategoriaSelecionada(dado.target.value)}>
                                 <option value="">Selecione a Categoria</option>

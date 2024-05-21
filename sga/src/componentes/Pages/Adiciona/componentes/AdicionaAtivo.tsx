@@ -13,7 +13,6 @@ export const AdicionaAtivo = () =>{
     const [nome, setNome]= useState('')
     const [descricao, setDescricao] = useState('')
     const [complementoAtivo, setComplementoAtivo] = useState('')
-    const [numero_serie, setNumero_serie] = useState('')
     const [valor, setValor] = useState('')
     const [numAtivo, setNumeroAtivo] = useState('')
     const [dataManutencao, setDataManutencao] = useState('')
@@ -94,11 +93,9 @@ export const AdicionaAtivo = () =>{
         console.clear()
         let descricaoNinfo = descricao !== '' ? descricao : 'Não informado'
         let complementoAtivoNinfo = complementoAtivo !== '' ? complementoAtivo: 'Não informado'
-        let valorNinfo = valor !== '' ? valor: 'Não informado'
-        let numSerieNinfo = numero_serie !== '' ? numero_serie: 'Não informado'
         let padraoCEP:RegExp = /^\d{5}-\d{3}$/ 
 
-        if(nome && dataManutencao && numAtivo && rua && bairro && cidade && pais && complemento && numero && padraoCEP.test(cep) && categoriaSelecionada && modeloSelecionado && dataManutencao && dataTransacao && estado){
+        if(nome && dataManutencao && numAtivo && valor && rua && bairro && cidade && pais && complemento && numero && padraoCEP.test(cep) && categoriaSelecionada && modeloSelecionado && dataManutencao && dataTransacao && estado){
             const usuarioSelecionadoObj = usuarios.find(usuario => usuario.nome === usuarioSelecionado);
             const id_responsavel = usuarioSelecionadoObj ? usuarioSelecionadoObj.id : null;
             const responsavel = usuarioSelecionadoObj ? usuarioSelecionadoObj.nome : null;
@@ -111,13 +108,11 @@ export const AdicionaAtivo = () =>{
             const id_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.id : null;
             const nome_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.nome : null;
 
-            axios.post('http://localhost:8080/ativo/cadastrar', {id_modelo, id_categoria, id_responsavel, nome_modelo, nome_categoria, nome, descricao: descricaoNinfo, complementoAtivo:complementoAtivoNinfo, responsavel, numero_serie: numSerieNinfo, valor:valorNinfo, numAtivo, dataManutencao, dataTransacao, rua, bairro, cidade, pais, complemento, numero, cep, estado})
+            axios.post('http://localhost:8080/ativo/cadastrar', {id_modelo, id_categoria, id_responsavel, nome_modelo, nome_categoria, nome, descricao: descricaoNinfo, complementoAtivo:complementoAtivoNinfo, responsavel, valor, numAtivo, dataManutencao, dataTransacao, rua, bairro, cidade, pais, complemento, numero, cep, estado})
             .then(()=>{
-                console.log(numero_serie)
                 setNome('')
                 setDescricao('')
                 setComplementoAtivo('')
-                setNumero_serie('')
                 setValor('')
                 setNumeroAtivo('')
                 setDataManutencao('')
@@ -140,7 +135,7 @@ export const AdicionaAtivo = () =>{
                 console.error(error)
             })
         }
-        else if(!nome || !dataManutencao || !numAtivo || !rua || !bairro || !cidade || !pais || !complemento || !numero || !cep || !categoriaSelecionada || !modeloSelecionado || !dataManutencao || !dataTransacao || !estado){
+        else if(!nome || !dataManutencao || !numAtivo || !valor || !rua || !bairro || !cidade || !pais || !complemento || !numero || !cep || !categoriaSelecionada || !modeloSelecionado || !dataManutencao || !dataTransacao || !estado){
             alert("Preencha todos os campos obrigatórios")
         }
         else if (!padraoCEP.test(cep)){
@@ -215,12 +210,9 @@ export const AdicionaAtivo = () =>{
                             <option value="INATIVO">Inativo</option>
                             <option value="DESCARTADO">Descartado</option>
                         </select>
-                    
-                    <p>Número de série do ativo</p>
-                        <input type="text" value={numero_serie} onChange={(event) => setNumero_serie(event.target.value)} placeholder="(OPCIONAL)" />
 
-                    <p>Valor Monetário do Ativo</p>
-                        <input type="number" value={valor} onChange={(event) => setValor(event.target.value)} placeholder="(OPCIONAL)" />
+                    <p>Valor Monetário do Ativo *</p>
+                        <input type="number" value={valor} onChange={(event) => setValor(event.target.value)} placeholder="(OBRIGATÓRIO)" />
 
                     <p>Data de Aquisição do Ativo *</p>
                         <input type="Date" value={dataTransacao} onChange={(event) => setDataTransacao(event.target.value)} required/>
