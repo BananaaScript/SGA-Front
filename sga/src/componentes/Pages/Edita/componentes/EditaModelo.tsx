@@ -56,13 +56,13 @@ export default function Editamodelo() {
             });
     }
 
-    function Editar(id: any, nome: string, descricao: string, modelo: string, fabrincante: string, categoria: string) {
+    function Editar(id: any, nome: string, descricao: string, modelo: string, fabricante: string, categoria: string) {
         setId(id);
         setNome(nome);
         setDescricao(descricao);
         setModelo(modelo);
-        setFabricante(fabrincante)
-        setCategoriaSelecionada(categoria)
+        setFabricante(fabricante);
+        setCategoriaSelecionada(categoria);
         setEditando(true);
     }
 
@@ -83,7 +83,7 @@ export default function Editamodelo() {
                     setNome('');
                     setDescricao('');
                     setCategoriaSelecionada('')
-                    setFabricante('')
+                    setFabricante('');
                     AtualizarValores();
                 })
                 .catch((error) => {
@@ -121,8 +121,8 @@ export default function Editamodelo() {
                         <th>Modelo</th>
                         <th>Descrição</th>
                         <th>Categoria</th>
-                        <th>---</th>
-                        <th>---</th>
+                        {!editando && (<th>---</th>)}
+                        {!editando && (<th>---</th>)}
                     </tr>
                 </thead>
                 <tbody>
@@ -132,7 +132,7 @@ export default function Editamodelo() {
                             <td>{modelo.modelo}</td>
                             <td>{modelo.descricao}</td>
                             <td>{modelo.nome_categoria}</td>
-                            <td><button id="botaodeletar" onClick={() => Deletar(modelo.id)}>Deletar</button></td>
+                            {!editando && (<td><button id="botaodeletar" onClick={() => Deletar(modelo.id)}>Deletar</button></td>)}
                             {!editando && (<td><button id="botaoeditar" onClick={() => Editar(modelo.id, modelo.nome, modelo.descricao, modelo.modelo, modelo.fabricante, modelo.nome_categoria)}>Editar</button></td>)}
                         </tr>
                     ))}
@@ -152,10 +152,12 @@ export default function Editamodelo() {
                             <input type="text" value={descricao} onChange={(dado) => setDescricao(dado.target.value)} placeholder="(*OBRIGATÓRIO)" />
 
                         <p>Modelo Referente ao Ativo</p>
-                            <input type="text" value={modelo} onChange={(dado) => setModelo(dado.target.value)} placeholder="(OPCIONAL)" />
+                            <input type="text" value={modelo} onChange={(dado) => setModelo(dado.target.value)} placeholder="(OPICIONAL)" />
                         
                         <p>Fabricante do Modelo</p>
                             <input type="text" value= {fabricante} onChange={(event) => setFabricante(event.target.value)} placeholder="(OPCIONAL)" />
+
+
                         <p>Categoria Referente ao Modelo</p>
                             <select value={categoriaSelecionada} onChange={(dado) => setCategoriaSelecionada(dado.target.value)}>
                                 <option value="">Selecione a Categoria</option>

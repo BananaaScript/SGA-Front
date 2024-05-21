@@ -13,7 +13,7 @@ export default function EditaADM(){
     const [senha, setSenha] = useState('')
     const [cpf, setCpf] = useState('')
     const [telefone, setTelefone] = useState('')
-    const [role, setRole] = useState('')
+    const role = 'USER'
 
     const [editando, setEditando] = useState(false);
 
@@ -47,7 +47,6 @@ export default function EditaADM(){
         setSenha(senha);
         setCpf(cpf);
         setTelefone(telefone); 
-        setRole(role);
         setEditando(true);
     }
     
@@ -108,8 +107,8 @@ export default function EditaADM(){
                             <th>Cpf</th>
                             <th>Telefone</th>
                             <th>Privilegios</th>
-                            <th>---</th>
-                            <th>---</th>
+                            {!editando && (<th>---</th>)}
+                            {!editando && (<th>---</th>)}
                         </tr>
                     </thead>
                     <tbody>
@@ -121,7 +120,7 @@ export default function EditaADM(){
                                 <td>{usuario.cpf}</td>
                                 <td>{usuario.telefone}</td>
                                 <td>{usuario.role}</td>
-                                <td><button onClick={() => Deletar(usuario.id)}>Deletar</button></td>
+                                {!editando && (<td><button id="botaocancelar" onClick={() => Deletar(usuario.id)}>Deletar</button></td>)}
                                 {!editando && (<td><button onClick={() => Editar(usuario.id, usuario.nome, usuario.email, usuario.senha, usuario.cpf, usuario.telefone, usuario.role )}>Editar</button></td>)}
                             </tr>
                         ))}
@@ -156,7 +155,7 @@ export default function EditaADM(){
 
                                 <div>
                                     <button onClick={Atualizar}>Atualizar Usuário</button>
-                                    <button onClick={Cancelar}>Cancelar Edição</button>
+                                    <button id="botaocancelar" onClick={Cancelar}>Cancelar Edição</button>
                                 </div>
 
                             </div>

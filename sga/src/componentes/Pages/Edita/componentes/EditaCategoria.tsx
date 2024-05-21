@@ -52,12 +52,13 @@ export default function EditaCategoria(){
     }
 
     function Atualizar(){
-        if(nome || descricao){
+        if(nome || descricao ){
             axios.put(`http://localhost:8080/categoria/atualizar/${id}`, {nome, descricao})
             .then(()=>{
                 setEditando(false)
                 setNome('')
                 setDescricao('')
+                setComplemento('')
                 AtualizarValores()
             })
             .catch((error)=>{
@@ -89,8 +90,8 @@ export default function EditaCategoria(){
                             <tr>
                                 <th>Nome</th>
                                 <th>Descrição</th>
-                                <th>---</th>
-                                <th>---</th>
+                                {!editando && (<th>---</th>)}
+                                {!editando && (<th>---</th>)}
                             </tr>
                         </thead>
                          <tbody>
@@ -98,36 +99,37 @@ export default function EditaCategoria(){
                                 <tr key={categoria.id}>
                                     <td>{categoria.nome}</td>
                                     <td>{categoria.descricao}</td>
-                                    <td><button id="botaodeletar" onClick={()=>Deletar(categoria.id)}>Deletar</button></td>
-                                        {!editando &&(<td><button id="botaoeditar" onClick={() => Editar(categoria.id, categoria.nome, categoria.descricao, categoria.complemento)}>Editar</button></td>)}
+                                    {!editando && (<td><button id="botaodeletar" onClick={()=>Deletar(categoria.id)}>Deletar</button></td>)}
+                                    {!editando &&(<td><button id="botaoeditar" onClick={() => Editar(categoria.id, categoria.nome, categoria.descricao, categoria.complemento)}>Editar</button></td>)}
                                 </tr>
                             ))}
                         </tbody>
                 </table>
-                {editando?(
+                {editando ?(
                     <>
                         <div>
-                            <div className="BoxEditar">
-                                <h2>Insira os Novos Dados da Categoria</h2>
+                        <div className="BoxCadastro" >
 
-                                <div className="EditarInputs">
-                                
-                                <p>Nome da Categoria</p>
-                                    <input type="text" value= {nome} onChange={(dado)=> setNome(dado.target.value)} placeholder="(*OBRIGATÓRIO)"/>
+                                <h2>Insira os Dados da Categoria que Deseja Cadastrar</h2>
 
-                                <p>Descrição da Categoria</p>
-                                    <input type="text" value= {descricao} onChange={(dado)=> setDescricao(dado.target.value)} placeholder="(*OBRIGATÓRIO)"/>
+                                <div className="CadastroInputsFixo">
+                                <p>Nome da Categoria *</p>
+                                <input type="text" value={nome} onChange={(event)=>setNome(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
+
+                                <p>Descrição da Categoria *</p>
+                                <input type="text" value={descricao} onChange={(event)=>setDescricao(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
 
                                 <p>Complemento da Categoria</p>
-                                    <input type="text" value={complemento} onChange={(event)=> setComplemento(event.target.value)} placeholder="(OPCIONAL)"/>
+                                <input type="text" value={complemento} onChange={(event) => setComplemento(event.target.value)} placeholder="(OPCIONAL)" />
 
                                 </div>
 
-                                <div className="botoes">
+                                <div className="botoes"> <hr />
 
-                                            <button id="botaoatualizar" onClick={Atualizar}>Atualizar Categoria</button>
-                                            <button id="botaocancelar" onClick={Cancelar}>Cancelar Edição</button>
-                                </div>
+                                    <button id="botaoatualizar" onClick={Atualizar}>Atualizar Ativo</button>
+                                    <br /><br />
+                                    <button id="botaocancelar" onClick={Cancelar}>Cancelar Edição</button>
+                                    </div>
 
                             </div>
                         </div>

@@ -13,6 +13,7 @@ export const AdicionaAtivo = () =>{
     const [nome, setNome]= useState('')
     const [descricao, setDescricao] = useState('')
     const [complementoAtivo, setComplementoAtivo] = useState('')
+
     const [valor, setValor] = useState('')
     const [numAtivo, setNumeroAtivo] = useState('')
     const [dataManutencao, setDataManutencao] = useState('')
@@ -95,8 +96,7 @@ export const AdicionaAtivo = () =>{
         let complementoAtivoNinfo = complementoAtivo !== '' ? complementoAtivo: 'Não informado'
         let padraoCEP:RegExp = /^\d{5}-\d{3}$/ 
 
-        if(nome && dataManutencao && numAtivo && valor && rua && bairro && cidade && pais && complemento && numero && padraoCEP.test(cep) && categoriaSelecionada && modeloSelecionado && dataManutencao && dataTransacao && estado){
-            const usuarioSelecionadoObj = usuarios.find(usuario => usuario.nome === usuarioSelecionado);
+        if(nome && dataManutencao && numAtivo && valor && rua && bairro && cidade && pais && complemento && numero && padraoCEP.test(cep) && categoriaSelecionada && modeloSelecionado && dataManutencao && dataTransacao && estado){    const usuarioSelecionadoObj = usuarios.find(usuario => usuario.nome === usuarioSelecionado);
             const id_responsavel = usuarioSelecionadoObj ? usuarioSelecionadoObj.id : null;
             const responsavel = usuarioSelecionadoObj ? usuarioSelecionadoObj.nome : null;
 
@@ -108,8 +108,8 @@ export const AdicionaAtivo = () =>{
             const id_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.id : null;
             const nome_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.nome : null;
 
-            axios.post('http://localhost:8080/ativo/cadastrar', {id_modelo, id_categoria, id_responsavel, nome_modelo, nome_categoria, nome, descricao: descricaoNinfo, complementoAtivo:complementoAtivoNinfo, responsavel, valor, numAtivo, dataManutencao, dataTransacao, rua, bairro, cidade, pais, complemento, numero, cep, estado})
-            .then(()=>{
+            axios.post('http://localhost:8080/ativo/cadastrar', {id_modelo, id_categoria, id_responsavel, nome_modelo, nome_categoria, nome, descricao: descricaoNinfo, complementoAtivo:complementoAtivoNinfo, responsavel, valor, numAtivo, dataManutencao, dataTransacao, rua, bairro, cidade, pais, complemento, numero, cep, estado}).then(()=>{
+                
                 setNome('')
                 setDescricao('')
                 setComplementoAtivo('')
@@ -135,8 +135,7 @@ export const AdicionaAtivo = () =>{
                 console.error(error)
             })
         }
-        else if(!nome || !dataManutencao || !numAtivo || !valor || !rua || !bairro || !cidade || !pais || !complemento || !numero || !cep || !categoriaSelecionada || !modeloSelecionado || !dataManutencao || !dataTransacao || !estado){
-            alert("Preencha todos os campos obrigatórios")
+        else if(!nome || !dataManutencao || !numAtivo || !valor || !rua || !bairro || !cidade || !pais || !complemento || !numero || !cep || !categoriaSelecionada || !modeloSelecionado || !dataManutencao || !dataTransacao || !estado){    alert("Preencha todos os campos obrigatórios")
         }
         else if (!padraoCEP.test(cep)){
             alert("Verifique o CEP fornecido, o padrão deve ser XXXXX-XXX")
@@ -155,7 +154,7 @@ export const AdicionaAtivo = () =>{
 
             <div className="BoxCadastro">
 
-                    <h2>Insira os events do Ativo que Deseja Cadastrar</h2>
+                    <h2>Insira os dados do Ativo que Deseja Cadastrar</h2>
 
 
                 <div className="CadastroInputs">
@@ -210,7 +209,7 @@ export const AdicionaAtivo = () =>{
                             <option value="INATIVO">Inativo</option>
                             <option value="DESCARTADO">Descartado</option>
                         </select>
-
+                    
                     <p>Valor Monetário do Ativo *</p>
                         <input type="number" value={valor} onChange={(event) => setValor(event.target.value)} placeholder="(OBRIGATÓRIO)" />
 

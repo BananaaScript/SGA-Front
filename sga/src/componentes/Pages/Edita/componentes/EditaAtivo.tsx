@@ -13,14 +13,15 @@ export default function EditaAtivo(){
     const [nome, setNome]= useState('')
     const [descricao, setDescricao] = useState('')
     const [complementoAtivo, setComplementoAtivo] = useState('')
-    const [numAtivo, setNumeroAtivo] = useState('')
+    const [numero_serie, setNumero_serie] = useState('')
     const [valor, setValor] = useState('')
+    const [numAtivo, setNumeroAtivo] = useState('')
     const [dataManutencao, setDataManutencao] = useState('')
     const [dataTransacao, setDataTransacao] = useState('')
     const [rua, setRua]= useState('')
     const [bairro, setBairro]= useState('')
-    const [cidade, setCidade] = useState('')
-    const [pais, setPais] = useState('')
+    const [cidade, setCidade]= useState('')
+    const [pais, setPais]= useState('')
     const [complemento, setComplemento]= useState('')
     const [numero, setNumero] = useState('')
     const [cep, setCep]= useState('')
@@ -29,15 +30,23 @@ export default function EditaAtivo(){
     const [modelos, setModelos] = useState<Array<Modelo>>([])
     const [categorias, setCategorias] = useState<Array<Categoria>>([])
     const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
-    const [editando, setEditando] = useState(false)
-    const [filtro, setFiltro] = useState<string>('');
     const [usuarios, setUsuarios] = useState<Array<Usuario>>([])
     const [usuarioSelecionado, setUsuarioSelecionado] = useState('');
+    const [editando, setEditando] = useState(false)
+    const [filtro, setFiltro] = useState<string>('');
 
     useEffect(()=>{
         axios.get('http://localhost:8080/ativo/listar')
         .then((response)=>{
             setAtivos(response.data)
+        })
+        .catch((error)=>{
+            console.error(error)
+        })
+
+        axios.get('http://localhost:8080/usuario/listar')
+        .then((response)=>{
+            setUsuarios(response.data)
         })
         .catch((error)=>{
             console.error(error)
@@ -67,19 +76,17 @@ export default function EditaAtivo(){
         .catch((error) => {
             console.error(error);
         });
-
-        axios.get('http://localhost:8080/usuario/listar')
-        .then((response) => {
-            setUsuarios(response.data);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
         
     }, [categoriaSelecionada, categorias])
     const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFiltro(event.target.value);
     };
+
+    let descricaoNinfo = descricao !== '' ? descricao : 'Não informado'
+    let complementoAtivoNinfo = complementoAtivo !== '' ? complementoAtivo: 'Não informado'
+    let valorNinfo = valor !== '' ? valor: 'Não informado'
+    let numSerieNinfo = numero_serie !== '' ? numero_serie: 'Não informado'
+    let padraoCEP:RegExp = /^\d{5}-\d{3}$/ 
 
     const ativosFiltrados = ativos.filter(ativo =>
         ativo.nome.toLowerCase().includes(filtro.toLowerCase()) ||
@@ -103,13 +110,12 @@ export default function EditaAtivo(){
         const responsavel = usuarioSelecionadoObj ? usuarioSelecionadoObj.nome : null;
 
         if(nome || dataManutencao || rua || bairro || complemento || numero || cep){
-            axios.put(`http://localhost:8080/ativo/atualizar/${id}`, {id_modelo, id_categoria, id_responsavel, nome_modelo, nome_categoria, nome, descricao, complementoAtivo, responsavel, valor, numAtivo, dataManutencao, dataTransacao, rua, bairro, cidade, pais, complemento, numero, cep, estado})
-            .then(()=>{
+            axios.put(`http://localhost:8080/ativo/atualizar/${id}`, {id_modelo, id_categoria, id_responsavel, nome_modelo, nome_categoria, nome, descricao, complementoAtivo, responsavel, valor, numAtivo, dataManutencao, dataTransacao, rua, bairro, cidade, pais, complemento, numero, cep, estado}).then(()=>{
                 setEditando(false)
+                console.log(numero_serie)
                 setNome('')
                 setDescricao('')
                 setComplementoAtivo('')
-                setUsuarioSelecionado('')
                 setValor('')
                 setNumeroAtivo('')
                 setDataManutencao('')
@@ -121,7 +127,11 @@ export default function EditaAtivo(){
                 setComplemento('')
                 setNumero('')
                 setCep('')
+                setEstado('')
+                setUsuarioSelecionado('')
+                setModeloSelecionado('')
                 AtualizarValores()
+                alert("Ativo editado com sucesso!")
             })
             .catch((error)=>{
                 console.error(error)
@@ -133,9 +143,8 @@ export default function EditaAtivo(){
         setNome(nome)
         setDescricao(descricao)
         setComplementoAtivo(complementoAtivo)
-        setUsuarioSelecionado(responsavel)
         setValor(valor)
-        setNumeroAtivo(numAtivo)
+        setNumeroAtivo( numAtivo)
         setDataManutencao(dataManutencao)
         setDataTransacao(dataTransacao)
         setRua(rua)
@@ -145,16 +154,19 @@ export default function EditaAtivo(){
         setComplemento(complemento)
         setNumero(numero)
         setCep(cep)
-        setModeloSelecionado(modelo)
-        setCategoriaSelecionada(categoria)
         setEstado(estado)
+        setUsuarioSelecionado(usuarioSelecionado)
+        setModeloSelecionado(modeloSelecionado)
+        setCategoriaSelecionada(categoriaSelecionada)
         setEditando(true)
     }
     function Cancelar(){
         setEditando(false)
     }
 
+
     function Deletar(id: number){
+
         axios.delete(`http://localhost:8080/ativo/deletar/${id}`)
         .then(() =>{
             alert("Ativo deletado com sucesso!")
@@ -191,13 +203,14 @@ export default function EditaAtivo(){
                                 <th>CEP</th>
                                 <th>Categoria</th>
                                 <th>Modelo</th>
-                                <th>---</th>
-                                <th>---</th>
+                                {!editando && (<th>---</th>)}
+                                {!editando && (<th>---</th>)}
                             </tr>
                         </thead>
                          <tbody>
                             {ativosFiltrados.map((ativo)=>(
                                 <tr key={ativo.id}>
+                                    
                                     <td>{ativo.nome}</td>
                                     <td>{ativo.numAtivo}</td>
                                     <td>{formataData(ativo.dataManutencao)}</td>
@@ -205,9 +218,8 @@ export default function EditaAtivo(){
                                     <td>{ativo.cep}</td>
                                     <td>{ativo.nome_categoria}</td>
                                     <td>{ativo.nome_modelo}</td>
-                                    <td><button id="botaodeletar" onClick={()=>Deletar(ativo.id)}>Deletar</button></td>
-                                        {!editando &&(<td><button id="botaoeditar" onClick={() => Editar(ativo.id, ativo.nome, ativo.descricao, ativo.complemento_ativo, ativo.responsavel, ativo.valor, ativo.numAtivo, ativo.dataManutencao, ativo.dataTransacao, ativo.rua, ativo.bairro, ativo.cidade, ativo.pais, ativo.complemento, ativo.numero, ativo.cep, ativo.nome_modelo, ativo.nome_categoria,ativo.estado)}>Editar</button></td>)}
-                                </tr>
+                                    {!editando && (<td><button id="botaodeletar" onClick={()=>Deletar(ativo.id)}>Deletar</button></td> )}
+                                    {!editando &&(<td><button id="botaoeditar" onClick={() => Editar(ativo.id, ativo.nome, ativo.descricao, ativo.complemento_ativo, ativo.responsavel, ativo.valor, ativo.numAtivo, ativo.dataManutencao, ativo.dataTransacao, ativo.rua, ativo.bairro, ativo.cidade, ativo.pais, ativo.complemento, ativo.numero, ativo.cep, ativo.nome_modelo, ativo.nome_categoria,ativo.estado)}>Editar</button></td>)}</tr>
                             ))}
                         </tbody>
                 </table>
@@ -218,89 +230,95 @@ export default function EditaAtivo(){
                                     <h2>Insira os Novos Dados do Ativo</h2>
                             
                                 
-                                    <div className="EditarInputs">
+                                    <div className="CadastroInputs">
 
-                                        <p>Nome do Ativo</p>
-                                            <input type="text" value={nome} onChange={(dado)=>setNome(dado.target.value)} placeholder="(*OBRIGATORIO)"/>
-
-                                        <p>Descrição do Ativo</p>
-                                            <input type="text" value={descricao} onChange={(event)=>setDescricao(event.target.value)} placeholder="(*OPCIONAL)" />
-
-                                        <p>Complemento</p>
-                                            <input type="text" value={complementoAtivo} onChange={(event) =>setComplementoAtivo(event.target.value)} placeholder="(*OPCIONAL)" />
-                                        <p>Número do Ativo *</p>
-                                            <input type="text" value={numAtivo} onChange={(event)=>setNumeroAtivo(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
-
-                                            <p>Selecione a Categoria e o Modelo referente ao Ativo</p>
-                                        <select value={categoriaSelecionada} onChange={(dado) => setCategoriaSelecionada(dado.target.value)}>
+                                    <p>Nome do Ativo *</p>
+                                        <input type="text" value={nome} onChange={(event)=>setNome(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
+                                
+                                    <p>Descrição do Ativo</p>
+                                        <input type="text" value={descricao} onChange={(event)=>setDescricao(event.target.value)} placeholder="(*OPCIONAL)" />
+                                
+                                    <p>Complemento</p>
+                                        <input type="text" value={complementoAtivo} onChange={(event) =>setComplementoAtivo(event.target.value)} placeholder="(*OPCIONAL)" />
+                                
+                                    <p>Número do Ativo *</p>
+                                        <input type="text" value={numAtivo} onChange={(event)=>setNumeroAtivo(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
+                                
+                                    <p>Categoria e o Modelo referente ao Ativo *</p>
+                                        <select value={categoriaSelecionada} onChange={(event) => setCategoriaSelecionada(event.target.value)} required>
                                             <option value="">Selecione a Categoria</option>
                                             {categorias.map(categoria => (
                                                 <option key={categoria.id} value={categoria.nome}>{categoria.nome}</option>
                                             ))}
                                         </select>
-
-                                        <select value={modeloSelecionado} onChange={(dado) => setModeloSelecionado(dado.target.value)}>
+                                        
+                                        <select value={modeloSelecionado} onChange={(event) => setModeloSelecionado(event.target.value)} required>
                                             <option value="">Selecione o Modelo</option>
                                             {modelos.map(modelo => (
                                                 <option key={modelo.id} value={modelo.nome}>{modelo.nome}</option>
                                             ))}
                                         </select>
+                                        
+                                    <br /><br />
+                                    <hr /><br /><label><strong>Informações do ativo</strong> </label>
+                                        
+                                    <p>Usuário responsável pelo ativo *</p>
+                                        <select value={usuarioSelecionado} onChange={(event) => setUsuarioSelecionado(event.target.value)} required>
+                                            <option value="">Selecione o Usuário</option>
+                                            {usuarios.map(usuario => (
+                                                <option key={usuario.id} value={usuario.nome}>{usuario.nome}</option>
+                                            ))}
+                                        </select>
+                                        
+                                        
+                                    <p>Data da Proxima Manutenção Agendada *</p>
+                                        <input type="date" value={dataManutencao} onChange={(event)=>setDataManutencao(event.target.value)} required/>
+                                        
+                                    <p>Estado do Ativo *</p>
+                                        <select value={estado} onChange={(event) => setEstado(event.target.value)} required>
+                                            <option value="">Selecione o estado</option>
+                                            <option value="QUEBRADO">Quebrado</option>
+                                            <option value="DISPONIVEL">Disponível</option>
+                                            <option value="INATIVO">Inativo</option>
+                                            <option value="DESCARTADO">Descartado</option>
+                                        </select>
+                                        
+                                    <p>Número de série do ativo</p>
+                                        <input type="text" value={numero_serie} onChange={(event) => setNumero_serie(event.target.value)} placeholder="(OPCIONAL)" />
+                                        
+                                    <p>Valor Monetário do Ativo</p>
+                                        <input type="number" value={valor} onChange={(event) => setValor(event.target.value)} placeholder="(OPCIONAL)" />
+                                        
+                                    <p>Data de Aquisição do Ativo *</p>
+                                        <input type="Date" value={dataTransacao} onChange={(event) => setDataTransacao(event.target.value)} required/>
+                                        
+                                    <br /><br />
+                                    <hr /><br /><label><strong>Localização do ativo</strong>  </label>
+                                        
+                                    <p>Rua *</p>
+                                        <input type="text" value={rua} onChange={(event)=>setRua(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
+                                        
+                                    <p>Bairro *</p>
+                                        <input type="text" value={bairro} onChange={(event)=>setBairro(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
+                                        
+                                    <p>Cidade *</p>
+                                        <input type="text" value={cidade} onChange={(event)=>setCidade(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
+                                        
+                                    <p>País *</p>
+                                        <input type="text" value={pais} onChange={(event)=>setPais(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
+                                        
+                                    <p>Complemento *</p>
+                                        <input type="text" value={complemento} onChange={(event)=>setComplemento(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
+                                        
+                                    <p>Número *</p>
+                                        <input type="number" value={numero} onChange={(event)=>setNumero(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
+                                        
+                                    <p>CEP *</p>
+                                        <input type="text" value={cep} onChange={(event)=>setCep(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
+                                        
 
-                                        <br /><br />
-                                        <hr /><br /><label><strong>Informações do ativo</strong> </label>
 
-                                        <p>Data da Proxima Manutenção Agendada</p>
-                                            <input type="Date" value={dataManutencao} onChange={(dado)=>setDataManutencao(dado.target.value)}   />
-
-                                        <p>Usuário responsável pelo ativo *</p>
-                                            <select value={usuarioSelecionado} onChange={(event) => setUsuarioSelecionado(event.target.value)} required>
-                                                <option value="">Selecione o Usuário</option>
-                                                {usuarios.map(usuario => (
-                                                    <option key={usuario.id} value={usuario.nome}>{usuario.nome}</option>
-                                                ))}
-                                            </select>
-
-                                        <p>Estado do Ativo *</p>
-                                            <select value={estado} onChange={(event) => setEstado(event.target.value)} required>
-                                                <option value="">Selecione o estado</option>
-                                                <option value="QUEBRADO">Quebrado</option>
-                                                <option value="DISPONIVEL">Disponível</option>
-                                                <option value="INATIVO">Inativo</option>
-                                                <option value="DESCARTADO">Descartado</option>
-                                            </select>
-
-                                        <p>Valor Monetário do Ativo *</p>
-                                            <input type="number" value={valor} onChange={(event) => setValor(event.target.value)} placeholder="(OBRIGATÓRIO)" />
-
-                                        <p>Data de Aquisição do Ativo *</p>
-                                            <input type="Date" value={dataTransacao} onChange={(event) => setDataTransacao(event.target.value)} required/>
-
-                                        <br /><br />
-                                        <hr /><br /><label><strong>Localização do ativo</strong>  </label>
-
-                                        <p>Rua</p>
-                                            <input type="text" value={rua} onChange={(dado)=>setRua(dado.target.value)} placeholder="(*OBRIGATÓRIO)" />
-
-                                        <p>Bairro</p>
-                                            <input type="text" value={bairro} onChange={(dado)=>setBairro(dado.target.value)} placeholder="(*OBRIGATÓRIO)" />
-
-                                        <p>Cidade *</p>
-                                             <input type="text" value={cidade} onChange={(event)=>setCidade(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
- 
-                                        <p>País *</p>
-                                            <input type="text" value={pais} onChange={(event)=>setPais(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
-
-                                        <p>Complemento </p>
-                                            <input type="text" value={complemento} onChange={(dado)=>setComplemento(dado.target.value)} placeholder="(*OBRIGATÓRIO)"/>
-
-                                        <p>Número</p>
-                                            <input type="number" value={numero} onChange={(dado)=>setNumero(dado.target.value)} placeholder="(*OBRIGATÓRIO)"/>
-
-                                        <p>CEP</p>
-                                            <input type="text" value={cep} onChange={(dado)=>setCep(dado.target.value)} placeholder="(*OBRIGATÓRIO)"/>
-
-                                            
-                                        </div>
+                                    </div>
 
                                         <div className="botoes">
 

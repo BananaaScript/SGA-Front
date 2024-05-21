@@ -108,8 +108,8 @@ export default function EditaADM(){
                             <th>Cpf</th>
                             <th>Telefone</th>
                             <th>Privilegios</th>
-                            <th>---</th>
-                            <th>---</th>
+                            {!editando && (<th>---</th>)}
+                            {!editando && (<th>---</th>)}
                         </tr>
                     </thead>
                     <tbody>
@@ -121,7 +121,7 @@ export default function EditaADM(){
                                 <td>{usuario.cpf}</td>
                                 <td>{usuario.telefone}</td>
                                 <td>{usuario.role}</td>
-                                <td><button onClick={() => Deletar(usuario.id)}>Deletar</button></td>
+                                {!editando && (<td><button id="botaodeletar" onClick={() => Deletar(usuario.id)}>Deletar</button></td>)}
                                 {!editando && (<td><button onClick={() => Editar(usuario.id, usuario.nome, usuario.email, usuario.senha, usuario.cpf, usuario.telefone, usuario.role )}>Editar</button></td>)}
                             </tr>
                         ))}
@@ -132,28 +132,32 @@ export default function EditaADM(){
                 {editando?(
                     <>
                         <div>
+                            <hr />
                             <div className="BoxEditar">
                                 <h2>Insira os Novos Dados do Usuário</h2>
-                                <div className="EditarInputs">
-                                    <p>Nome do Usuário</p>
-                                    <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} placeholder="(*OBRIGATORIO)" />
+                                <div className="CadastroInputs">
 
-                                    <p>E-mail do Usuário</p>
-                                    <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="(*OBRIGATORIO)" />
+                                    <p>Nome *</p>
+                                        <input type="text" value={nome} onChange={(event)=>setNome(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
 
-                                    <p>Senha do Usuário</p>
-                                    <input type="text" value={senha} onChange={(e) => setSenha(e.target.value)} placeholder="(*OBRIGATORIO)" />
+                                    <p>Email *</p>
+                                        <input type="text" value={email} onChange={(event)=>setEmail(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
 
-                                    <p>Cpf do Usuário</p>
-                                    <input type="text" value={cpf} onChange={(e) => setCpf(e.target.value)} placeholder="(*OBRIGATORIO)" />
+                                    <p>Senha *</p>
+                                        <input type="text" value={senha} onChange={(event)=>setSenha(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
 
-                                    <p>Telefone do Usuário</p>
-                                    <input type="text" value={telefone} onChange={(e) => setTelefone(e.target.value)} placeholder="(*OBRIGATORIO)" />
-                                </div>
+                                    <p>Cpf *</p>
+                                        <input type="text" value={cpf} onChange={(event) => setCpf(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
 
-                                <div>
-                                    <button onClick={Atualizar}>Atualizar Usuário</button>
-                                    <button onClick={Cancelar}>Cancelar Edição</button>
+                                    <p>Telefone *</p>
+                                        <input type="text" value={telefone} onChange={(event) => setTelefone(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
+
+
+                                    </div>
+
+                                <div> <hr /> 
+                                    <button onClick={Atualizar}>Atualizar Usuário</button> 
+                                    <button id="botaocancelar" onClick={Cancelar}>Cancelar Edição</button> 
                                 </div>
 
                             </div>

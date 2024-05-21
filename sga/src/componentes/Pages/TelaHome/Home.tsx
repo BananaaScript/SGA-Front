@@ -181,6 +181,7 @@ useEffect(() => {
         <>
             <div className='TelaInicial'>
                 
+                <div><br /><br />{!tabelaUserAtivos && ( <button className='btnUserData' onClick={exibirtabelaUserAtivos}><img src="img/perfil.png" alt="User" /></button>)}</div>
 
                 <div className='Cabecalho'>
                     <h1>Sistema de Gerenciamento de Ativos - SGA </h1>
@@ -202,7 +203,7 @@ useEffect(() => {
 
 
                 
-                <div className="TabelaAtivosHome">  
+                <div className="BoxTabelaHome">  
                         <table>
                             <tr>
                                 <th>Responsavel</th>
@@ -222,7 +223,7 @@ useEffect(() => {
                         </table>
                           
                     </div>
-                    <div>{!tabelaUserAtivos && (<button className='btnUserData' onClick={exibirtabelaUserAtivos}><img src="img/perfil.png" alt="User" /></button>)}</div>
+                    
 
                         {tabelaUserAtivos &&(
                         
@@ -234,19 +235,19 @@ useEffect(() => {
                                     <div>
                                         <tr>
                                             <td>Nome: {usuario.nome}</td>
-                                        </tr>
+                                        </tr> <hr />
                                         <tr>
                                             <td>E-mail: {usuario.email}</td>
-                                        </tr>
+                                        </tr> <hr />
                                         <tr>
-                                            <td>Senha: {usuario.senha}</td>
-                                        </tr>
+                                            <td>Senha: ******</td>
+                                        </tr> <hr />
                                         <tr>
                                             <td>CPF: {usuario.cpf}</td>
-                                        </tr>
+                                        </tr> <hr />
                                         <tr>
                                             <td>Telefone: {usuario.telefone}</td>
-                                        </tr>
+                                        </tr> 
                                     </div>
                                 ))}
 

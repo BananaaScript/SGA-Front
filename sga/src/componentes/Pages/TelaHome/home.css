@@ -103,7 +103,6 @@
 
 .btnUserData{
     position: absolute;
-    margin-top: -27.5%;
     margin-left: 85%;
     cursor: pointer;
 
@@ -236,3 +235,51 @@ th{
     width: 90%;
     margin-left: -5%;
 }
+
+
+
+.BoxTabelaHome {
+    max-width: 600px;
+    margin-left: 5%;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+  }
+  
+  .BoxTabelaHome h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .BoxTabelaHome table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .BoxTabelaHome th, .BoxTabelaHome td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .BoxTabelaHome th {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .BoxTabelaHome tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .BoxTabelaHome tbody tr:hover {
+    background-color: #ddd;
+  }
+  
+  .BoxTabelaHome button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+  }

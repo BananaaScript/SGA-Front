@@ -14,12 +14,18 @@
 }
 
 .Graph {
-    width: 500px;
-    height: 500px;
+    width: 450px;
+    height: 450px;
 }
 
 .graficos {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.RelatoriosInterface {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-left: 5%;
 }
