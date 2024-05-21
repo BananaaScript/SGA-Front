@@ -10,7 +10,6 @@ import { Usuario } from "../../../modelos/usuario"
 import { METHODS } from 'http';
 import { Ativo } from '../../../modelos/ativo';
 
-
 export default function Home() {
     
     const [tabelaUserAtivos, settabelaUserAtivos] = useState(false)
@@ -33,6 +32,8 @@ export default function Home() {
     const [filtro, setFiltro] = useState<string>('');
     
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const dataFormatada = formataData
 
 
 
@@ -216,6 +217,8 @@ useEffect(() => {
                                     <tr >
                                         <td>{ativo.responsavel}</td>
                                         <td>{ativo.nome}</td>
+                                        <td>{dataFormatada(ativo.dataManutencao)}</td>
+                                        <td>{ativo.dias}</td>
                                     </tr>
                                 ))}
                             </tbody>
