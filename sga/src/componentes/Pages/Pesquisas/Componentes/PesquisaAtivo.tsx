@@ -10,6 +10,7 @@ export default function EditaAtivo(){
     const [nome, setNome]= useState('')
     const [numeroAtivo, setNumeroAtivo] = useState('')
     const [dataManutencao, setDataManutencao] = useState('')
+    const [estado, setEstado] = useState('')
     const [rua, setRua]= useState('')
     const [bairro, setBairro]= useState('')
     const [complemento, setComplemento]= useState('')
@@ -61,6 +62,7 @@ export default function EditaAtivo(){
                                 <th>Nome</th>
                                 <th>Número ativo</th>
                                 <th>Data Manutenção</th>
+                                <th>Estado do ativo</th>
                                 <th>Rua</th>
                                 <th>Bairro</th>
                                 <th>Complemento</th>
@@ -74,7 +76,7 @@ export default function EditaAtivo(){
                                     <td>{ativo.nome}</td>
                                     <td>{ativo.numAtivo}</td>
                                     <td>{formataData(ativo.dataManutencao)}</td>
-
+                                    <td>{ativo.estado}</td>
                                     <td>{ativo.rua}</td>
                                     <td>{ativo.bairro}</td>
                                     <td>{ativo.complemento}</td>

@@ -124,7 +124,7 @@ export const AdicionaAtivo = () =>{
                 setComplemento('')
                 setNumero('')
                 setCep('')
-                setEstado('')
+                
                 setUsuarioSelecionado('')
                 setModeloSelecionado('')
                 setCategoriaSelecionada('')
@@ -283,6 +283,7 @@ export const AdicionaAtivo = () =>{
                                     <th>Responsável</th>
                                     <th>Categoria</th>
                                     <th>Modelo</th>
+                                    <th>Estado do ativo</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -292,6 +293,7 @@ export const AdicionaAtivo = () =>{
                                     <td>{ativo.responsavel}</td>
                                     <td>{ativo.nome_categoria}</td>
                                     <td>{ativo.nome_modelo}</td>
+                                    <td>{ativo.estado}</td>
                                 </tr>
                                 ))}
                             </tbody>

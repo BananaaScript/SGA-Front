@@ -203,6 +203,7 @@ export default function EditaAtivo(){
                                 <th>CEP</th>
                                 <th>Categoria</th>
                                 <th>Modelo</th>
+                                <th>Estado do ativo</th>
                                 {!editando && (<th>---</th>)}
                                 {!editando && (<th>---</th>)}
                             </tr>
@@ -218,6 +219,7 @@ export default function EditaAtivo(){
                                     <td>{ativo.cep}</td>
                                     <td>{ativo.nome_categoria}</td>
                                     <td>{ativo.nome_modelo}</td>
+                                    <td>{ativo.estado}</td>
                                     {!editando && (<td><button id="botaodeletar" onClick={()=>Deletar(ativo.id)}>Deletar</button></td> )}
                                     {!editando &&(<td><button id="botaoeditar" onClick={() => Editar(ativo.id, ativo.nome, ativo.descricao, ativo.complemento_ativo, ativo.responsavel, ativo.valor, ativo.numAtivo, ativo.dataManutencao, ativo.dataTransacao, ativo.rua, ativo.bairro, ativo.cidade, ativo.pais, ativo.complemento, ativo.numero, ativo.cep, ativo.nome_modelo, ativo.nome_categoria,ativo.estado)}>Editar</button></td>)}</tr>
                             ))}
