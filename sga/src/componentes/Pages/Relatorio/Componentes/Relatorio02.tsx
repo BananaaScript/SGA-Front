@@ -4,12 +4,15 @@ import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
+  BarElement,
   ArcElement,
   Title,
   Tooltip,
   Legend,
 } from "chart.js";
 import { Pie } from "react-chartjs-2";
+import { Bar }  from "react-chartjs-2";
+import {Categoria} from "../../../../modelos/categoria"
 import {Modelo} from "../../../../modelos/modelo"
 import Roteador from "../../../Roteamento/roteador";
 import Relatorio from "../Relatorio";
@@ -18,6 +21,7 @@ import Relatorio from "../Relatorio";
 ChartJS.register(
   CategoryScale,
   LinearScale,
+  BarElement,
   ArcElement,
   Title,
   Tooltip,
@@ -26,6 +30,7 @@ ChartJS.register(
 
 export default function EditaAtivo() {
   const [ativos, setAtivos] = useState<Array<any>>([]);
+  const [ativosValorTotal, setAtivosValorTotal] = useState<Array<any>>([]);
   const [modelos, setModelos] = useState<Array<Modelo>>([])
   const [modeloId, setModeloId] = useState<number | null>(null);
 
@@ -46,6 +51,15 @@ export default function EditaAtivo() {
       .catch((error)=>{
           console.error(error)
       })
+
+      
+      axios.get('http://localhost:8080/ativo/totalvalorativos')
+      .then((response)=>{
+        setAtivosValorTotal(response.data)
+      })
+      .catch((error)=>{
+        console.error(error)
+      });
 
   }, []);
 
@@ -88,16 +102,16 @@ export default function EditaAtivo() {
           {
             label: "Número de Ativos",
             backgroundColor: [
-              "rgba(255,99,132,0.2)",
-              "rgba(54,162,235,0.2)",
-              "rgba(255,206,86,0.2)",
-              "rgba(75,192,192,0.2)",
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
             ],
+
             borderColor: [
-              "rgba(255,99,132,1)",
-              "rgba(54,162,235,1)",
-              "rgba(255,206,86,1)",
-              "rgba(75,192,192,1)",
+              "white",
             ],
             borderWidth: 1,
             data: Object.values(estadoCounts),
@@ -106,11 +120,59 @@ export default function EditaAtivo() {
 
       };
 
+      const tempos = ["5 anos atrás", "2 anos atrás","1 ano atrás",, "6 meses atrás",  "3 meses atrás", "Atualmente"]
 
+      const valores = ["0","0","0", "0", "0", ativosValorTotal]
+
+
+      const chartDataValor = {
+        labels: Object.values(tempos),
+        datasets: [
+          {
+            label: "Valore(s) de Ativo(s)",
+            backgroundColor: [
+              "rgba(54,162,235,1)",
+            ],
+            borderColor: [
+              "rgba(54,162,235,1)",
+            ],
+            borderWidth: 1,
+            data: Object.values(valores),
+          },
+        ],
+
+      };
     
 
   return (
     <>
+
+
+    
+          {gerarGraficos && (
+                  <>
+                  <div>      <hr /></div>
+                  <div className="graficos">  
+
+          
+                    <div className="Graph1">
+                      <h2>Gráfico dos Valor Monetários dos Ativos</h2>
+                      <br /><br />
+                      <Bar data={chartDataValor}  /> 
+                    </div> 
+          
+                    <div className="Graph2">
+                      <h2>Gráfico de Estados dos Ativos</h2>
+                      {verificador(ativosFiltrados)}
+                      <Pie data={chartData} />
+
+
+                    </div>
+                    </div>
+                    <div><br /><br /><br /><br /><br /><hr /></div>
+                    </>
+                )} 
+
     <div className="RelatoriosInterface">
 
     
@@ -143,20 +205,6 @@ export default function EditaAtivo() {
 
             </table>
         </div>
-
-      {gerarGraficos && (
-        <div className="graficos">  
-
-          <div className="Graph">
-            <h2>Gráfico de Estados dos Ativos</h2>
-            {verificador(ativosFiltrados)}
-            <Pie data={chartData} />
-            
-            
-          </div>
-          </div>
-
-      )}
 
       </div>  
     </>
