@@ -81,11 +81,6 @@ export default function EditaAtivo(){
         setFiltro(event.target.value);
     };
 
-    let descricaoNinfo = descricao !== '' ? descricao : 'Não informado'
-    let complementoAtivoNinfo = complementoAtivo !== '' ? complementoAtivo: 'Não informado'
-    let valorNinfo = valor !== '' ? valor: 'Não informado'
-    let padraoCEP:RegExp = /^\d{5}-\d{3}$/ 
-
     const ativosFiltrados = ativos.filter(ativo =>
         ativo.nome.toLowerCase().includes(filtro.toLowerCase()) ||
         ativo.rua.toLowerCase().includes(filtro.toLowerCase()) ||
@@ -218,7 +213,7 @@ export default function EditaAtivo(){
                                     <td>{ativo.nome_modelo}</td>
                                     <td>{ativo.estado}</td>
                                     {!editando && (<td><button id="botaodeletar" onClick={()=>Deletar(ativo.id)}>Deletar</button></td> )}
-                                    {!editando &&(<td><button id="botaoeditar" onClick={() => Editar(ativo.id, ativo.nome, ativo.descricao, ativo.complemento_ativo, ativo.responsavel, ativo.valor, ativo.numAtivo, ativo.dataManutencao, ativo.dataTransacao, ativo.rua, ativo.bairro, ativo.cidade, ativo.pais, ativo.complemento, ativo.numero, ativo.cep, ativo.nome_modelo, ativo.nome_categoria,ativo.estado)}>Editar</button></td>)}</tr>
+                                    {!editando &&(<td><button id="botaoeditar" onClick={() => Editar(ativo.id, ativo.nome, ativo.descricao, ativo.complemento_ativo, ativo.responsavel, ativo.valor, ativo.numAtivo, ativo.dataManutencao, ativo.dataTransacao, ativo.rua, ativo.bairro, ativo.cidade, ativo.pais, ativo.complemento, ativo.numero, ativo.cep, ativo.nome_modelo, ativo.nome_categoria, ativo.estado)}>Editar</button></td>)}</tr>
                             ))}
                         </tbody>
                 </table>
@@ -271,7 +266,7 @@ export default function EditaAtivo(){
                                         
                                         
                                     <p>Data da Proxima Manutenção Agendada *</p>
-                                        <input type="date" value={dataManutencao} onChange={(event)=>setDataManutencao(event.target.value)} required/>
+                                        <input type="Date" value={dataManutencao} onChange={(event)=>setDataManutencao(event.target.value)} required/>
                                         
                                     <p>Estado do Ativo *</p>
                                         <select value={estado} onChange={(event) => setEstado(event.target.value)} required>
