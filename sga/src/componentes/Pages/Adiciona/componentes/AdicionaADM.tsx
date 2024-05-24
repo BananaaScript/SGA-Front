@@ -7,8 +7,6 @@ import { Usuario } from "../../../../modelos/usuario"
 
 export default function AdicionaADM(){
     const [usuarios, setUsuarios] = useState<Array<Usuario>>([])
-    const [id, setId] = useState('')
-    
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
@@ -31,9 +29,12 @@ export default function AdicionaADM(){
 
     function registrar(){
         console.clear()
-    
-        if(nome && email && senha && cpf && telefone){
-            axios.post('http://localhost:8080/usuario/cadastrar', {id, nome, email, senha, cpf, telefone, role})
+        const emailRegex:RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i 
+        const cpfRegex:RegExp = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/
+        const telRegex:RegExp = /^\+55 \(\d{2}\) \d{4}-\d{4}$/
+
+        if(nome && emailRegex.test(email) && senha && cpfRegex.test(cpf) && telRegex.test(telefone)){
+            axios.post('http://localhost:8080/usuario/cadastrar', {nome, email, senha, cpf, telefone, role})
             .then(()=>{
                 setNome('')
                 setEmail('')
@@ -45,11 +46,22 @@ export default function AdicionaADM(){
                 alert ("Usuario Cadastrado com Sucesso!")
             })
             .catch((error)=>{
-                console.error(error)
+                if(error.response && error.response.status === 400){
+                    alert("CPF fornecido já foi registrado no sistema!")
+                }
             })
         }
-        else if(!id || !nome || !email || !senha || !cpf || !telefone ){
+        else if(!nome || !email || !senha || !cpf || !telefone ){
             alert("Verifique os campos obrigatórios!")
+        }
+        else if (!cpfRegex.test(cpf)){
+            alert("CPF fornecido inválido, o padrão deve ser: XXX.XXX.XXX-XX")
+        }
+        else if(!telRegex.test(telefone)){
+            alert("telefone inválido, o padrão é: +00 (00) 0000-0000")
+        }
+        else if(!emailRegex.test(email)){
+            alert("Email fornecido é inválido")
         }
         }
 
@@ -68,17 +80,18 @@ export default function AdicionaADM(){
                 <p>Nome *</p>
                     <input type="text" value={nome} onChange={(event)=>setNome(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
 
-                <p>Email *</p>
-                    <input type="text" value={email} onChange={(event)=>setEmail(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
-                    
                 <p>Senha *</p>
-                    <input type="text" value={senha} onChange={(event)=>setSenha(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
+                    <input type="password" value={senha} onChange={(event)=>setSenha(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
+                    
+                <p>Email *</p>
+                    <input type="email" value={email} onChange={(event)=>setEmail(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
+                    
 
-                <p>Cpf *</p>
+                <p>CPF *</p>
                     <input type="text" value={cpf} onChange={(event) => setCpf(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
 
                 <p>Telefone *</p>
-                    <input type="text" value={telefone} onChange={(event) => setTelefone(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
+                    <input type="tel" value={telefone} onChange={(event) => setTelefone(event.target.value)} placeholder="(*OBRIGATÓRIO)" required/>
                 
 
                 </div>

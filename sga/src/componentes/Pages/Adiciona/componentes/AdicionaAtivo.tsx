@@ -132,10 +132,13 @@ export const AdicionaAtivo = () =>{
                 alert("Ativo Cadastrado com Sucesso")
             })
             .catch((error)=>{
-                console.error(error)
+                if (error.response && error.response.status === 400){
+                    alert("Número de ativo fornecido já foi registrado!")
+                }
             })
         }
-        else if(!nome || !dataManutencao || !numAtivo || !valor || !rua || !bairro || !cidade || !pais || !complemento || !numero || !cep || !categoriaSelecionada || !modeloSelecionado || !dataManutencao || !dataTransacao || !estado){    alert("Preencha todos os campos obrigatórios")
+        else if(!nome || !dataManutencao || !numAtivo || !valor || !rua || !bairro || !cidade || !pais || !complemento || !numero || !cep || !categoriaSelecionada || !modeloSelecionado || !dataManutencao || !dataTransacao || !estado){ 
+            alert("Preencha todos os campos obrigatórios")
         }
         else if (!padraoCEP.test(cep)){
             alert("Verifique o CEP fornecido, o padrão deve ser XXXXX-XXX")
