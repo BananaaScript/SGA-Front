@@ -13,7 +13,6 @@ export default function EditaAtivo(){
     const [nome, setNome]= useState('')
     const [descricao, setDescricao] = useState('')
     const [complementoAtivo, setComplementoAtivo] = useState('')
-    const [numero_serie, setNumero_serie] = useState('')
     const [valor, setValor] = useState('')
     const [numAtivo, setNumeroAtivo] = useState('')
     const [dataManutencao, setDataManutencao] = useState('')
@@ -85,7 +84,6 @@ export default function EditaAtivo(){
     let descricaoNinfo = descricao !== '' ? descricao : 'Não informado'
     let complementoAtivoNinfo = complementoAtivo !== '' ? complementoAtivo: 'Não informado'
     let valorNinfo = valor !== '' ? valor: 'Não informado'
-    let numSerieNinfo = numero_serie !== '' ? numero_serie: 'Não informado'
     let padraoCEP:RegExp = /^\d{5}-\d{3}$/ 
 
     const ativosFiltrados = ativos.filter(ativo =>
@@ -112,7 +110,6 @@ export default function EditaAtivo(){
         if(nome || dataManutencao || rua || bairro || complemento || numero || cep){
             axios.put(`http://localhost:8080/ativo/atualizar/${id}`, {id_modelo, id_categoria, id_responsavel, nome_modelo, nome_categoria, nome, descricao, complementoAtivo, responsavel, valor, numAtivo, dataManutencao, dataTransacao, rua, bairro, cidade, pais, complemento, numero, cep, estado}).then(()=>{
                 setEditando(false)
-                console.log(numero_serie)
                 setNome('')
                 setDescricao('')
                 setComplementoAtivo('')
@@ -155,9 +152,9 @@ export default function EditaAtivo(){
         setNumero(numero)
         setCep(cep)
         setEstado(estado)
-        setUsuarioSelecionado(usuarioSelecionado)
-        setModeloSelecionado(modeloSelecionado)
-        setCategoriaSelecionada(categoriaSelecionada)
+        setUsuarioSelecionado(responsavel)
+        setModeloSelecionado(modelo)
+        setCategoriaSelecionada(categoria)
         setEditando(true)
     }
     function Cancelar(){
@@ -284,9 +281,6 @@ export default function EditaAtivo(){
                                             <option value="INATIVO">Inativo</option>
                                             <option value="DESCARTADO">Descartado</option>
                                         </select>
-                                        
-                                    <p>Número de série do ativo</p>
-                                        <input type="text" value={numero_serie} onChange={(event) => setNumero_serie(event.target.value)} placeholder="(OPCIONAL)" />
                                         
                                     <p>Valor Monetário do Ativo</p>
                                         <input type="number" value={valor} onChange={(event) => setValor(event.target.value)} placeholder="(OPCIONAL)" />
