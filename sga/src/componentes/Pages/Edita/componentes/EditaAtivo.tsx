@@ -271,7 +271,7 @@ export default function EditaAtivo(){
                                     <p>Estado do Ativo *</p>
                                         <select value={estado} onChange={(event) => setEstado(event.target.value)} required>
                                             <option value="">Selecione o estado</option>
-                                            <option value="QUEBRADO">Quebrado</option>
+                                            <option value="EM MANUTENÇÃO">Em manutenção</option>
                                             <option value="DISPONIVEL">Disponível</option>
                                             <option value="INATIVO">Inativo</option>
                                             <option value="DESCARTADO">Descartado</option>
