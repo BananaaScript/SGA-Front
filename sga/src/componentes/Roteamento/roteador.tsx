@@ -32,7 +32,7 @@ export default class Roteador extends Component<{ tela?: string }, State>{
     }
 
     render() {
-        let barraNavegacao = <BarraNavegacao seletorView={this.selecionarView} botoes={['Home', 'Tabelas', 'Relatorio', 'Busca', 'Adicionar', 'Editar', 'Avisos']} />
+        let barraNavegacao = <BarraNavegacao seletorView={this.selecionarView} botoes={['Home', 'Tabelas', 'Relatorio', 'Monitorar', 'Adicionar', 'Editar', 'Avisos']} />
 /*         if (this.state.tela === 'Inicio') {
             let login = <BotaoLogin seletorView={this.selecionarView} botoes={['Home']} />
             return (
@@ -79,7 +79,7 @@ export default class Roteador extends Component<{ tela?: string }, State>{
                     </div>
                 </>
             )
-        } else if (this.state.tela === 'Busca') {
+        } else if (this.state.tela === 'Monitorar') {
             return (
                 <>
                     <div className="ALL">
