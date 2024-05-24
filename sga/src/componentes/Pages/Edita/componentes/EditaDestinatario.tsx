@@ -31,16 +31,16 @@ export default function EditaADM(){
 
     function Deletar(id: number) {
         axios.delete(`http://localhost:8080/usuario/deletar/${id}`)
-        .then(() => {
+            .then(() => {
                 alert("Usuário deletado com sucesso!");
                 AtualizarValores();
             })
             .catch((error) => {
-                if (error.response && error.response.data){
-                    alert(error.response.data.message)
-                }else{
-                    console.error(error)
-                    alert("Erro ao deletar o usuário")
+                if (error.response && error.response.data) {
+                    alert("Não foi possível excluir o usuário pois ele está logado ou relacionado a outros registros.");
+                } else {
+                    console.error(error);
+                    alert("Erro ao deletar o usuário.");
                 }
             });
     }
