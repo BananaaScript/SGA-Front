@@ -28,7 +28,6 @@ export default function EditaADM(){
     }, []);
 
 
-
     function Deletar(id: number) {
         axios.delete(`http://localhost:8080/usuario/deletar/${id}`)
         .then(() => {
@@ -36,7 +35,12 @@ export default function EditaADM(){
                 AtualizarValores();
             })
             .catch((error) => {
-                console.error(error);
+                if (error.response && error.response.data){
+                    alert(error.response.data.message)
+                }else{
+                    console.error(error)
+                    alert("Erro ao deletar o usuário")
+                }
             });
     }
 
