@@ -107,7 +107,7 @@ export default function EditaAtivo() {
           {
             label: "Número de Ativos",
             backgroundColor: [
-              "#FF6384",
+              "#A4EA4F",
               "#36A2EB",
               "#FFCE56",
               "#FF6384",
