@@ -13,6 +13,24 @@
     box-sizing: border-box;
 }
 
+.Graph00 {
+    min-height: 300px;
+    max-height: 30%;
+    width: 55%;
+
+    margin-right: 2%;
+    border-color:darkgray ;
+
+}
+.Graph001 {
+    height: 500px;
+    width: 50%;
+
+    margin-left: 2%;
+    border-color:darkgray ;
+
+}
+
 .Graph1 {
     height: 500px;
     width: 55%;
@@ -36,5 +54,72 @@
 
 .RelatoriosInterface {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
 }
+
+
+
+
+.BoxTabelaRelatorio {
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    max-height: 200px;
+    min-height: 199px;
+  }
+  
+  .BoxTabelaRelatorio h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .BoxTabelaRelatorio input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .BoxTabelaRelatorio table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .BoxTabelaRelatorio th, .BoxTabelaRelatorio td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+  }
+
+  .BoxTabelaRelatorio tr {
+    height: 75px;
+  }
+  
+  .BoxTabelaRelatorio th {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+  
+  .BoxTabelaRelatorio tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .BoxTabelaRelatorio tbody tr:hover {
+    background-color: #ddd;
+  }
+  
+  .BoxTabelaRelatorio button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 15px;
+  }
+  
+  .BoxTabelaRelatorio button:hover {
+    background-color: #0056b3;
+  }

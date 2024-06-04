@@ -13,6 +13,7 @@ import {
 import { Pie } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
 import { Categoria } from "../../../../modelos/categoria";
+import { Modelo } from "../../../../modelos/modelo";
 
 ChartJS.register(
   CategoryScale,
@@ -28,6 +29,8 @@ export default function EditaAtivo() {
   const [ativos, setAtivos] = useState<Array<any>>([]);
   const [ativosValorTotal, setAtivosValorTotal] = useState<Array<any>>([]);
   const [categorias, setCategorias] = useState<Array<Categoria>>([]);
+  const [modelos, setModelos] = useState<Array<Modelo>>([])
+  const [modeloId, setModeloId] = useState<number | null>(null);
 
   useEffect(() => {
     axios
@@ -65,6 +68,9 @@ export default function EditaAtivo() {
       return (<><br /><br /><hr /><h5>---------- Não há ativos ---------</h5><hr /></>);
     }
   }
+  const ativosFiltradosModelo = ativos.filter(
+    ativo => ativo.id_modelo === modeloId
+  );
 
   const estados = ativosFiltrados.map((ativo) => ativo.estado);
   const estadoCounts: Record<string, number> = estados.reduce((acc, estado) => {
@@ -72,8 +78,16 @@ export default function EditaAtivo() {
     return acc;
   }, {});
 
+  const categoriaContagem = categorias.reduce<Record<string, number>>((acc, categoria) => {
+    acc[categoria.nome] = ativos.filter(ativo => ativo.id_categoria === categoria.id).length;
+    return acc;
+  }, {});
+
+  let categoriasNome = categorias.map(categoria => categoria.nome);
+
   const tempos = ["5 anos atrás", "2 anos atrás", "1 ano atrás", "6 meses atrás", "3 meses atrás", "Atualmente"];
   const valores = ["0", "0", "0", "0", "0", ativosValorTotal];
+
 
   const chartDataEstado = {
     labels: Object.keys(estadoCounts),
@@ -114,23 +128,59 @@ export default function EditaAtivo() {
     ],
   };
 
+  const chartQuantiaCategorias = {
+    labels: Object.values(categoriasNome),
+    
+    datasets: [
+      {
+        label: "Quantia de Ativo(s)",
+        backgroundColor: [
+          "rgba(54,162,235,1)",
+        ],
+        borderColor: [
+          "rgba(54,162,235,1)",
+        ],
+        borderWidth: 1,
+        data: Object.values(categoriaContagem),
+      },
+    ],
+  };
+
+
+
   return (
     <>
       <div className="graficos">
         <div className="Graph1">
-          <h2>Gráfico dos Valor Monetários dos Ativos</h2>
-          <br /><br />
+          
+          <h2>Gráfico dos Valores Monetários</h2>
+          
           <Bar data={chartDataValor} />
         </div>
 
         <div className="Graph2">
-          <h2>Gráfico de Estados dos Ativos</h2>
+          <h2>Gráfico de Estados</h2>
           {verificador(ativosFiltrados)}
           <Pie data={chartDataEstado} />
-          <h3>Total de ativos: {ativosFiltrados.length}</h3>
+          
         </div>
+        
       </div>
-      <div><br /><br /><br /><br /><br /><hr /></div>
+
+
+      <br /><br /><br /><hr />
+      <h1>----Total de ativos: {ativosFiltrados.length}</h1>
+      <hr />
+      <div className="RelatoriosInterface">
+
+      <div className="Graph001">
+            <h2>Quantidade de Ativos por Categoria</h2>
+            <br />
+            <Bar data={chartQuantiaCategorias} ></Bar>
+          </div> 
+
+      </div>
+      <div><br /><br /><br /><hr /></div>
     </>
   );
 }

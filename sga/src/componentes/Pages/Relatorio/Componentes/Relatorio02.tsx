@@ -85,6 +85,10 @@ export default function EditaAtivo() {
                     };
                   }
                     
+      const modeloContagem = modelos.reduce<Record<string, number>>((acc, modelo) => {
+        acc[modelo.nome] = ativos.filter(ativo => ativo.id_modelo === modelo.id).length;
+        return acc;
+      }, {});
 
 
       // Calcular os estados e contar o número de ocorrências
@@ -142,6 +146,25 @@ export default function EditaAtivo() {
         ],
 
       };
+
+
+      const chartQuantiaCategorias = {
+        labels: Object.keys(modelos),
+        
+        datasets: [
+          {
+            label: "Quantia de Ativo(s)",
+            backgroundColor: [
+              "rgba(54,162,235,1)",
+            ],
+            borderColor: [
+              "rgba(54,162,235,1)",
+            ],
+            borderWidth: 1,
+            data: Object.values(modeloContagem),
+          },
+        ],
+      };
     
 
   return (
@@ -176,12 +199,14 @@ export default function EditaAtivo() {
     <div className="RelatoriosInterface">
 
     
-        <div className="BoxTabela">
+        <div className="BoxTabelaRelatorio">
             <h2>Modelos Cadastradas</h2>
             <table>
-
+                <br />
                 <thead>
                   <th>Modelos</th>
+                  <th>Ativos (Quantidade)</th>
+                  <th>Valor Total</th>
                   <th>Relatorios</th>
                 </thead>
                 
@@ -189,6 +214,8 @@ export default function EditaAtivo() {
                   {modelos.map((modelo)=>(
                     <tr key={modelo.id}>
                       <td>{modelo.nome}</td>
+                      <td>{modeloContagem[modelo.nome]}</td>
+                      <td>{ativosValorTotal}</td>
                       
                       <td>
                          
@@ -205,6 +232,12 @@ export default function EditaAtivo() {
 
             </table>
         </div>
+
+        <div className="Graph00">
+            <h2>Quantidade de Ativos por Categoria</h2>
+            <br />
+            <Bar data={chartQuantiaCategorias} options={{indexAxis: 'y'}}></Bar>
+          </div> 
 
       </div>  
     </>

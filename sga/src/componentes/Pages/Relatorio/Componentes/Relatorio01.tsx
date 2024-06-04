@@ -15,6 +15,8 @@ import { Bar }  from "react-chartjs-2";
 import {Categoria} from "../../../../modelos/categoria"
 import Roteador from "../../../Roteamento/roteador";
 import Relatorio from "../Relatorio";
+import { getIndexAxis } from "chart.js/dist/core/core.config";
+import { setOptions } from "react-chartjs-2/dist/utils";
 
 // Registrando os componentes necessários do Chart.js
 ChartJS.register(
@@ -99,8 +101,14 @@ export default function EditaAtivo() {
       const valores = ["0","0","0", "0", "0", ativosValorTotal]
 
       
+      const categoriaContagem = categorias.reduce<Record<string, number>>((acc, categoria) => {
+        acc[categoria.nome] = ativos.filter(ativo => ativo.id_categoria === categoria.id).length;
+        return acc;
+      }, {});
+      
+
   
-      // Criar os dados para o gráfico
+      
       const chartDataEstado = {
         labels: Object.keys(estadoCounts), 
         datasets: [
@@ -143,6 +151,25 @@ export default function EditaAtivo() {
 
       };
 
+
+      const chartQuantiaCategorias = {
+        labels: Object.keys(categorias),
+        
+        datasets: [
+          {
+            label: "Quantia de Ativo(s)",
+            backgroundColor: [
+              "rgba(54,162,235,1)",
+            ],
+            borderColor: [
+              "rgba(54,162,235,1)",
+            ],
+            borderWidth: 1,
+            data: Object.values(categoriaContagem),
+          },
+        ],
+      };
+
   return (
     <>
 
@@ -174,12 +201,15 @@ export default function EditaAtivo() {
 
 
     
-        <div className="BoxTabela">
+        <div className="BoxTabelaRelatorio">
             <h2>Categorias Cadastradas</h2>
+            
             <table>
-
+                <br />
                 <thead>
                   <th>Categorias</th>
+                  <th>Ativos (Quantidade)</th>
+                  <th>Valor Total</th>
                   <th>Relatorios</th>
                 </thead>
                 
@@ -187,6 +217,8 @@ export default function EditaAtivo() {
                   {categorias.map((categoria)=>(
                     <tr key={categoria.id}>
                       <td>{categoria.nome}</td>
+                      <td>{categoriaContagem[categoria.nome]}</td>
+                      <td>{ativosValorTotal}</td>
                       
                       <td>
                          
@@ -204,11 +236,15 @@ export default function EditaAtivo() {
             </table>
         </div>
 
-
+        <div className="Graph00">
+            <h2>Quantidade de Ativos por Categoria</h2>
+            <br />
+            <Bar data={chartQuantiaCategorias} options={{indexAxis: 'y'}}></Bar>
+          </div> 
 
 
       </div>  
-
+      <br /><br /><br /><br /><br />
     </>
     );
 }
