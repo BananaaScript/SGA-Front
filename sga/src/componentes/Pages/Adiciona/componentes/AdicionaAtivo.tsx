@@ -8,6 +8,7 @@ import { Modelo } from "../../../../modelos/modelo"
 import { Usuario } from "../../../../modelos/usuario"
 
 /* Abençoa senhor... */
+/* AMÉM IRMÃO */
 
 export const AdicionaAtivo = () =>{
     const [nome, setNome]= useState('')
@@ -90,60 +91,62 @@ export const AdicionaAtivo = () =>{
         ativo.complemento.toLowerCase().includes(filtro.toLowerCase()) 
     );
 
-    function registrar(){
-        console.clear()
-        let descricaoNinfo = descricao !== '' ? descricao : 'Não informado'
-        let complementoAtivoNinfo = complementoAtivo !== '' ? complementoAtivo: 'Não informado'
-        let padraoCEP:RegExp = /^\d{5}-\d{3}$/ 
-
-        if(nome && dataManutencao && numAtivo && valor && rua && bairro && cidade && pais && complemento && numero && padraoCEP.test(cep) && categoriaSelecionada && modeloSelecionado && dataManutencao && dataTransacao && estado){    const usuarioSelecionadoObj = usuarios.find(usuario => usuario.nome === usuarioSelecionado);
+    function registrar() {
+        console.clear();
+        let descricaoNinfo = descricao !== '' ? descricao : 'Não informado';
+        let complementoAtivoNinfo = complementoAtivo !== '' ? complementoAtivo : 'Não informado';
+        let padraoCEP = /^\d{5}-\d{3}$/;
+    
+        if (nome && dataManutencao && numAtivo && valor && rua && bairro && cidade && pais && complemento && numero && padraoCEP.test(cep) && categoriaSelecionada && modeloSelecionado && dataManutencao && dataTransacao && estado) {
+            const usuarioSelecionadoObj = usuarios.find(usuario => usuario.nome === usuarioSelecionado);
             const id_responsavel = usuarioSelecionadoObj ? usuarioSelecionadoObj.id : null;
             const responsavel = usuarioSelecionadoObj ? usuarioSelecionadoObj.nome : null;
-
+    
             const modeloSelecionadoObj = modelos.find(modelo => modelo.nome === modeloSelecionado);
             const id_modelo = modeloSelecionadoObj ? modeloSelecionadoObj.id : null;
             const nome_modelo = modeloSelecionadoObj ? modeloSelecionadoObj.nome : null;
-
+    
             const categoriaSelecionadaObj = categorias.find(categoria => categoria.nome === categoriaSelecionada);
             const id_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.id : null;
             const nome_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.nome : null;
-
-            axios.post('http://localhost:8080/ativo/cadastrar', {id_modelo, id_categoria, id_responsavel, nome_modelo, nome_categoria, nome, descricao: descricaoNinfo, complementoAtivo:complementoAtivoNinfo, responsavel, valor, numAtivo, dataManutencao, dataTransacao, rua, bairro, cidade, pais, complemento, numero, cep, estado}).then(()=>{
-                
-                setNome('')
-                setDescricao('')
-                setComplementoAtivo('')
-                setValor('')
-                setNumeroAtivo('')
-                setDataManutencao('')
-                setDataTransacao('')
-                setRua('')
-                setBairro('')
-                setCidade('')
-                setPais('')
-                setComplemento('')
-                setNumero('')
-                setCep('')
-                
-                setUsuarioSelecionado('')
-                setModeloSelecionado('')
-                setCategoriaSelecionada('')
-                console.log(`conexão com banco de dados bem-sucedida, dados enviados!`)
-                alert("Ativo Cadastrado com Sucesso")
+    
+            axios.post('http://localhost:8080/ativo/cadastrar', { id_modelo, id_categoria, id_responsavel, nome_modelo, nome_categoria, nome, descricao: descricaoNinfo, complementoAtivo: complementoAtivoNinfo, responsavel, valor, numAtivo, dataManutencao, dataTransacao, rua, bairro, cidade, pais, complemento, numero, cep, estado }).then(() => {
+    
+                setNome('');
+                setDescricao('');
+                setComplementoAtivo('');
+                setValor('');
+                setNumeroAtivo('');
+                setDataManutencao('');
+                setDataTransacao('');
+                setRua('');
+                setBairro('');
+                setCidade('');
+                setPais('');
+                setComplemento('');
+                setNumero('');
+                setCep('');
+    
+                setUsuarioSelecionado('');
+                setModeloSelecionado('');
+                setCategoriaSelecionada('');
+                console.log(`conexão com banco de dados bem-sucedida, dados enviados!`);
+                alert("Ativo Cadastrado com Sucesso");
             })
-            .catch((error)=>{
-                if (error.response && error.response.status === 400){
-                    alert("Número de ativo fornecido já foi registrado!")
-                }
-            })
+                .catch((error) => {
+                    if (error.response && error.response.status === 400) {
+                        alert("Número de ativo fornecido já foi registrado!");
+                    }
+                });
         }
-        else if(!nome || !dataManutencao || !numAtivo || !valor || !rua || !bairro || !cidade || !pais || !complemento || !numero || !cep || !categoriaSelecionada || !modeloSelecionado || !dataManutencao || !dataTransacao || !estado){ 
-            alert("Preencha todos os campos obrigatórios")
+        else if (!nome || !dataManutencao || !numAtivo || !valor || !rua || !bairro || !cidade || !pais || !complemento || !numero || !cep || !categoriaSelecionada || !modeloSelecionado || !dataManutencao || !dataTransacao || !estado) {
+            alert("Preencha todos os campos obrigatórios");
         }
-        else if (!padraoCEP.test(cep)){
-            alert("Verifique o CEP fornecido, o padrão deve ser XXXXX-XXX")
+        else if (!padraoCEP.test(cep)) {
+            alert("Verifique o CEP fornecido, o padrão deve ser XXXXX-XXX");
         }
     }
+    
 
     const [tabelaAtivos, setTabelaAtivos] = useState(false)
     function exibirTabelaAtivos(){setTabelaAtivos(true)}
