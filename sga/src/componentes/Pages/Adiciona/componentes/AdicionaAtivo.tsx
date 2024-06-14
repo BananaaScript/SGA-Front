@@ -6,9 +6,13 @@ import "../Adicionar.css"
 import { Categoria } from "../../../../modelos/categoria"
 import { Modelo } from "../../../../modelos/modelo"
 import { Usuario } from "../../../../modelos/usuario"
+import { Notafiscal } from "../../../../modelos/notafiscal"
 
 /* Abençoa senhor... */
 /* AMÉM IRMÃO */
+/* RECEBAA !! */
+/* BORAAAA BILLLLLLLLL */
+/* GABIREL SIQUEIRA É POSER DO BORA BILLL */
 
 export const AdicionaAtivo = () =>{
     const [nome, setNome]= useState('')
@@ -27,12 +31,23 @@ export const AdicionaAtivo = () =>{
     const [numero, setNumero] = useState('')
     const [cep, setCep]= useState('')
     const [estado, setEstado] = useState('')
+
+    const [idNotaFiscal, setIdNotaFiscal] = useState('');
+    const [idAtivo_notaFiscal, setIdAtivo_notaFiscal] = useState('');
+    const [empresa_notaFiscal, setEmpresa_notaFiscal] = useState('');
+    const [razaoSocial_notaFiscal, setRazaoSocial_notaFiscal] = useState('');
+    const [cnpj_notaFiscal, setCnpj_notaFiscal] = useState('');
+    const [descricao_notaFiscal, setDescricao_notaFiscal] = useState('');
+
     const [modeloSelecionado, setModeloSelecionado] = useState('');
     const [modelos, setModelos] = useState<Array<Modelo>>([])
+
     const [categorias, setCategorias] = useState<Array<Categoria>>([])
     const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
+
     const [usuarios, setUsuarios] = useState<Array<Usuario>>([])
     const [usuarioSelecionado, setUsuarioSelecionado] = useState('');
+
     const [ativos, setAtivos] = useState<Array<Ativo>>([])
     const [filtro, setFiltro] = useState<string>('');
 
@@ -96,6 +111,7 @@ export const AdicionaAtivo = () =>{
         let descricaoNinfo = descricao !== '' ? descricao : 'Não informado';
         let complementoAtivoNinfo = complementoAtivo !== '' ? complementoAtivo : 'Não informado';
         let padraoCEP = /^\d{5}-\d{3}$/;
+        let ativo_ID = '';
     
         if (nome && dataManutencao && numAtivo && valor && rua && bairro && cidade && pais && complemento && numero && padraoCEP.test(cep) && categoriaSelecionada && modeloSelecionado && dataManutencao && dataTransacao && estado) {
             const usuarioSelecionadoObj = usuarios.find(usuario => usuario.nome === usuarioSelecionado);
@@ -110,34 +126,57 @@ export const AdicionaAtivo = () =>{
             const id_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.id : null;
             const nome_categoria = categoriaSelecionadaObj ? categoriaSelecionadaObj.nome : null;
     
-            axios.post('http://localhost:8080/ativo/cadastrar', { id_modelo, id_categoria, id_responsavel, nome_modelo, nome_categoria, nome, descricao: descricaoNinfo, complementoAtivo: complementoAtivoNinfo, responsavel, valor, numAtivo, dataManutencao, dataTransacao, rua, bairro, cidade, pais, complemento, numero, cep, estado }).then(() => {
+
+            axios.post('http://localhost:8080/ativo/cadastrar', { id_modelo, id_categoria, id_responsavel, nome_modelo, nome_categoria, nome, descricao: descricaoNinfo, complementoAtivo: complementoAtivoNinfo, responsavel, valor, numAtivo, dataManutencao, dataTransacao, rua, bairro, cidade, pais, complemento, numero, cep, estado }).then((response) => {
     
-                setNome('');
-                setDescricao('');
-                setComplementoAtivo('');
-                setValor('');
-                setNumeroAtivo('');
-                setDataManutencao('');
-                setDataTransacao('');
-                setRua('');
-                setBairro('');
-                setCidade('');
-                setPais('');
-                setComplemento('');
-                setNumero('');
-                setCep('');
-    
-                setUsuarioSelecionado('');
-                setModeloSelecionado('');
-                setCategoriaSelecionada('');
-                console.log(`conexão com banco de dados bem-sucedida, dados enviados!`);
-                alert("Ativo Cadastrado com Sucesso");
+                 setNome('');
+                 setDescricao('');
+                 setComplementoAtivo('');
+                 setValor('');
+                 setNumeroAtivo('');
+                 setDataManutencao('');
+                 setDataTransacao('');
+                 setRua('');
+                 setBairro('');
+                 setCidade('');
+                 setPais('');
+                 setComplemento('');
+                 setNumero('');
+                 setCep('');
+     
+                 setUsuarioSelecionado('');
+                 setModeloSelecionado('');
+                 setCategoriaSelecionada('');
+                 console.log(`conexão com banco de dados bem-sucedida, dados enviados!`);
+                 alert("Ativo Cadastrado com Sucesso");
+
+                // Pegar o ID do ativo que acabou de ser enviado
+                ativo_ID = response.data.id;
+             })
+                 .catch((error) => {
+                     if (error.response && error.response.status === 400) {
+                         alert("Número de ativo fornecido já foi registrado!");
+                     }
+                 });
+
+            
+
+
+            axios.post("http://localhost:8080/notafiscal/enviar", {ativo_ID, empresa_notaFiscal, razaoSocial_notaFiscal, cnpj_notaFiscal, descricao_notaFiscal}).then(() => {
+
+                setIdAtivo_notaFiscal('');
+                setEmpresa_notaFiscal('');
+                setRazaoSocial_notaFiscal('');
+                setCnpj_notaFiscal('');
+                setDescricao_notaFiscal('');
+                
             })
                 .catch((error) => {
                     if (error.response && error.response.status === 400) {
-                        alert("Número de ativo fornecido já foi registrado!");
+                        alert("CNPJ fornecido já foi registrado!");
                     }
                 });
+
         }
         else if (!nome || !dataManutencao || !numAtivo || !valor || !rua || !bairro || !cidade || !pais || !complemento || !numero || !cep || !categoriaSelecionada || !modeloSelecionado || !dataManutencao || !dataTransacao || !estado) {
             alert("Preencha todos os campos obrigatórios");
@@ -152,6 +191,11 @@ export const AdicionaAtivo = () =>{
     function exibirTabelaAtivos(){setTabelaAtivos(true)}
     function fecharTabelaAtivos(){setTabelaAtivos(false)}
 
+      
+        const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+          e.preventDefault();
+
+          }
 
     return(
         <div className="ComponenteCadatro">
@@ -183,7 +227,7 @@ export const AdicionaAtivo = () =>{
                             {categorias.map(categoria => (
                                 <option key={categoria.id} value={categoria.nome}>{categoria.nome}</option>
                             ))}
-                        </select>
+                        </select> <br />
 
                         <select value={modeloSelecionado} onChange={(event) => setModeloSelecionado(event.target.value)} required>
                             <option value="">Selecione o Modelo</option>
@@ -224,7 +268,27 @@ export const AdicionaAtivo = () =>{
                         <input type="Date" value={dataTransacao} onChange={(event) => setDataTransacao(event.target.value)} required/>
 
                     <br /><br />
-                    <hr /><br /><label><strong>Localização do ativo</strong>  </label>
+                    <hr /><br />
+                    
+                    <label><strong>Nota Fiscal</strong></label>
+
+                    <p>Empresa </p>
+                            <input type="text" value={empresa_notaFiscal} onChange={(event)=>setEmpresa_notaFiscal(event.target.value)} />
+
+                    <p>Razão Social </p>
+                            <input type="text" value={razaoSocial_notaFiscal} onChange={(event)=>setRazaoSocial_notaFiscal(event.target.value)} />
+
+                    <p>Cnpj </p>
+                            <input type="text" value={cnpj_notaFiscal} onChange={(event)=>setCnpj_notaFiscal(event.target.value)}/>
+
+                    <p>Descrição </p>
+                            <input type="text" value={descricao_notaFiscal} onChange={(event)=>setDescricao_notaFiscal(event.target.value)} />
+
+                           
+                    
+                    <br /><br />
+                    <hr /><br />
+                    <label><strong>Localização do ativo</strong>  </label>
 
                     <p>Rua *</p>
                         <input type="text" value={rua} onChange={(event)=>setRua(event.target.value)} required placeholder="(*OBRIGATÓRIO)"/>
@@ -313,4 +377,4 @@ export const AdicionaAtivo = () =>{
         )}
     </div>
     )}  
-    
+
