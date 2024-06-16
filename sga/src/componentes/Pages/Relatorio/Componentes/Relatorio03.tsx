@@ -31,6 +31,20 @@ export default function EditaAtivo() {
   const [categorias, setCategorias] = useState<Array<Categoria>>([]);
   const [modelos, setModelos] = useState<Array<Modelo>>([])
   const [modeloId, setModeloId] = useState<number | null>(null);
+  const [valorAtivosAntigos, setValorAtivosAntigos] = useState({
+    valorAtivosAteUmMesAtras: 0,
+    valorAtivosAteDoisMesesAtras: 0,
+    valorAtivosAteTresMesesAtras: 0,
+    valorAtivosAteQuatroMesesAtras: 0,
+    valorAtivosAteCincoMesesAtras: 0,
+    valorAtivosAteSeisMesesAtras: 0,
+    valorAtivosAteSeteMesesAtras: 0,
+    valorAtivosAteOitoMesesAtras: 0,
+    valorAtivosAteNoveMesesAtras: 0,
+    valorAtivosAteDezMesesAtras: 0,
+    valorAtivosAteOnzeMesesAtras: 0,
+    valorAtivosAteDozeMesesAtras: 0,
+  });
 
   useEffect(() => {
     axios
@@ -53,6 +67,14 @@ export default function EditaAtivo() {
     axios.get('http://localhost:8080/ativo/totalvalorativos')
       .then((response) => {
         setAtivosValorTotal(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+      axios.get('http://localhost:8080/ativo/valorativosantigo')
+      .then((response) => {
+        setValorAtivosAntigos(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -85,8 +107,37 @@ export default function EditaAtivo() {
 
   let categoriasNome = categorias.map(categoria => categoria.nome);
 
-  const tempos = ["5 anos atrás", "2 anos atrás", "1 ano atrás", "6 meses atrás", "3 meses atrás", "Atualmente"];
-  const valores = ["0", "0", "0", "0", "0", ativosValorTotal];
+  const tempos = [
+    "Até 12 meses atrás",
+    "Até 11 meses atrás",
+    "Até 10 meses atrás",
+    "Até 9 meses atrás",
+    "Até 8 meses atrás",
+    "Até 7 meses atrás",
+    "Até 6 meses atrás",
+    "Até 5 meses atrás",
+    "Até 4 meses atrás",
+    "Até 3 meses atrás",
+    "Até 2 meses atrás",
+    "Até 1 mês atrás",
+    "Atualmente"
+  ];
+
+  const valores = [
+    valorAtivosAntigos.valorAtivosAteDozeMesesAtras,
+    valorAtivosAntigos.valorAtivosAteOnzeMesesAtras,
+    valorAtivosAntigos.valorAtivosAteDezMesesAtras,
+    valorAtivosAntigos.valorAtivosAteNoveMesesAtras,
+    valorAtivosAntigos.valorAtivosAteOitoMesesAtras,
+    valorAtivosAntigos.valorAtivosAteSeteMesesAtras,
+    valorAtivosAntigos.valorAtivosAteSeisMesesAtras,
+    valorAtivosAntigos.valorAtivosAteCincoMesesAtras,
+    valorAtivosAntigos.valorAtivosAteQuatroMesesAtras,
+    valorAtivosAntigos.valorAtivosAteTresMesesAtras,
+    valorAtivosAntigos.valorAtivosAteDoisMesesAtras,
+    valorAtivosAntigos.valorAtivosAteUmMesAtras,
+    ativosValorTotal
+  ];
 
 
   const chartDataEstado = {
